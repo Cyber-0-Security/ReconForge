@@ -8,6 +8,7 @@ MarkupSafe==3.0.3
 mdurl==0.1.2
 Pygments==2.20.0
 python-dotenv==1.2.2
+python-whois==0.9.6
 requests==2.34.2
 rich==15.0.0
 urllib3==2.7.0
