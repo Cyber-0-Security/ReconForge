@@ -77,7 +77,7 @@ class Runner:
 
         except Exception as error:
 
-            logger.exception(str(error))
+            logger.exception(f"Failed to execute module '{module_key}': {error}")
 
             return False
 
