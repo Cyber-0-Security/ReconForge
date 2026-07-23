@@ -116,3 +116,14 @@ def separator(length: int = 70, character: str = "-") -> str:
     """
 
     return character * length
+
+
+def wait_for_enter(message: str = "\nPress Enter to continue...") -> None:
+    """
+    Pause execution until the user presses Enter.
+
+    Used after a tool or module finishes running, so results
+    stay visible on screen until the user is ready to move on.
+    """
+
+    input(message)

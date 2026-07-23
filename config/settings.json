@@ -1,0 +1,7 @@
+{
+    "color_output": true,
+    "default_report": "html",
+    "log_level": "INFO",
+    "threads": 10,
+    "timeout": 30
+}

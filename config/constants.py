@@ -72,7 +72,6 @@ MENU_OPTIONS = (
     ("Reporting", "reporting"),
     ("Full Recon", "full_recon"),
     ("Settings", "settings"),
-    ("Exit", "exit"),
 )
 
 # =============================================================================

@@ -12,9 +12,8 @@ Responsibilities
 
 from __future__ import annotations
 
-from core.banner import display_banner
 from core.logger import logger
-from core.runner import Runner
+from core.menu import menu
 
 
 def main() -> None:
@@ -24,11 +23,7 @@ def main() -> None:
 
     logger.info("Starting ReconForge")
 
-    display_banner()
-
-    runner = Runner()
-
-    runner.start()
+    menu.start()
 
     logger.info("ReconForge terminated")
 

@@ -61,13 +61,11 @@ class Runner:
 
             return False
 
-        module_path = MODULES[module_key]
-
         logger.info(f"Loading module: {module_key}")
 
         try:
 
-            manager = self._load_manager(module_path)
+            manager = self._load_manager(module_key)
 
             logger.success(f"{module_key} loaded successfully.")
 
