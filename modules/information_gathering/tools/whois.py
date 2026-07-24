@@ -12,7 +12,7 @@ from core.base_tool import BaseTool
 from core.logger import logger
 from core.validator import validator
 from core.utils import separator
-
+from core.formatter import Formatter
 
 class WhoisTool(BaseTool):
     """
@@ -81,7 +81,7 @@ class WhoisTool(BaseTool):
 
         for title, attribute in fields:
 
-            value = getattr(result, attribute, None)
+            value = Formatter.format_value(getattr(result, attribute, None))
 
             if value:
                 results[title] = value

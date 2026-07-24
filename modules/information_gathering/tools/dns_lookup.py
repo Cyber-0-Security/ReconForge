@@ -31,6 +31,7 @@ class DNSLookupTool(BaseTool):
     )
 
     def __init__(self) -> None:
+
         super().__init__("DNS Lookup")
 
     def run(
@@ -39,6 +40,9 @@ class DNSLookupTool(BaseTool):
         silent: bool = False,
         display: bool = True,
     ) -> dict[str, list[str]]:
+        """
+        Execute DNS enumeration.
+        """
 
         self.start(silent)
 
@@ -55,6 +59,7 @@ class DNSLookupTool(BaseTool):
             results[record_type] = self.lookup_record(
                 target,
                 record_type,
+                silent,
                 display,
             )
 
@@ -66,10 +71,11 @@ class DNSLookupTool(BaseTool):
         self,
         domain: str,
         record_type: str,
+        silent: bool = False,
         display: bool = True,
     ) -> list[str]:
         """
-        Resolve one DNS record type.
+        Resolve a single DNS record type.
         """
 
         records: list[str] = []
@@ -105,11 +111,17 @@ class DNSLookupTool(BaseTool):
             if display:
                 print("No nameservers responded.")
 
+        except dns.exception.Timeout:
+
+            if display:
+                print("DNS request timed out.")
+
         except Exception as error:
 
-            logger.error(
-                f"{record_type} lookup failed for {domain}: {error}"
-            )
+            if not silent:
+                logger.error(
+                    f"{record_type} lookup failed for {domain}: {error}"
+                )
 
             if display:
                 print(f"Error: {error}")

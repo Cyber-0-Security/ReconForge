@@ -24,6 +24,7 @@ class IPInfoTool(BaseTool):
     API_URL = "http://ip-api.com/json/"
 
     def __init__(self) -> None:
+
         super().__init__("IP Information")
 
     def run(
@@ -32,6 +33,9 @@ class IPInfoTool(BaseTool):
         silent: bool = False,
         display: bool = True,
     ) -> dict[str, str]:
+        """
+        Retrieve IP information.
+        """
 
         self.start(silent)
 
@@ -103,7 +107,10 @@ class IPInfoTool(BaseTool):
 
         except Exception as error:
 
-            logger.error(f"IP lookup failed for {ip}: {error}")
+            if not silent:
+                logger.error(
+                    f"IP lookup failed for {ip}: {error}"
+                )
 
             if display:
                 print(f"Error: {error}")
@@ -116,6 +123,12 @@ class IPInfoTool(BaseTool):
         return results
 
     @staticmethod
-    def print_field(name: str, value: str) -> None:
+    def print_field(
+        name: str,
+        value: str,
+    ) -> None:
+        """
+        Print a formatted field.
+        """
 
         print(f"{name:<15}: {value}")
