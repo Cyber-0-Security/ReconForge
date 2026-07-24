@@ -19,11 +19,13 @@ from config.constants import Colors
 from modules.information_gathering.tools.whois import WhoisTool
 from modules.information_gathering.tools.reverse_dns import ReverseDNSTool
 from modules.information_gathering.tools.dns_lookup import DNSLookupTool
+from modules.information_gathering.tools.ip_info import IPInfoTool
 
 TOOLS = [
     ("WHOIS Lookup", WhoisTool),
     ("DNS Lookup", DNSLookupTool),
     ("Reverse DNS Lookup", ReverseDNSTool),
+    ("IP Information", IPInfoTool),
 ]
 
 
