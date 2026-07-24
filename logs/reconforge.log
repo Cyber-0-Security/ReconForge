@@ -146,3 +146,25 @@ AttributeError: 'DNSLookupTool' object has no attribute 'get_target'
 2026-07-24 00:58:07 [INFO] [SUCCESS] Module execution completed.
 2026-07-24 00:58:19 [INFO] Exiting ReconForge...
 2026-07-24 00:58:19 [INFO] ReconForge terminated
+2026-07-24 17:57:12 [INFO] Starting ReconForge
+2026-07-24 17:57:12 [INFO] Starting ReconForge menu.
+2026-07-24 17:57:14 [INFO] Selected module: information_gathering
+2026-07-24 17:57:14 [INFO] Loading module: information_gathering
+2026-07-24 17:57:17 [INFO] [SUCCESS] information_gathering loaded successfully.
+2026-07-24 17:57:18 [INFO] [SUCCESS] Module execution completed.
+2026-07-24 17:57:21 [INFO] Exiting ReconForge...
+2026-07-24 17:57:21 [INFO] ReconForge terminated
+2026-07-24 17:58:39 [INFO] Starting ReconForge
+2026-07-24 17:58:39 [INFO] Starting ReconForge menu.
+2026-07-24 17:58:41 [INFO] Selected module: information_gathering
+2026-07-24 17:58:41 [INFO] Loading module: information_gathering
+2026-07-24 17:58:41 [INFO] [SUCCESS] information_gathering loaded successfully.
+2026-07-24 17:58:47 [INFO] Executing ReverseDNSTool
+2026-07-24 17:58:47 [INFO] Starting Reverse DNS Lookup...
+2026-07-24 17:59:35 [INFO] [SUCCESS] Reverse DNS Lookup completed in 0:00:47.978971
+2026-07-24 17:59:56 [INFO] Executing ReverseDNSTool
+2026-07-24 17:59:56 [INFO] Starting Reverse DNS Lookup...
+2026-07-24 18:00:08 [INFO] [SUCCESS] Reverse DNS Lookup completed in 0:00:11.706545
+2026-07-24 18:00:22 [INFO] [SUCCESS] Module execution completed.
+2026-07-24 18:00:24 [INFO] Exiting ReconForge...
+2026-07-24 18:00:24 [INFO] ReconForge terminated

@@ -16,13 +16,14 @@ from core.logger import logger
 from core.utils import separator, wait_for_enter
 from config.constants import Colors
 
-from modules.information_gathering.tools.dns_lookup import DNSLookupTool
 from modules.information_gathering.tools.whois import WhoisTool
-
+from modules.information_gathering.tools.reverse_dns import ReverseDNSTool
+from modules.information_gathering.tools.dns_lookup import DNSLookupTool
 
 TOOLS = [
     ("WHOIS Lookup", WhoisTool),
     ("DNS Lookup", DNSLookupTool),
+    ("Reverse DNS Lookup", ReverseDNSTool),
 ]
 
 
