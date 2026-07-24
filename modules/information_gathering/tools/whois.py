@@ -23,12 +23,12 @@ class WhoisTool(BaseTool):
 
         super().__init__("WHOIS Lookup")
 
-    def run(self, target: str | None = None) -> dict[str, object]:
+    def run(self, target: str | None = None, silent: bool = False, display: bool = True) -> dict[str, object]:
         """
         Execute the WHOIS lookup.
         """
 
-        self.start()
+        self.start(silent)
 
         if target is None:
             target = validator.get_domain()
@@ -37,16 +37,18 @@ class WhoisTool(BaseTool):
 
         try:
 
-            logger.info(f"Looking up {target}")
+            if not silent:
+                logger.info(f"Looking up {target}")
 
             result = whois.whois(target)
 
-            print()
-            print(separator())
-            print("WHOIS RESULTS")
-            print(separator())
+            if display:
+                print()
+                print(separator())
+                print("WHOIS RESULTS")
+                print(separator())
 
-            results = self.display_result(result)
+            results = self.display_result(result,display)
 
         except Exception as error:
 
@@ -54,11 +56,11 @@ class WhoisTool(BaseTool):
 
         finally:
 
-            self.finish()
+            self.finish(silent)
 
         return results
 
-    def display_result(self, result) -> dict[str, object]:
+    def display_result(self, result, display: bool = True) -> dict[str, object]:
         """
         Display important WHOIS fields.
         """
@@ -82,9 +84,9 @@ class WhoisTool(BaseTool):
             value = getattr(result, attribute, None)
 
             if value:
-
                 results[title] = value
 
-                print(f"{title:<20}: {value}")
+                if display:
+                    print(f"{title:<20}: {value}")
 
         return results

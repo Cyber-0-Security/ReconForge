@@ -26,14 +26,20 @@ class IPInfoTool(BaseTool):
     def __init__(self) -> None:
         super().__init__("IP Information")
 
-    def run(self, ip: str | None = None) -> dict[str, str]:
+    def run(
+        self,
+        ip: str | None = None,
+        silent: bool = False,
+        display: bool = True,
+    ) -> dict[str, str]:
 
-        self.start()
+        self.start(silent)
 
         if ip is None:
             ip = validator.get_ip()
 
-        print()
+        if display:
+            print()
 
         results: dict[str, str] = {}
 
@@ -50,9 +56,10 @@ class IPInfoTool(BaseTool):
 
             if data.get("status") != "success":
 
-                print(data.get("message", "Lookup failed."))
+                if display:
+                    print(data.get("message", "Lookup failed."))
 
-                self.finish()
+                self.finish(silent)
 
                 return results
 
@@ -69,35 +76,42 @@ class IPInfoTool(BaseTool):
                 "Longitude": str(data.get("lon", "")),
             }
 
-            print("=" * 45)
-            print("           IP INFORMATION")
-            print("=" * 45)
+            if display:
 
-            for key, value in results.items():
+                print("=" * 45)
+                print("           IP INFORMATION")
+                print("=" * 45)
 
-                self.print_field(key, value)
+                for key, value in results.items():
+
+                    self.print_field(key, value)
 
         except requests.exceptions.Timeout:
 
-            print("Request timed out.")
+            if display:
+                print("Request timed out.")
 
         except requests.exceptions.ConnectionError:
 
-            print("Unable to connect to API.")
+            if display:
+                print("Unable to connect to API.")
 
         except requests.exceptions.HTTPError as error:
 
-            print(f"HTTP Error: {error}")
+            if display:
+                print(f"HTTP Error: {error}")
 
         except Exception as error:
 
             logger.error(f"IP lookup failed for {ip}: {error}")
 
-            print(f"Error: {error}")
+            if display:
+                print(f"Error: {error}")
 
-        print()
+        if display:
+            print()
 
-        self.finish()
+        self.finish(silent)
 
         return results
 

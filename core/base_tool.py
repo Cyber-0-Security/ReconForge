@@ -45,23 +45,29 @@ class BaseTool(ABC):
         """
         pass
 
-    def start(self) -> None:
+    def start(self, silent: bool = False) -> None:
         """
         Record the start time and log execution.
         """
-
+        
         self.start_time = datetime.now()
-
+        
+        if silent:
+            return
+        
         logger.info(f"Starting {self.name}...")
 
-    def finish(self) -> None:
+    def finish(self, silent: bool = False) -> None:
         """
         Record completion time and log duration.
         """
-
         self.end_time = datetime.now()
 
+        if silent:
+            return
+        
         duration = self.end_time - self.start_time
+
 
         logger.success(
             f"{self.name} completed in {duration}"

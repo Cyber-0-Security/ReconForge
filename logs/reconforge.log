@@ -209,3 +209,15 @@ AttributeError: 'DNSLookupTool' object has no attribute 'get_target'
 2026-07-24 18:50:17 [INFO] [SUCCESS] Module execution completed.
 2026-07-24 18:50:20 [INFO] Exiting ReconForge...
 2026-07-24 18:50:20 [INFO] ReconForge terminated
+2026-07-24 19:12:43 [INFO] Starting ReconForge
+2026-07-24 19:12:43 [INFO] Starting ReconForge menu.
+2026-07-24 19:12:44 [INFO] Selected module: information_gathering
+2026-07-24 19:12:44 [INFO] Loading module: information_gathering
+2026-07-24 19:12:44 [INFO] [SUCCESS] information_gathering loaded successfully.
+2026-07-24 19:12:46 [INFO] Executing FullReconTool
+2026-07-24 19:12:46 [INFO] Starting Full Recon...
+2026-07-24 19:12:53 [INFO] [SUCCESS] Full Recon completed successfully.
+2026-07-24 19:12:53 [INFO] [SUCCESS] Full Recon completed in 0:00:06.663717
+2026-07-24 19:13:31 [INFO] [SUCCESS] Module execution completed.
+2026-07-24 19:13:36 [INFO] Exiting ReconForge...
+2026-07-24 19:13:36 [INFO] ReconForge terminated

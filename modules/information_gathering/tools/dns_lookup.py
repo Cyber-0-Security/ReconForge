@@ -33,14 +33,20 @@ class DNSLookupTool(BaseTool):
     def __init__(self) -> None:
         super().__init__("DNS Lookup")
 
-    def run(self, target: str | None = None) -> dict[str, list[str]]:
+    def run(
+        self,
+        target: str | None = None,
+        silent: bool = False,
+        display: bool = True,
+    ) -> dict[str, list[str]]:
 
-        self.start()
+        self.start(silent)
 
         if target is None:
             target = validator.get_domain()
 
-        print()
+        if display:
+            print()
 
         results: dict[str, list[str]] = {}
 
@@ -49,9 +55,10 @@ class DNSLookupTool(BaseTool):
             results[record_type] = self.lookup_record(
                 target,
                 record_type,
+                display,
             )
 
-        self.finish()
+        self.finish(silent)
 
         return results
 
@@ -59,6 +66,7 @@ class DNSLookupTool(BaseTool):
         self,
         domain: str,
         record_type: str,
+        display: bool = True,
     ) -> list[str]:
         """
         Resolve one DNS record type.
@@ -66,7 +74,8 @@ class DNSLookupTool(BaseTool):
 
         records: list[str] = []
 
-        print(f"========== {record_type} Records ==========")
+        if display:
+            print(f"========== {record_type} Records ==========")
 
         try:
 
@@ -78,19 +87,23 @@ class DNSLookupTool(BaseTool):
 
                 records.append(value)
 
-                print(value)
+                if display:
+                    print(value)
 
         except dns.resolver.NoAnswer:
 
-            print("No records found.")
+            if display:
+                print("No records found.")
 
         except dns.resolver.NXDOMAIN:
 
-            print("Domain does not exist.")
+            if display:
+                print("Domain does not exist.")
 
         except dns.resolver.NoNameservers:
 
-            print("No nameservers responded.")
+            if display:
+                print("No nameservers responded.")
 
         except Exception as error:
 
@@ -98,8 +111,10 @@ class DNSLookupTool(BaseTool):
                 f"{record_type} lookup failed for {domain}: {error}"
             )
 
-            print(f"Error: {error}")
+            if display:
+                print(f"Error: {error}")
 
-        print()
+        if display:
+            print()
 
         return records
