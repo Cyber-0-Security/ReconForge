@@ -22,6 +22,7 @@ class ReverseDNSTool(BaseTool):
     """
 
     def __init__(self) -> None:
+
         super().__init__("Reverse DNS Lookup")
 
     def run(
@@ -30,6 +31,9 @@ class ReverseDNSTool(BaseTool):
         silent: bool = False,
         display: bool = True,
     ) -> dict[str, list[str]]:
+        """
+        Perform a PTR lookup for an IP address.
+        """
 
         self.start(silent)
 
@@ -47,7 +51,10 @@ class ReverseDNSTool(BaseTool):
 
             reverse_name = dns.reversename.from_address(ip)
 
-            answers = dns.resolver.resolve(reverse_name, "PTR")
+            answers = dns.resolver.resolve(
+                reverse_name,
+                "PTR",
+            )
 
             if display:
                 print("========== PTR Record ==========\n")
@@ -83,7 +90,10 @@ class ReverseDNSTool(BaseTool):
 
         except Exception as error:
 
-            logger.error(f"Reverse DNS lookup failed for {ip}: {error}")
+            if not silent:
+                logger.error(
+                    f"Reverse DNS lookup failed for {ip}: {error}"
+                )
 
             if display:
                 print(f"Error: {error}")

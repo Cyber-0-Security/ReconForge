@@ -30,14 +30,24 @@ class Formatter:
 
         if isinstance(value, list):
 
-            cleaned = []
+            cleaned: list[Any] = []
+            seen: set[str] = set()
 
             for item in value:
 
                 item = Formatter.format_value(item)
 
-                if item not in cleaned:
+                key = str(item).lower()
+
+                if key not in seen:
+                    seen.add(key)
                     cleaned.append(item)
+
+            if not cleaned:
+                return "N/A"
+
+            if len(cleaned) == 1:
+                return cleaned[0]
 
             return cleaned
 

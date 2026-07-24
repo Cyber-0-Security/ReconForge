@@ -13,10 +13,12 @@ Future versions can export to:
 """
 
 from __future__ import annotations
-
 from typing import Any
-
 from config.constants import Colors
+import json
+from pathlib import Path
+from datetime import datetime
+from uuid import uuid4
 
 
 class Report:
@@ -29,6 +31,8 @@ class Report:
     def __init__(self) -> None:
 
         self._sections: dict[str, Any] = {}
+        self.generated_at = datetime.now()
+        self.report_id = str(uuid4())
 
     def add_section(self, name: str, data: Any) -> None:
         """
@@ -118,7 +122,7 @@ class Report:
 
     def display(self) -> None:
         """
-        Display every stored report section.
+        Display all collected sections.
         """
 
         if not self._sections:
@@ -127,11 +131,16 @@ class Report:
 
             return
 
-        self.title("RECON REPORT")
+        print("\n" + "=" * 70)
+        print("RECONFORGE REPORT")
+        print("=" * 70)
+        print(f"Generated : {self.generated_at.strftime('%Y-%m-%d %H:%M:%S')}")
+        print("=" * 70)
 
-        for title, data in self._sections.items():
+        for section, data in self._sections.items():
 
-            self.section(title)
+            print(f"\n[{section}]")
+            print("-" * 70)
 
             if isinstance(data, dict):
 
@@ -139,21 +148,56 @@ class Report:
 
                     if isinstance(value, list):
 
-                        self.list_field(key, value)
+                        if not value:
+
+                            print(f"{key:<20}: N/A")
+
+                        else:
+
+                            print(f"{key:<20}: {value[0]}")
+
+                            for item in value[1:]:
+
+                                print(f"{'':<20}  {item}")
 
                     else:
 
-                        self.field(key, value)
-
-            elif isinstance(data, list):
-
-                self.list_field("Values", data)
+                        print(f"{key:<20}: {value}")
 
             else:
 
-                self.field("Value", data)
+                print(data)
 
-        self.success("Report Generated")
+        print("\n" + "=" * 70)
+    def export_json(self) -> None:
+        """
+        Export report as JSON.
+        """
 
+        reports_dir = Path("reports")
+        reports_dir.mkdir(exist_ok=True)
 
+        filename = (f"recon_{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}.json")
+
+        output = reports_dir / filename
+
+        with output.open(
+            "w",
+            encoding="utf-8",
+        ) as file:
+
+            json.dump(
+                {
+                    "report_id": self.report_id,
+                    "generated_at": self.generated_at.strftime(
+                        "%Y-%m-%d %H:%M:%S"
+                    ),
+                    "sections": self._sections,
+                },
+                file,
+                indent=4,
+                default=str,
+            )
+
+        print(f"\nReport saved to: {output}")
 report = Report()

@@ -128,5 +128,6 @@ class FullReconTool(BaseTool):
         #
 
         report.display()
+        report.export_json()
 
         self.finish()
