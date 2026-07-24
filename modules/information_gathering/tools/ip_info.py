@@ -26,13 +26,16 @@ class IPInfoTool(BaseTool):
     def __init__(self) -> None:
         super().__init__("IP Information")
 
-    def run(self) -> None:
+    def run(self, ip: str | None = None) -> dict[str, str]:
 
         self.start()
 
-        ip = validator.get_ip()
+        if ip is None:
+            ip = validator.get_ip()
 
         print()
+
+        results: dict[str, str] = {}
 
         try:
 
@@ -51,22 +54,28 @@ class IPInfoTool(BaseTool):
 
                 self.finish()
 
-                return
+                return results
+
+            results = {
+                "IP Address": str(data.get("query", "")),
+                "Country": str(data.get("country", "")),
+                "Region": str(data.get("regionName", "")),
+                "City": str(data.get("city", "")),
+                "ISP": str(data.get("isp", "")),
+                "Organization": str(data.get("org", "")),
+                "ASN": str(data.get("as", "")),
+                "Timezone": str(data.get("timezone", "")),
+                "Latitude": str(data.get("lat", "")),
+                "Longitude": str(data.get("lon", "")),
+            }
 
             print("=" * 45)
             print("           IP INFORMATION")
             print("=" * 45)
 
-            self.print_field("IP Address", data.get("query"))
-            self.print_field("Country", data.get("country"))
-            self.print_field("Region", data.get("regionName"))
-            self.print_field("City", data.get("city"))
-            self.print_field("ISP", data.get("isp"))
-            self.print_field("Organization", data.get("org"))
-            self.print_field("ASN", data.get("as"))
-            self.print_field("Timezone", data.get("timezone"))
-            self.print_field("Latitude", data.get("lat"))
-            self.print_field("Longitude", data.get("lon"))
+            for key, value in results.items():
+
+                self.print_field(key, value)
 
         except requests.exceptions.Timeout:
 
@@ -90,7 +99,9 @@ class IPInfoTool(BaseTool):
 
         self.finish()
 
+        return results
+
     @staticmethod
-    def print_field(name: str, value) -> None:
+    def print_field(name: str, value: str) -> None:
 
         print(f"{name:<15}: {value}")

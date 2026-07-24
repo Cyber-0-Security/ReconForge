@@ -8,8 +8,8 @@ Performs PTR lookup (IP -> Hostname).
 
 from __future__ import annotations
 
-import dns.resolver
 import dns.reversename
+import dns.resolver
 
 from core.base_tool import BaseTool
 from core.logger import logger
@@ -24,13 +24,18 @@ class ReverseDNSTool(BaseTool):
     def __init__(self) -> None:
         super().__init__("Reverse DNS Lookup")
 
-    def run(self) -> None:
+    def run(self, ip: str | None = None) -> dict[str, list[str]]:
 
         self.start()
 
-        ip = validator.get_ip()
+        if ip is None:
+            ip = validator.get_ip()
 
         print()
+
+        results: dict[str, list[str]] = {
+            "PTR": [],
+        }
 
         try:
 
@@ -41,7 +46,12 @@ class ReverseDNSTool(BaseTool):
             print("========== PTR Record ==========\n")
 
             for answer in answers:
-                print(answer.to_text())
+
+                value = answer.to_text()
+
+                results["PTR"].append(value)
+
+                print(value)
 
         except dns.resolver.NXDOMAIN:
 
@@ -68,3 +78,5 @@ class ReverseDNSTool(BaseTool):
         print()
 
         self.finish()
+
+        return results

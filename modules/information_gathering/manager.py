@@ -20,12 +20,14 @@ from modules.information_gathering.tools.whois import WhoisTool
 from modules.information_gathering.tools.reverse_dns import ReverseDNSTool
 from modules.information_gathering.tools.dns_lookup import DNSLookupTool
 from modules.information_gathering.tools.ip_info import IPInfoTool
+from modules.information_gathering.tools.full_recon import FullReconTool
 
 TOOLS = [
     ("WHOIS Lookup", WhoisTool),
     ("DNS Lookup", DNSLookupTool),
     ("Reverse DNS Lookup", ReverseDNSTool),
     ("IP Information", IPInfoTool),
+    ("Full Recon", FullReconTool),
 ]
 
 

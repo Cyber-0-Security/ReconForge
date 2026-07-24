@@ -33,24 +33,38 @@ class DNSLookupTool(BaseTool):
     def __init__(self) -> None:
         super().__init__("DNS Lookup")
 
-    def run(self) -> None:
+    def run(self, target: str | None = None) -> dict[str, list[str]]:
 
         self.start()
 
-        target = validator.get_domain("Enter domain: ")
+        if target is None:
+            target = validator.get_domain()
 
         print()
 
+        results: dict[str, list[str]] = {}
+
         for record_type in self.RECORD_TYPES:
 
-            self.lookup_record(target, record_type)
+            results[record_type] = self.lookup_record(
+                target,
+                record_type,
+            )
 
         self.finish()
 
-    def lookup_record(self, domain: str, record_type: str) -> None:
+        return results
+
+    def lookup_record(
+        self,
+        domain: str,
+        record_type: str,
+    ) -> list[str]:
         """
         Resolve one DNS record type.
         """
+
+        records: list[str] = []
 
         print(f"========== {record_type} Records ==========")
 
@@ -58,16 +72,13 @@ class DNSLookupTool(BaseTool):
 
             answers = dns.resolver.resolve(domain, record_type)
 
-            found = False
-
             for answer in answers:
 
-                print(answer.to_text())
+                value = answer.to_text()
 
-                found = True
+                records.append(value)
 
-            if not found:
-                print("No records found.")
+                print(value)
 
         except dns.resolver.NoAnswer:
 
@@ -83,8 +94,12 @@ class DNSLookupTool(BaseTool):
 
         except Exception as error:
 
-            logger.error(str(error))
+            logger.error(
+                f"{record_type} lookup failed for {domain}: {error}"
+            )
 
             print(f"Error: {error}")
 
         print()
+
+        return records
