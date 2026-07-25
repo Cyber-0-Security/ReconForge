@@ -15,11 +15,14 @@ from core.logger import logger
 from core.report import report
 from core.validator import validator
 
-from modules.information_gathering.tools.whois import WhoisTool
 from modules.information_gathering.tools.dns_lookup import DNSLookupTool
-from modules.information_gathering.tools.reverse_dns import ReverseDNSTool
+from modules.information_gathering.tools.http_headers import HTTPHeadersTool
 from modules.information_gathering.tools.ip_info import IPInfoTool
-from modules.information_gathering.tools.subdomain_enum import SubdomainEnumerationTool
+from modules.information_gathering.tools.reverse_dns import ReverseDNSTool
+from modules.information_gathering.tools.subdomain_enum import (
+    SubdomainEnumerationTool,
+)
+from modules.information_gathering.tools.whois import WhoisTool
 
 
 class FullReconTool(BaseTool):
@@ -28,10 +31,12 @@ class FullReconTool(BaseTool):
     """
 
     def __init__(self) -> None:
-
         super().__init__("Full Recon")
 
     def run(self) -> None:
+        """
+        Execute the full recon workflow and store results in the report.
+        """
 
         self.start()
 
@@ -44,98 +49,65 @@ class FullReconTool(BaseTool):
         reverse_dns_tool = ReverseDNSTool()
         ip_info_tool = IPInfoTool()
         subdomain_tool = SubdomainEnumerationTool()
-
-        #
-        # WHOIS
-        #
+        http_headers_tool = HTTPHeadersTool()
 
         logger.info("Running WHOIS lookup...")
-
         whois_data = whois_tool.run(
             target,
             silent=True,
             display=False,
         )
+        report.add_section("WHOIS", whois_data)
 
-        report.add_section(
-            "WHOIS",
-            whois_data,
-        )
-
-        #
-        # DNS
-        #
-
+        logger.info("Running Subdomain Enumeration...")
         subdomains = subdomain_tool.run(
             target,
             silent=True,
             display=False,
         )
-
         report.add_section("Subdomains", subdomains)
 
         logger.info("Running DNS lookup...")
-
         dns_data = dns_tool.run(
             target,
             silent=True,
             display=False,
         )
-
-        report.add_section(
-            "DNS",
-            dns_data,
-        )
-
-        #
-        # Reverse DNS
-        #
+        report.add_section("DNS", dns_data)
 
         ipv4_records = dns_data.get("A", [])
 
         if ipv4_records:
-
             ip = ipv4_records[0]
 
             logger.info("Running Reverse DNS lookup...")
-
             reverse_data = reverse_dns_tool.run(
                 ip,
                 silent=True,
                 display=False,
             )
-
-            report.add_section(
-                "Reverse DNS",
-                reverse_data,
-            )
-
-            #
-            # IP Information
-            #
+            report.add_section("Reverse DNS", reverse_data)
 
             logger.info("Running IP Information lookup...")
-
             ip_data = ip_info_tool.run(
                 ip,
                 silent=True,
                 display=False,
             )
-
-            report.add_section(
-                "IP Information",
-                ip_data,
-            )
+            report.add_section("IP Information", ip_data)
 
         else:
-
             logger.warning(
                 "No IPv4 address found. Reverse DNS and IP Information skipped."
             )
 
-        #
-        # Display report
-        #
+        logger.info("Running HTTP Headers lookup...")
+        http_headers = http_headers_tool.run(
+            target,
+            silent=True,
+            display=False,
+        )
+        report.add_section("HTTP Headers", http_headers)
 
         report.display()
         report.export_json()
