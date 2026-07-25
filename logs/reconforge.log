@@ -269,3 +269,63 @@ AttributeError: 'Report' object has no attribute 'report_id'
 2026-07-25 18:57:41 [INFO] Starting ReconForge menu.
 2026-07-25 19:00:52 [INFO] Exiting ReconForge...
 2026-07-25 19:00:52 [INFO] ReconForge terminated
+2026-07-25 19:18:00 [INFO] Starting ReconForge
+2026-07-25 19:18:00 [INFO] Starting ReconForge menu.
+2026-07-25 19:18:05 [INFO] Selected module: web_enumeration
+2026-07-25 19:18:05 [INFO] Loading module: web_enumeration
+2026-07-25 19:18:05 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-07-25 19:18:05 [ERROR] Failed to execute module 'web_enumeration': module 'modules.web_enumeration.manager' has no attribute 'execute'
+Traceback (most recent call last):
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 72, in run
+    manager.execute()
+    ^^^^^^^^^^^^^^^
+AttributeError: module 'modules.web_enumeration.manager' has no attribute 'execute'
+2026-07-25 19:18:05 [ERROR] Module execution failed.
+2026-07-25 19:20:05 [INFO] Starting ReconForge
+2026-07-25 19:20:05 [INFO] Starting ReconForge menu.
+2026-07-25 19:20:14 [INFO] Selected module: web_enumeration
+2026-07-25 19:20:14 [INFO] Loading module: web_enumeration
+2026-07-25 19:20:14 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-07-25 19:20:14 [ERROR] Failed to execute module 'web_enumeration': Menu.__init__() got an unexpected keyword argument 'title'
+Traceback (most recent call last):
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 72, in run
+    manager.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 19, in execute
+    menu = Menu(
+        title="Web Enumeration",
+    ...<2 lines>...
+        ],
+    )
+TypeError: Menu.__init__() got an unexpected keyword argument 'title'
+2026-07-25 19:20:14 [ERROR] Module execution failed.
+2026-07-25 19:21:58 [INFO] Starting ReconForge
+2026-07-25 19:21:58 [INFO] Starting ReconForge menu.
+2026-07-25 19:22:00 [INFO] Selected module: web_enumeration
+2026-07-25 19:22:00 [INFO] Loading module: web_enumeration
+2026-07-25 19:22:00 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-07-25 19:22:02 [INFO] Executing TechnologyDetectionTool
+2026-07-25 19:22:02 [INFO] Starting Technology Detection...
+2026-07-25 19:22:12 [INFO] Downloading https://craw.in
+2026-07-25 19:22:12 [INFO] [SUCCESS] Technology Detection completed in 0:00:09.996679
+2026-07-25 19:45:08 [INFO] Starting ReconForge
+2026-07-25 19:45:08 [INFO] Starting ReconForge menu.
+2026-07-25 19:45:10 [INFO] Selected module: web_enumeration
+2026-07-25 19:45:10 [INFO] Loading module: web_enumeration
+2026-07-25 19:45:10 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-07-25 19:45:11 [INFO] Executing TechnologyDetectionTool
+2026-07-25 19:45:11 [INFO] Starting Technology Detection...
+2026-07-25 19:45:15 [INFO] Downloading https://craw.in
+2026-07-25 19:45:15 [INFO] [SUCCESS] Technology Detection completed in 0:00:04.196819
+2026-07-25 19:50:13 [INFO] [SUCCESS] Module execution completed.
+2026-07-25 19:50:15 [INFO] Exiting ReconForge...
+2026-07-25 19:50:15 [INFO] ReconForge terminated
+2026-07-25 19:50:18 [INFO] Starting ReconForge
+2026-07-25 19:50:18 [INFO] Starting ReconForge menu.
+2026-07-25 19:50:19 [INFO] Selected module: web_enumeration
+2026-07-25 19:50:19 [INFO] Loading module: web_enumeration
+2026-07-25 19:50:19 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-07-25 19:50:20 [INFO] Executing TechnologyDetectionTool
+2026-07-25 19:50:20 [INFO] Starting Technology Detection...
+2026-07-25 19:52:52 [INFO] Downloading https://flipkart.com
+2026-07-25 19:52:53 [INFO] [SUCCESS] Technology Detection completed in 0:02:32.475383
