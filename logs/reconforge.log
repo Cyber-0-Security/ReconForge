@@ -165,3 +165,74 @@ AttributeError: 'Report' object has no attribute 'report_id'
 2026-07-24 23:29:43 [INFO] Running Reverse DNS lookup...
 2026-07-24 23:29:43 [INFO] Running IP Information lookup...
 2026-07-24 23:29:43 [INFO] [SUCCESS] Full Recon completed in 0:00:14.025414
+2026-07-24 23:56:33 [INFO] Starting ReconForge
+2026-07-24 23:56:33 [INFO] Starting ReconForge menu.
+2026-07-24 23:56:34 [INFO] Selected module: information_gathering
+2026-07-24 23:56:34 [INFO] Loading module: information_gathering
+2026-07-24 23:56:35 [INFO] [SUCCESS] information_gathering loaded successfully.
+2026-07-24 23:56:39 [INFO] Executing SubdomainEnumerationTool
+2026-07-24 23:56:39 [INFO] Starting Subdomain Enumeration...
+2026-07-24 23:56:46 [INFO] Searching crt.sh for google.com
+2026-07-24 23:56:47 [INFO] [SUCCESS] Subdomain Enumeration completed in 0:00:08.390382
+2026-07-24 23:57:11 [INFO] Executing SubdomainEnumerationTool
+2026-07-24 23:57:11 [INFO] Starting Subdomain Enumeration...
+2026-07-24 23:57:14 [INFO] Searching crt.sh for craw.in
+2026-07-24 23:57:24 [INFO] [SUCCESS] Subdomain Enumeration completed in 0:00:13.666177
+2026-07-25 00:00:04 [INFO] Starting ReconForge
+2026-07-25 00:00:04 [INFO] Starting ReconForge menu.
+2026-07-25 00:00:06 [INFO] Selected module: information_gathering
+2026-07-25 00:00:06 [INFO] Loading module: information_gathering
+2026-07-25 00:00:06 [INFO] [SUCCESS] information_gathering loaded successfully.
+2026-07-25 00:00:06 [INFO] Executing SubdomainEnumerationTool
+2026-07-25 00:00:06 [INFO] Starting Subdomain Enumeration...
+2026-07-25 00:00:11 [INFO] Searching crt.sh for craw.in
+2026-07-25 00:00:31 [INFO] [SUCCESS] Subdomain Enumeration completed in 0:00:24.918209
+2026-07-25 00:00:40 [INFO] Executing SubdomainEnumerationTool
+2026-07-25 00:00:40 [INFO] Starting Subdomain Enumeration...
+2026-07-25 00:00:43 [INFO] Searching crt.sh for google.com
+2026-07-25 00:00:44 [INFO] [SUCCESS] Subdomain Enumeration completed in 0:00:03.680272
+2026-07-25 18:35:43 [INFO] Starting ReconForge
+2026-07-25 18:35:43 [INFO] Starting ReconForge menu.
+2026-07-25 18:35:45 [INFO] Selected module: information_gathering
+2026-07-25 18:35:45 [INFO] Loading module: information_gathering
+2026-07-25 18:35:45 [INFO] [SUCCESS] information_gathering loaded successfully.
+2026-07-25 18:35:46 [INFO] Executing SubdomainEnumerationTool
+2026-07-25 18:35:46 [INFO] Starting Subdomain Enumeration...
+2026-07-25 18:35:51 [INFO] Searching passive sources for google.com
+2026-07-25 18:36:11 [WARNING] AlienVault lookup failed for google.com: HTTPSConnectionPool(host='otx.alienvault.com', port=443): Read timed out. (read timeout=20)
+2026-07-25 18:36:11 [WARNING] BufferOver lookup failed for google.com: HTTPSConnectionPool(host='dns.bufferover.run', port=443): Max retries exceeded with url: /dns?q=.google.com (Caused by NameResolutionError("HTTPSConnection(host='dns.bufferover.run', port=443): Failed to resolve 'dns.bufferover.run' ([Errno -2] Name or service not known)"))
+2026-07-25 18:36:12 [INFO] [SUCCESS] Subdomain Enumeration completed in 0:00:26.038375
+2026-07-25 18:40:21 [INFO] Starting ReconForge
+2026-07-25 18:40:21 [INFO] Starting ReconForge menu.
+2026-07-25 18:40:23 [INFO] Selected module: information_gathering
+2026-07-25 18:40:23 [INFO] Loading module: information_gathering
+2026-07-25 18:40:23 [INFO] [SUCCESS] information_gathering loaded successfully.
+2026-07-25 18:40:23 [INFO] Executing SubdomainEnumerationTool
+2026-07-25 18:40:23 [INFO] Starting Subdomain Enumeration...
+2026-07-25 18:40:34 [INFO] Starting ReconForge
+2026-07-25 18:40:34 [INFO] Starting ReconForge menu.
+2026-07-25 18:40:39 [INFO] Selected module: information_gathering
+2026-07-25 18:40:39 [INFO] Loading module: information_gathering
+2026-07-25 18:40:39 [INFO] [SUCCESS] information_gathering loaded successfully.
+2026-07-25 18:40:42 [INFO] Executing FullReconTool
+2026-07-25 18:40:42 [INFO] Starting Full Recon...
+2026-07-25 18:41:09 [INFO] Running WHOIS lookup...
+2026-07-25 18:41:11 [INFO] Running DNS lookup...
+2026-07-25 18:41:11 [INFO] Running Reverse DNS lookup...
+2026-07-25 18:41:11 [INFO] Running IP Information lookup...
+2026-07-25 18:41:12 [INFO] [SUCCESS] Full Recon completed in 0:00:29.818293
+2026-07-25 18:44:45 [INFO] [SUCCESS] Module execution completed.
+2026-07-25 18:44:47 [INFO] Exiting ReconForge...
+2026-07-25 18:44:47 [INFO] ReconForge terminated
+2026-07-25 18:44:50 [INFO] Starting ReconForge
+2026-07-25 18:44:50 [INFO] Starting ReconForge menu.
+2026-07-25 18:44:52 [INFO] Selected module: information_gathering
+2026-07-25 18:44:52 [INFO] Loading module: information_gathering
+2026-07-25 18:44:52 [INFO] [SUCCESS] information_gathering loaded successfully.
+2026-07-25 18:44:59 [INFO] Executing FullReconTool
+2026-07-25 18:44:59 [INFO] Starting Full Recon...
+2026-07-25 18:45:04 [INFO] Running WHOIS lookup...
+2026-07-25 18:45:07 [INFO] Running DNS lookup...
+2026-07-25 18:45:07 [INFO] Running Reverse DNS lookup...
+2026-07-25 18:45:07 [INFO] Running IP Information lookup...
+2026-07-25 18:45:07 [INFO] [SUCCESS] Full Recon completed in 0:00:08.165071

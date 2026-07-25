@@ -149,20 +149,25 @@ class Report:
                     if isinstance(value, list):
 
                         if not value:
-
                             print(f"{key:<20}: N/A")
 
                         else:
-
                             print(f"{key:<20}: {value[0]}")
 
                             for item in value[1:]:
-
                                 print(f"{'':<20}  {item}")
 
                     else:
-
                         print(f"{key:<20}: {value}")
+
+            elif isinstance(data, list):
+
+                if not data:
+                    print("N/A")
+
+                else:
+                    for index, item in enumerate(data, start=1):
+                        print(f"{index}. {item}")
 
             else:
 

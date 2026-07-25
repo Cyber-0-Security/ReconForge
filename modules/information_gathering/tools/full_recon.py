@@ -19,6 +19,7 @@ from modules.information_gathering.tools.whois import WhoisTool
 from modules.information_gathering.tools.dns_lookup import DNSLookupTool
 from modules.information_gathering.tools.reverse_dns import ReverseDNSTool
 from modules.information_gathering.tools.ip_info import IPInfoTool
+from modules.information_gathering.tools.subdomain_enum import SubdomainEnumerationTool
 
 
 class FullReconTool(BaseTool):
@@ -42,6 +43,7 @@ class FullReconTool(BaseTool):
         dns_tool = DNSLookupTool()
         reverse_dns_tool = ReverseDNSTool()
         ip_info_tool = IPInfoTool()
+        subdomain_tool = SubdomainEnumerationTool()
 
         #
         # WHOIS
@@ -63,6 +65,14 @@ class FullReconTool(BaseTool):
         #
         # DNS
         #
+
+        subdomains = subdomain_tool.run(
+            target,
+            silent=True,
+            display=False,
+        )
+
+        report.add_section("Subdomains", subdomains)
 
         logger.info("Running DNS lookup...")
 
