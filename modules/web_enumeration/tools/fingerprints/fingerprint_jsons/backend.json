@@ -1,0 +1,237 @@
+{
+  "technologies": [
+    {
+      "name": "Laravel",
+      "category": "Backend",
+      "confidence": 90,
+      "fingerprints": {
+        "headers": [
+          "laravel"
+        ],
+        "cookies": [
+          "laravel_session",
+          "xsrf-token"
+        ],
+        "html": [
+          "laravel"
+        ]
+      }
+    },
+    {
+      "name": "Symfony",
+      "category": "Backend",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "symfony",
+          "_profiler"
+        ],
+        "headers": [
+          "symfony"
+        ]
+      }
+    },
+    {
+      "name": "CodeIgniter",
+      "category": "Backend",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "codeigniter",
+          "ci_session"
+        ],
+        "cookies": [
+          "ci_session"
+        ]
+      }
+    },
+    {
+      "name": "CakePHP",
+      "category": "Backend",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "cakephp",
+          "cakephp="
+        ],
+        "cookies": [
+          "cakephp"
+        ]
+      }
+    },
+    {
+      "name": "Yii",
+      "category": "Backend",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "yii\\web",
+          "yii2",
+          "csrf-param",
+          "csrf-token"
+        ],
+        "headers": [
+          "yii"
+        ],
+        "cookies": [
+          "yii"
+        ]
+      }
+    },
+    {
+      "name": "Django",
+      "category": "Backend",
+      "confidence": 85,
+      "fingerprints": {
+        "headers": [
+          "django"
+        ],
+        "cookies": [
+          "csrftoken",
+          "sessionid"
+        ],
+        "html": [
+          "django",
+          "csrfmiddlewaretoken"
+        ]
+      }
+    },
+    {
+      "name": "Flask",
+      "category": "Backend",
+      "confidence": 80,
+      "fingerprints": {
+        "headers": [
+          "werkzeug",
+          "flask"
+        ],
+        "cookies": [
+          "session"
+        ],
+        "html": [
+          "flask"
+        ]
+      }
+    },
+    {
+      "name": "FastAPI",
+      "category": "Backend",
+      "confidence": 80,
+      "fingerprints": {
+        "headers": [
+          "fastapi"
+        ],
+        "html": [
+          "fastapi",
+          "swagger ui",
+          "redoc"
+        ]
+      }
+    },
+    {
+      "name": "Express.js",
+      "category": "Backend",
+      "confidence": 75,
+      "fingerprints": {
+        "headers": [
+          "express"
+        ],
+        "html": [
+          "express"
+        ]
+      }
+    },
+    {
+      "name": "Node.js",
+      "category": "Backend",
+      "confidence": 70,
+      "fingerprints": {
+        "headers": [
+          "node.js",
+          "nodejs"
+        ],
+        "html": [
+          "node.js",
+          "nodejs"
+        ]
+      }
+    },
+    {
+      "name": "Spring Boot",
+      "category": "Backend",
+      "confidence": 80,
+      "fingerprints": {
+        "headers": [
+          "spring"
+        ],
+        "html": [
+          "spring",
+          "whitelabel error page"
+        ]
+      }
+    },
+    {
+      "name": "Ruby on Rails",
+      "category": "Backend",
+      "confidence": 80,
+      "fingerprints": {
+        "headers": [
+          "rails"
+        ],
+        "cookies": [
+          "_session"
+        ],
+        "html": [
+          "rails",
+          "csrf-param",
+          "csrf-token"
+        ]
+      }
+    },
+    {
+      "name": "Phoenix",
+      "category": "Backend",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "phoenix",
+          "phx-"
+        ]
+      }
+    },
+    {
+      "name": "ASP.NET",
+      "category": "Backend",
+      "confidence": 85,
+      "fingerprints": {
+        "headers": [
+          "x-aspnet-version",
+          "asp.net"
+        ],
+        "cookies": [
+          "asp.net",
+          "aspnetsessionid"
+        ],
+        "html": [
+          "__VIEWSTATE",
+          "__EVENTVALIDATION",
+          "asp.net"
+        ]
+      }
+    },
+    {
+      "name": "ASP.NET MVC",
+      "category": "Backend",
+      "confidence": 85,
+      "fingerprints": {
+        "headers": [
+          "x-aspnetmvc-version"
+        ],
+        "html": [
+          "asp.net mvc",
+          "__mvc"
+        ]
+      }
+    }
+  ]
+}

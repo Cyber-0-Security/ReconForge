@@ -1,0 +1,258 @@
+{
+  "technologies": [
+    {
+      "name": "Amazon Web Services",
+      "category": "Infrastructure",
+      "confidence": 85,
+      "fingerprints": {
+        "headers": [
+          "x-amz",
+          "awselb"
+        ],
+        "html": [
+          "amazonaws.com"
+        ]
+      }
+    },
+    {
+      "name": "Microsoft Azure",
+      "category": "Infrastructure",
+      "confidence": 85,
+      "fingerprints": {
+        "headers": [
+          "azure"
+        ],
+        "html": [
+          "azurewebsites.net",
+          "azureedge.net"
+        ]
+      }
+    },
+    {
+      "name": "Google Cloud Platform",
+      "category": "Infrastructure",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "googleusercontent.com",
+          "gstatic.com"
+        ]
+      }
+    },
+    {
+      "name": "Google App Engine",
+      "category": "Infrastructure",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "appspot.com"
+        ]
+      }
+    },
+    {
+      "name": "Firebase",
+      "category": "Infrastructure",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "firebase"
+        ]
+      }
+    },
+    {
+      "name": "Firebase Hosting",
+      "category": "Infrastructure",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "firebaseapp.com"
+        ]
+      }
+    },
+    {
+      "name": "Cloudflare Pages",
+      "category": "Infrastructure",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "pages.dev"
+        ]
+      }
+    },
+    {
+      "name": "Netlify",
+      "category": "Infrastructure",
+      "confidence": 85,
+      "fingerprints": {
+        "headers": [
+          "netlify"
+        ],
+        "html": [
+          "netlify.app",
+          "netlify"
+        ]
+      }
+    },
+    {
+      "name": "Vercel",
+      "category": "Infrastructure",
+      "confidence": 85,
+      "fingerprints": {
+        "headers": [
+          "x-vercel-id",
+          "vercel"
+        ],
+        "html": [
+          "vercel.app",
+          "vercel"
+        ]
+      }
+    },
+    {
+      "name": "Render",
+      "category": "Infrastructure",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "render.com",
+          "onrender.com"
+        ]
+      }
+    },
+    {
+      "name": "Railway",
+      "category": "Infrastructure",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "railway.app"
+        ]
+      }
+    },
+    {
+      "name": "Fly.io",
+      "category": "Infrastructure",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "fly.dev",
+          "fly.io"
+        ]
+      }
+    },
+    {
+      "name": "Heroku",
+      "category": "Infrastructure",
+      "confidence": 80,
+      "fingerprints": {
+        "headers": [
+          "heroku"
+        ],
+        "html": [
+          "herokuapp.com",
+          "heroku"
+        ]
+      }
+    },
+    {
+      "name": "DigitalOcean",
+      "category": "Infrastructure",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "digitaloceanspaces.com"
+        ]
+      }
+    },
+    {
+      "name": "Linode",
+      "category": "Infrastructure",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "linode"
+        ]
+      }
+    },
+    {
+      "name": "Vultr",
+      "category": "Infrastructure",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "vultr"
+        ]
+      }
+    },
+    {
+      "name": "OVHcloud",
+      "category": "Infrastructure",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "ovh"
+        ]
+      }
+    },
+    {
+      "name": "Hetzner",
+      "category": "Infrastructure",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "hetzner"
+        ]
+      }
+    },
+    {
+      "name": "GitHub Pages",
+      "category": "Infrastructure",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "github.io"
+        ]
+      }
+    },
+    {
+      "name": "GitLab Pages",
+      "category": "Infrastructure",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "gitlab.io"
+        ]
+      }
+    },
+    {
+      "name": "Oracle Cloud",
+      "category": "Infrastructure",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "oraclecloud.com"
+        ]
+      }
+    },
+    {
+      "name": "Alibaba Cloud",
+      "category": "Infrastructure",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "aliyuncs.com"
+        ]
+      }
+    },
+    {
+      "name": "IBM Cloud",
+      "category": "Infrastructure",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "mybluemix.net"
+        ]
+      }
+    }
+  ]
+}

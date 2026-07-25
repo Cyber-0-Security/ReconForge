@@ -1,0 +1,178 @@
+{
+  "technologies": [
+    {
+      "name": "Content Security Policy",
+      "category": "Security",
+      "confidence": 100,
+      "fingerprints": {
+        "headers": [
+          "content-security-policy"
+        ]
+      }
+    },
+    {
+      "name": "HSTS",
+      "category": "Security",
+      "confidence": 100,
+      "fingerprints": {
+        "headers": [
+          "strict-transport-security"
+        ]
+      }
+    },
+    {
+      "name": "Permissions Policy",
+      "category": "Security",
+      "confidence": 90,
+      "fingerprints": {
+        "headers": [
+          "permissions-policy"
+        ]
+      }
+    },
+    {
+      "name": "Referrer Policy",
+      "category": "Security",
+      "confidence": 90,
+      "fingerprints": {
+        "headers": [
+          "referrer-policy"
+        ]
+      }
+    },
+    {
+      "name": "X-Frame-Options",
+      "category": "Security",
+      "confidence": 90,
+      "fingerprints": {
+        "headers": [
+          "x-frame-options"
+        ]
+      }
+    },
+    {
+      "name": "X-Content-Type-Options",
+      "category": "Security",
+      "confidence": 90,
+      "fingerprints": {
+        "headers": [
+          "x-content-type-options"
+        ]
+      }
+    },
+    {
+      "name": "XSS Protection",
+      "category": "Security",
+      "confidence": 80,
+      "fingerprints": {
+        "headers": [
+          "x-xss-protection"
+        ]
+      }
+    },
+    {
+      "name": "Google reCAPTCHA",
+      "category": "Security",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "www.google.com/recaptcha",
+          "grecaptcha"
+        ],
+        "scripts": [
+          "recaptcha"
+        ]
+      }
+    },
+    {
+      "name": "hCaptcha",
+      "category": "Security",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "hcaptcha.com",
+          "h-captcha"
+        ],
+        "scripts": [
+          "hcaptcha"
+        ]
+      }
+    },
+    {
+      "name": "Cloudflare Turnstile",
+      "category": "Security",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "challenges.cloudflare.com"
+        ]
+      }
+    },
+    {
+      "name": "Cloudflare Bot Management",
+      "category": "Security",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "__cf_bm"
+        ]
+      }
+    },
+    {
+      "name": "Akamai",
+      "category": "Security",
+      "confidence": 80,
+      "fingerprints": {
+        "headers": [
+          "akamai"
+        ],
+        "html": [
+          "akamai"
+        ]
+      }
+    },
+    {
+      "name": "Imperva",
+      "category": "Security",
+      "confidence": 80,
+      "fingerprints": {
+        "headers": [
+          "x-iinfo",
+          "incapsula"
+        ],
+        "html": [
+          "visid_incap"
+        ]
+      }
+    },
+    {
+      "name": "Sucuri",
+      "category": "Security",
+      "confidence": 80,
+      "fingerprints": {
+        "headers": [
+          "x-sucuri-id",
+          "x-sucuri-cache"
+        ],
+        "html": [
+          "sucuri"
+        ]
+      }
+    },
+    {
+      "name": "ModSecurity",
+      "category": "Security",
+      "confidence": 75,
+      "fingerprints": {
+        "headers": [
+          "mod_security",
+          "modsecurity"
+        ],
+        "html": [
+          "mod_security",
+          "modsecurity"
+        ]
+      }
+    }
+  ]
+}

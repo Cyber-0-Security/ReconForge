@@ -1,84 +1,79 @@
 """
-Technology Detection output formatter.
+Formatting helpers for technology detection output.
 """
 
 from __future__ import annotations
 
 from collections import defaultdict
+from typing import Iterable
 
-from .categories import CATEGORIES
+from .models import DetectionResult
 
 
-def group_technologies(
-    technologies: set[str],
-) -> dict[str, list[str]]:
+DISPLAY_ORDER = [
+    "Frontend",
+    "CSS Framework",
+    "Backend",
+    "CMS",
+    "Analytics",
+    "Infrastructure",
+    "Security",
+    "Payment",
+    "Chat",
+    "Fonts",
+    "Other",
+]
+
+
+def group_detections(
+    detections: Iterable[DetectionResult],
+) -> dict[str, list[DetectionResult]]:
     """
-    Group detected technologies by category.
+    Group detection results by category.
     """
 
-    grouped = defaultdict(list)
+    grouped: dict[str, list[DetectionResult]] = defaultdict(list)
 
-    for technology in sorted(technologies):
-
-        category = CATEGORIES.get(
-            technology,
-            "Other",
-        )
-
-        grouped[category].append(technology)
+    for item in detections:
+        grouped[item.technology.categories].append(item)
 
     return dict(grouped)
 
 
-def print_technologies(
-    technologies: set[str],
+def print_detections(
+    detections: list[DetectionResult],
 ) -> None:
     """
-    Print technologies grouped by category.
+    Print grouped detection output.
     """
 
-    grouped = group_technologies(
-        technologies,
-    )
+    grouped = group_detections(detections)
 
     print()
     print("=" * 60)
     print("TECHNOLOGY DETECTION")
     print("=" * 60)
 
-    if not grouped:
-
+    if not detections:
         print("No technologies detected.")
+        print()
         return
 
-    #
-    # Desired display order
-    #
-
-    order = [
-
-        "Frontend",
-        "CSS Framework",
-        "Backend",
-        "CMS",
-        "Analytics",
-        "Infrastructure",
-        "Security",
-        "Payment",
-        "Chat",
-        "Fonts",
-        "Other",
-    ]
-
-    for category in order:
-
-        if category not in grouped:
+    for category in DISPLAY_ORDER:
+        items = grouped.get(category)
+        if not items:
             continue
 
         print()
         print(category)
         print("-" * len(category))
 
-        for technology in grouped[category]:
+        for item in sorted(
+            items,
+            key=lambda x: (-x.score, x.name.lower()),
+        ):
+            label = item.technology.name
+            if item.version:
+                label = f"{label} {item.version}"
 
-            print(f"• {technology}")
+            print(f"• {label}")

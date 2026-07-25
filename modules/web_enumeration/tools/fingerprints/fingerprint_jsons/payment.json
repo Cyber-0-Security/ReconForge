@@ -1,0 +1,224 @@
+{
+  "technologies": [
+    {
+      "name": "Stripe",
+      "category": "Payment",
+      "confidence": 90,
+      "fingerprints": {
+        "html": [
+          "js.stripe.com",
+          "stripe.com",
+          "stripe.js"
+        ],
+        "scripts": [
+          "js.stripe.com"
+        ]
+      }
+    },
+    {
+      "name": "PayPal",
+      "category": "Payment",
+      "confidence": 90,
+      "fingerprints": {
+        "html": [
+          "paypal.com/sdk/js",
+          "paypalobjects.com",
+          "paypal checkout"
+        ],
+        "scripts": [
+          "paypal.com/sdk/js"
+        ]
+      }
+    },
+    {
+      "name": "Razorpay",
+      "category": "Payment",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "checkout.razorpay.com",
+          "razorpay"
+        ],
+        "scripts": [
+          "razorpay"
+        ]
+      }
+    },
+    {
+      "name": "Braintree",
+      "category": "Payment",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "braintree"
+        ]
+      }
+    },
+    {
+      "name": "Square",
+      "category": "Payment",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "squareup.com",
+          "square payment"
+        ]
+      }
+    },
+    {
+      "name": "Authorize.Net",
+      "category": "Payment",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "authorize.net"
+        ]
+      }
+    },
+    {
+      "name": "Adyen",
+      "category": "Payment",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "adyen"
+        ]
+      }
+    },
+    {
+      "name": "Klarna",
+      "category": "Payment",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "klarna"
+        ]
+      }
+    },
+    {
+      "name": "Afterpay",
+      "category": "Payment",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "afterpay"
+        ]
+      }
+    },
+    {
+      "name": "Zip",
+      "category": "Payment",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "zipmoney",
+          "zip.co"
+        ]
+      }
+    },
+    {
+      "name": "Paddle",
+      "category": "Payment",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "paddle.com",
+          "cdn.paddle.com"
+        ]
+      }
+    },
+    {
+      "name": "Lemon Squeezy",
+      "category": "Payment",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "lemonsqueezy"
+        ]
+      }
+    },
+    {
+      "name": "Shopify Payments",
+      "category": "Payment",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "shopify-payments"
+        ]
+      }
+    },
+    {
+      "name": "Apple Pay",
+      "category": "Payment",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "apple-pay",
+          "applepay"
+        ]
+      }
+    },
+    {
+      "name": "Google Pay",
+      "category": "Payment",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "google-pay",
+          "pay.google.com"
+        ]
+      }
+    },
+    {
+      "name": "Amazon Pay",
+      "category": "Payment",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "amazon pay",
+          "pay.amazon.com"
+        ]
+      }
+    },
+    {
+      "name": "Paytm",
+      "category": "Payment",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "paytm"
+        ]
+      }
+    },
+    {
+      "name": "PhonePe",
+      "category": "Payment",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "phonepe"
+        ]
+      }
+    },
+    {
+      "name": "Cashfree",
+      "category": "Payment",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "cashfree"
+        ]
+      }
+    },
+    {
+      "name": "CCAvenue",
+      "category": "Payment",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "ccavenue"
+        ]
+      }
+    }
+  ]
+}

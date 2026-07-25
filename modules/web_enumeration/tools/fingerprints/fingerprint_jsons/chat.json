@@ -1,0 +1,222 @@
+{
+  "technologies": [
+    {
+      "name": "Intercom",
+      "category": "Chat",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "intercom",
+          "widget.intercom.io"
+        ],
+        "scripts": [
+          "intercom"
+        ]
+      }
+    },
+    {
+      "name": "Zendesk",
+      "category": "Chat",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "zendesk",
+          "zdassets.com"
+        ],
+        "scripts": [
+          "zendesk"
+        ]
+      }
+    },
+    {
+      "name": "Tawk.to",
+      "category": "Chat",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "tawk.to",
+          "embed.tawk.to"
+        ],
+        "scripts": [
+          "tawk.to"
+        ]
+      }
+    },
+    {
+      "name": "Crisp",
+      "category": "Chat",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "crisp.chat",
+          "client.crisp.chat"
+        ],
+        "scripts": [
+          "crisp.chat"
+        ]
+      }
+    },
+    {
+      "name": "Drift",
+      "category": "Chat",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "drift.com",
+          "js.driftt.com"
+        ],
+        "scripts": [
+          "drift.com"
+        ]
+      }
+    },
+    {
+      "name": "LiveChat",
+      "category": "Chat",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "livechatinc.com",
+          "cdn.livechatinc.com"
+        ]
+      }
+    },
+    {
+      "name": "Freshchat",
+      "category": "Chat",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "freshchat",
+          "fw-cdn.com"
+        ]
+      }
+    },
+    {
+      "name": "HubSpot Chat",
+      "category": "Chat",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "hubspot",
+          "js.hs-scripts.com"
+        ],
+        "scripts": [
+          "hubspot"
+        ]
+      }
+    },
+    {
+      "name": "Olark",
+      "category": "Chat",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "olark.com"
+        ]
+      }
+    },
+    {
+      "name": "Zoho SalesIQ",
+      "category": "Chat",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "salesiq",
+          "zoho"
+        ]
+      }
+    },
+    {
+      "name": "Tidio",
+      "category": "Chat",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "tidio",
+          "code.tidio.co"
+        ]
+      }
+    },
+    {
+      "name": "Smartsupp",
+      "category": "Chat",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "smartsupp"
+        ]
+      }
+    },
+    {
+      "name": "Help Scout",
+      "category": "Chat",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "helpscout"
+        ]
+      }
+    },
+    {
+      "name": "Userlike",
+      "category": "Chat",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "userlike"
+        ]
+      }
+    },
+    {
+      "name": "JivoChat",
+      "category": "Chat",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "jivosite"
+        ]
+      }
+    },
+    {
+      "name": "Chaport",
+      "category": "Chat",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "chaport"
+        ]
+      }
+    },
+    {
+      "name": "Comm100",
+      "category": "Chat",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "comm100"
+        ]
+      }
+    },
+    {
+      "name": "LivePerson",
+      "category": "Chat",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "liveperson"
+        ]
+      }
+    },
+    {
+      "name": "Gorgias",
+      "category": "Chat",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "gorgias.chat"
+        ]
+      }
+    }
+  ]
+}

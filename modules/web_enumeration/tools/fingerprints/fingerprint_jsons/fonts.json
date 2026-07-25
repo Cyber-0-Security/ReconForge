@@ -1,0 +1,228 @@
+{
+  "technologies": [
+    {
+      "name": "Google Fonts",
+      "category": "Fonts",
+      "confidence": 90,
+      "fingerprints": {
+        "html": [
+          "fonts.googleapis.com",
+          "fonts.gstatic.com"
+        ],
+        "css": [
+          "fonts.googleapis.com",
+          "fonts.gstatic.com"
+        ]
+      }
+    },
+    {
+      "name": "Adobe Fonts",
+      "category": "Fonts",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "use.typekit.net",
+          "typekit"
+        ],
+        "css": [
+          "use.typekit.net",
+          "typekit"
+        ]
+      }
+    },
+    {
+      "name": "Bunny Fonts",
+      "category": "Fonts",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "fonts.bunny.net"
+        ],
+        "css": [
+          "fonts.bunny.net"
+        ]
+      }
+    },
+    {
+      "name": "Font Awesome",
+      "category": "Fonts",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "font-awesome",
+          "fontawesome",
+          "kit.fontawesome.com"
+        ],
+        "css": [
+          "font-awesome",
+          "fontawesome",
+          "kit.fontawesome.com"
+        ]
+      }
+    },
+    {
+      "name": "Bootstrap Icons",
+      "category": "Fonts",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "bootstrap-icons"
+        ],
+        "css": [
+          "bootstrap-icons"
+        ]
+      }
+    },
+    {
+      "name": "Material Icons",
+      "category": "Fonts",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "material icons",
+          "materialicons"
+        ],
+        "css": [
+          "material icons",
+          "materialicons"
+        ]
+      }
+    },
+    {
+      "name": "Material Symbols",
+      "category": "Fonts",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "materialsymbols",
+          "material-symbols"
+        ],
+        "css": [
+          "materialsymbols",
+          "material-symbols"
+        ]
+      }
+    },
+    {
+      "name": "Remix Icon",
+      "category": "Fonts",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "remixicon"
+        ],
+        "css": [
+          "remixicon"
+        ]
+      }
+    },
+    {
+      "name": "Boxicons",
+      "category": "Fonts",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "boxicons"
+        ],
+        "css": [
+          "boxicons"
+        ]
+      }
+    },
+    {
+      "name": "Feather Icons",
+      "category": "Fonts",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "feather-icons",
+          "feather.min.js"
+        ],
+        "scripts": [
+          "feather-icons",
+          "feather.min.js"
+        ]
+      }
+    },
+    {
+      "name": "Heroicons",
+      "category": "Fonts",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "heroicons"
+        ]
+      }
+    },
+    {
+      "name": "Ionicons",
+      "category": "Fonts",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "ionicons"
+        ]
+      }
+    },
+    {
+      "name": "Line Awesome",
+      "category": "Fonts",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "line-awesome"
+        ]
+      }
+    },
+    {
+      "name": "Themify Icons",
+      "category": "Fonts",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "themify-icons"
+        ]
+      }
+    },
+    {
+      "name": "Simple Icons",
+      "category": "Fonts",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "simple-icons"
+        ]
+      }
+    },
+    {
+      "name": "Devicon",
+      "category": "Fonts",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "devicon"
+        ]
+      }
+    },
+    {
+      "name": "Academicons",
+      "category": "Fonts",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "academicons"
+        ]
+      }
+    },
+    {
+      "name": "Fork Awesome",
+      "category": "Fonts",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "fork-awesome"
+        ]
+      }
+    }
+  ]
+}

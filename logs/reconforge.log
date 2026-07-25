@@ -329,3 +329,128 @@ TypeError: Menu.__init__() got an unexpected keyword argument 'title'
 2026-07-25 19:50:20 [INFO] Starting Technology Detection...
 2026-07-25 19:52:52 [INFO] Downloading https://flipkart.com
 2026-07-25 19:52:53 [INFO] [SUCCESS] Technology Detection completed in 0:02:32.475383
+2026-07-26 00:02:31 [INFO] Starting ReconForge
+2026-07-26 00:02:31 [INFO] Starting ReconForge menu.
+2026-07-26 00:02:33 [INFO] Selected module: web_enumeration
+2026-07-26 00:02:33 [INFO] Loading module: web_enumeration
+2026-07-26 00:02:33 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-07-26 00:02:34 [INFO] Executing TechnologyDetectionTool
+2026-07-26 00:02:34 [INFO] Starting Technology Detection...
+2026-07-26 00:03:04 [INFO] Downloading https://flipkart.com
+2026-07-26 00:03:06 [INFO] [SUCCESS] Technology Detection completed in 0:00:31.994841
+2026-07-26 00:38:48 [INFO] Starting ReconForge
+2026-07-26 00:38:48 [INFO] Starting ReconForge menu.
+2026-07-26 00:38:49 [INFO] Selected module: information_gathering
+2026-07-26 00:38:49 [INFO] Loading module: information_gathering
+2026-07-26 00:38:49 [INFO] [SUCCESS] information_gathering loaded successfully.
+2026-07-26 00:38:53 [INFO] [SUCCESS] Module execution completed.
+2026-07-26 00:38:55 [INFO] Selected module: web_enumeration
+2026-07-26 00:38:55 [INFO] Loading module: web_enumeration
+2026-07-26 00:38:55 [ERROR] Failed to execute module 'web_enumeration': cannot import name 'version_detector' from 'modules.web_enumeration.tools.fingerprints.version_detector' (/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/fingerprints/version_detector.py)
+Traceback (most recent call last):
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 68, in run
+    manager = self._load_manager(module_key)
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 93, in _load_manager
+    manager = importlib.import_module(
+        f"modules.{module_path}.manager"
+    )
+  File "/usr/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 13, in <module>
+    from modules.web_enumeration.tools.technology_detection import (
+        TechnologyDetectionTool,
+    )
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/technology_detection.py", line 21, in <module>
+    from modules.web_enumeration.tools.fingerprints.engine import FingerprintEngine
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/fingerprints/engine.py", line 19, in <module>
+    from .version_detector import version_detector
+ImportError: cannot import name 'version_detector' from 'modules.web_enumeration.tools.fingerprints.version_detector' (/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/fingerprints/version_detector.py)
+2026-07-26 00:38:55 [ERROR] Module execution failed.
+2026-07-26 00:41:17 [INFO] Starting ReconForge
+2026-07-26 00:41:17 [INFO] Starting ReconForge menu.
+2026-07-26 00:41:19 [INFO] Selected module: web_enumeration
+2026-07-26 00:41:19 [INFO] Loading module: web_enumeration
+2026-07-26 00:41:19 [ERROR] Failed to execute module 'web_enumeration': Fingerprint directory not found: /home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/fingerprint_jsons
+Traceback (most recent call last):
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 68, in run
+    manager = self._load_manager(module_key)
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 93, in _load_manager
+    manager = importlib.import_module(
+        f"modules.{module_path}.manager"
+    )
+  File "/usr/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 13, in <module>
+    from modules.web_enumeration.tools.technology_detection import (
+        TechnologyDetectionTool,
+    )
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/technology_detection.py", line 21, in <module>
+    from modules.web_enumeration.tools.fingerprints.engine import FingerprintEngine
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/fingerprints/engine.py", line 176, in <module>
+    engine = FingerprintEngine()
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/fingerprints/engine.py", line 33, in __init__
+    FingerprintEngine._database_cache = self._load_database()
+                                        ~~~~~~~~~~~~~~~~~~~^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/fingerprints/engine.py", line 75, in _load_database
+    for item in loader.load():
+                ~~~~~~~~~~~^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/fingerprints/loader.py", line 35, in load
+    raise FileNotFoundError(
+        f"Fingerprint directory not found: {self.base_path}"
+    )
+FileNotFoundError: Fingerprint directory not found: /home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/fingerprint_jsons
+2026-07-26 00:41:19 [ERROR] Module execution failed.
+2026-07-26 00:44:56 [INFO] Starting ReconForge
+2026-07-26 00:44:56 [INFO] Starting ReconForge menu.
+2026-07-26 00:44:58 [INFO] Selected module: web_enumeration
+2026-07-26 00:44:58 [INFO] Loading module: web_enumeration
+2026-07-26 00:44:58 [ERROR] Failed to execute module 'web_enumeration': No module named 'modules.web_enumeration.tools.fingerprints.fingerprint_engine'
+Traceback (most recent call last):
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 68, in run
+    manager = self._load_manager(module_key)
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 93, in _load_manager
+    manager = importlib.import_module(
+        f"modules.{module_path}.manager"
+    )
+  File "/usr/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 13, in <module>
+    from modules.web_enumeration.tools.technology_detection import (
+        TechnologyDetectionTool,
+    )
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/technology_detection.py", line 24, in <module>
+    from modules.web_enumeration.tools.fingerprints.formatter import print_detections
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/fingerprints/formatter.py", line 10, in <module>
+    from .fingerprint_engine import DetectionResult
+ModuleNotFoundError: No module named 'modules.web_enumeration.tools.fingerprints.fingerprint_engine'
+2026-07-26 00:44:58 [ERROR] Module execution failed.
+2026-07-26 00:46:59 [INFO] Starting ReconForge
+2026-07-26 00:46:59 [INFO] Starting ReconForge menu.
+2026-07-26 00:47:00 [INFO] Selected module: web_enumeration
+2026-07-26 00:47:00 [INFO] Loading module: web_enumeration
+2026-07-26 00:47:00 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-07-26 00:47:02 [INFO] Executing TechnologyDetectionTool
+2026-07-26 00:47:02 [INFO] Starting Technology Detection...
+2026-07-26 00:47:08 [INFO] Downloading https://flipkart.com
+2026-07-26 00:47:10 [INFO] [SUCCESS] Technology Detection completed in 0:00:07.708135

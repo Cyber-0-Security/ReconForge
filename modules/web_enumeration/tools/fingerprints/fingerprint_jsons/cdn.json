@@ -1,0 +1,184 @@
+{
+  "technologies": [
+    {
+      "name": "Cloudflare",
+      "category": "Infrastructure",
+      "confidence": 90,
+      "fingerprints": {
+        "headers": [
+          "cf-ray",
+          "cf-cache-status",
+          "cloudflare"
+        ],
+        "html": [
+          "cloudflare",
+          "__cf_bm",
+          "cf_clearance"
+        ],
+        "scripts": [
+          "cloudflare"
+        ]
+      }
+    },
+    {
+      "name": "Amazon CloudFront",
+      "category": "Infrastructure",
+      "confidence": 85,
+      "fingerprints": {
+        "headers": [
+          "x-amz-cf-id",
+          "cloudfront"
+        ],
+        "html": [
+          "cloudfront.net"
+        ]
+      }
+    },
+    {
+      "name": "Fastly",
+      "category": "Infrastructure",
+      "confidence": 80,
+      "fingerprints": {
+        "headers": [
+          "fastly",
+          "fastly-debug"
+        ],
+        "html": [
+          "fastly.net"
+        ]
+      }
+    },
+    {
+      "name": "Akamai",
+      "category": "Infrastructure",
+      "confidence": 80,
+      "fingerprints": {
+        "headers": [
+          "akamai"
+        ],
+        "html": [
+          "akamaized.net",
+          "akamaihd.net"
+        ]
+      }
+    },
+    {
+      "name": "BunnyCDN",
+      "category": "Infrastructure",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "bunnycdn",
+          "b-cdn.net"
+        ]
+      }
+    },
+    {
+      "name": "jsDelivr",
+      "category": "Infrastructure",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "cdn.jsdelivr.net"
+        ],
+        "scripts": [
+          "cdn.jsdelivr.net"
+        ],
+        "css": [
+          "cdn.jsdelivr.net"
+        ]
+      }
+    },
+    {
+      "name": "cdnjs",
+      "category": "Infrastructure",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "cdnjs.cloudflare.com"
+        ],
+        "scripts": [
+          "cdnjs.cloudflare.com"
+        ],
+        "css": [
+          "cdnjs.cloudflare.com"
+        ]
+      }
+    },
+    {
+      "name": "unpkg",
+      "category": "Infrastructure",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "unpkg.com"
+        ],
+        "scripts": [
+          "unpkg.com"
+        ],
+        "css": [
+          "unpkg.com"
+        ]
+      }
+    },
+    {
+      "name": "KeyCDN",
+      "category": "Infrastructure",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "kxcdn.com"
+        ]
+      }
+    },
+    {
+      "name": "StackPath",
+      "category": "Infrastructure",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "stackpathcdn.com"
+        ]
+      }
+    },
+    {
+      "name": "Netlify",
+      "category": "Infrastructure",
+      "confidence": 85,
+      "fingerprints": {
+        "headers": [
+          "netlify"
+        ],
+        "html": [
+          "netlify.app",
+          "netlify"
+        ]
+      }
+    },
+    {
+      "name": "Vercel",
+      "category": "Infrastructure",
+      "confidence": 85,
+      "fingerprints": {
+        "headers": [
+          "x-vercel-id",
+          "vercel"
+        ],
+        "html": [
+          "vercel.app",
+          "vercel"
+        ]
+      }
+    },
+    {
+      "name": "GitHub Pages",
+      "category": "Infrastructure",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "github.io"
+        ]
+      }
+    }
+  ]
+}

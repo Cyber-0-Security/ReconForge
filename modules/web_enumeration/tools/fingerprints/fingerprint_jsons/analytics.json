@@ -1,0 +1,248 @@
+{
+  "technologies": [
+    {
+      "name": "Google Analytics",
+      "category": "Analytics",
+      "confidence": 90,
+      "fingerprints": {
+        "html": [
+          "google-analytics.com",
+          "gtag(",
+          "ga(",
+          "analytics.js",
+          "gtag/js"
+        ],
+        "scripts": [
+          "google-analytics.com",
+          "analytics.js",
+          "gtag/js"
+        ]
+      }
+    },
+    {
+      "name": "Google Tag Manager",
+      "category": "Analytics",
+      "confidence": 90,
+      "fingerprints": {
+        "html": [
+          "googletagmanager.com",
+          "gtm-"
+        ],
+        "scripts": [
+          "googletagmanager.com"
+        ]
+      }
+    },
+    {
+      "name": "Microsoft Clarity",
+      "category": "Analytics",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "clarity.ms",
+          "clarity("
+        ],
+        "scripts": [
+          "clarity.ms"
+        ]
+      }
+    },
+    {
+      "name": "Hotjar",
+      "category": "Analytics",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "hotjar.com",
+          "hj("
+        ],
+        "scripts": [
+          "hotjar.com"
+        ]
+      }
+    },
+    {
+      "name": "Mixpanel",
+      "category": "Analytics",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "mixpanel"
+        ],
+        "scripts": [
+          "mixpanel"
+        ]
+      }
+    },
+    {
+      "name": "Segment",
+      "category": "Analytics",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "segment.com",
+          "cdn.segment.com"
+        ],
+        "scripts": [
+          "segment.com"
+        ]
+      }
+    },
+    {
+      "name": "Matomo",
+      "category": "Analytics",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "matomo",
+          "piwik"
+        ],
+        "scripts": [
+          "matomo",
+          "piwik"
+        ]
+      }
+    },
+    {
+      "name": "Heap Analytics",
+      "category": "Analytics",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "heapanalytics",
+          "heap"
+        ],
+        "scripts": [
+          "heapanalytics"
+        ]
+      }
+    },
+    {
+      "name": "Amplitude",
+      "category": "Analytics",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "amplitude"
+        ],
+        "scripts": [
+          "amplitude"
+        ]
+      }
+    },
+    {
+      "name": "New Relic",
+      "category": "Analytics",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "newrelic",
+          "nr-data"
+        ],
+        "scripts": [
+          "newrelic"
+        ],
+        "headers": [
+          "newrelic"
+        ]
+      }
+    },
+    {
+      "name": "Sentry",
+      "category": "Analytics",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "sentry.io",
+          "sentry"
+        ],
+        "scripts": [
+          "sentry"
+        ]
+      }
+    },
+    {
+      "name": "Datadog",
+      "category": "Analytics",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "datadoghq",
+          "datadog"
+        ],
+        "scripts": [
+          "datadoghq",
+          "datadog"
+        ]
+      }
+    },
+    {
+      "name": "FullStory",
+      "category": "Analytics",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "fullstory"
+        ],
+        "scripts": [
+          "fullstory"
+        ]
+      }
+    },
+    {
+      "name": "Facebook Pixel",
+      "category": "Analytics",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "fbq(",
+          "facebook pixel",
+          "connect.facebook.net"
+        ],
+        "scripts": [
+          "connect.facebook.net"
+        ]
+      }
+    },
+    {
+      "name": "Facebook SDK",
+      "category": "Analytics",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "connect.facebook.net"
+        ],
+        "scripts": [
+          "connect.facebook.net"
+        ]
+      }
+    },
+    {
+      "name": "Google Ads",
+      "category": "Analytics",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "googlesyndication.com",
+          "doubleclick.net"
+        ],
+        "scripts": [
+          "doubleclick.net"
+        ]
+      }
+    },
+    {
+      "name": "Google AdSense",
+      "category": "Analytics",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "adsbygoogle"
+        ],
+        "scripts": [
+          "adsbygoogle"
+        ]
+      }
+    }
+  ]
+}

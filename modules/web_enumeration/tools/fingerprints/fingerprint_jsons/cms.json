@@ -1,0 +1,250 @@
+{
+  "technologies": [
+    {
+      "name": "WordPress",
+      "category": "CMS",
+      "confidence": 90,
+      "fingerprints": {
+        "html": [
+          "/wp-content/",
+          "/wp-includes/",
+          "wp-json",
+          "wp-emoji-release.min.js"
+        ],
+        "cookies": [
+          "wordpress_logged_in",
+          "wordpress_sec",
+          "wp-settings-",
+          "wp-settings-time-"
+        ],
+        "meta": [
+          "wordpress"
+        ]
+      },
+      "version": {
+        "html": [
+          "re:wp-content.*?ver=([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Joomla",
+      "category": "CMS",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "/media/system/js/",
+          "/templates/",
+          "com_content",
+          "joomla"
+        ],
+        "cookies": [
+          "joomla"
+        ]
+      }
+    },
+    {
+      "name": "Drupal",
+      "category": "CMS",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "/sites/default/",
+          "drupal-settings-json",
+          "drupal"
+        ],
+        "cookies": [
+          "has_js",
+          "drupal"
+        ]
+      }
+    },
+    {
+      "name": "Magento",
+      "category": "CMS",
+      "confidence": 90,
+      "fingerprints": {
+        "html": [
+          "/static/version",
+          "/pub/static/",
+          "/mage/",
+          "mage/cookies"
+        ],
+        "cookies": [
+          "mage-cache-sessid",
+          "private_content_version"
+        ]
+      }
+    },
+    {
+      "name": "Shopify",
+      "category": "CMS",
+      "confidence": 90,
+      "fingerprints": {
+        "html": [
+          "cdn.shopify.com",
+          "shopify.theme",
+          "_shopify",
+          "shopify-digital-wallet"
+        ],
+        "cookies": [
+          "_shopify",
+          "cart_sig"
+        ]
+      }
+    },
+    {
+      "name": "Wix",
+      "category": "CMS",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "wixstatic.com",
+          "_wixcss",
+          "wix.com"
+        ]
+      }
+    },
+    {
+      "name": "Squarespace",
+      "category": "CMS",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "static.squarespace.com",
+          "squarespace.com"
+        ]
+      }
+    },
+    {
+      "name": "Ghost CMS",
+      "category": "CMS",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "/ghost/",
+          "ghost-content"
+        ],
+        "meta": [
+          "ghost"
+        ]
+      }
+    },
+    {
+      "name": "Blogger",
+      "category": "CMS",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "blogger.com",
+          "blogspot.com"
+        ]
+      }
+    },
+    {
+      "name": "TYPO3",
+      "category": "CMS",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "typo3"
+        ]
+      }
+    },
+    {
+      "name": "Umbraco",
+      "category": "CMS",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "umbraco"
+        ],
+        "cookies": [
+          "umbraco"
+        ]
+      }
+    },
+    {
+      "name": "Craft CMS",
+      "category": "CMS",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "craftcms",
+          "craft cms"
+        ]
+      }
+    },
+    {
+      "name": "October CMS",
+      "category": "CMS",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "octobercms",
+          "october cms"
+        ]
+      }
+    },
+    {
+      "name": "ExpressionEngine",
+      "category": "CMS",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "exp:",
+          "expressionengine"
+        ]
+      }
+    },
+    {
+      "name": "OpenCart",
+      "category": "CMS",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "route=product",
+          "opencart"
+        ]
+      }
+    },
+    {
+      "name": "PrestaShop",
+      "category": "CMS",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "prestashop"
+        ],
+        "cookies": [
+          "prestasession"
+        ]
+      }
+    },
+    {
+      "name": "MediaWiki",
+      "category": "CMS",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "mediawiki",
+          "mw-parser-output"
+        ]
+      }
+    },
+    {
+      "name": "DotNetNuke",
+      "category": "CMS",
+      "confidence": 80,
+      "fingerprints": {
+        "headers": [
+          "dnn"
+        ],
+        "html": [
+          "dnn",
+          "dotnetnuke"
+        ]
+      }
+    }
+  ]
+}
