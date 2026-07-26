@@ -79,6 +79,44 @@ class FingerprintEngine:
                 {},
             )
 
+            #
+            # The JSON schema stores a single "category" string,
+            # not a "categories" list. Support both, in case a
+            # future file uses the plural form directly.
+            #
+
+            raw_category = item.get("category")
+
+            categories = (
+                [raw_category]
+                if raw_category
+                else item.get("categories", [])
+            )
+
+            #
+            # The JSON schema stores version patterns as a nested
+            # dict, e.g. {"scripts": ["re:...", ...]}, not as a
+            # flat "versions" list. Flatten every list found inside
+            # it into one combined list of patterns.
+            #
+
+            raw_version = item.get("version", {})
+
+            if isinstance(raw_version, dict):
+
+                versions: list[str] = []
+
+                for pattern_list in raw_version.values():
+                    versions.extend(pattern_list)
+
+            elif isinstance(raw_version, list):
+
+                versions = raw_version
+
+            else:
+
+                versions = []
+
             technology = Technology(
 
                 name=item.get(
@@ -86,10 +124,7 @@ class FingerprintEngine:
                     "",
                 ),
 
-                categories=item.get(
-                    "categories",
-                    [],
-                ),
+                categories=categories,
 
                 confidence=item.get(
                     "confidence",
@@ -121,10 +156,7 @@ class FingerprintEngine:
                     [],
                 ),
 
-                versions=item.get(
-                    "versions",
-                    [],
-                ),
+                versions=versions,
 
                 fingerprint=Fingerprint(
 
@@ -160,6 +192,11 @@ class FingerprintEngine:
 
                     javascript=fingerprints.get(
                         "javascript",
+                        [],
+                    ),
+
+                    text=fingerprints.get(
+                        "text",
                         [],
                     ),
 

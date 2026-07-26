@@ -253,6 +253,46 @@
           "mybluemix.net"
         ]
       }
+    },
+    {
+      "name": "Kinsta",
+      "category": "Infrastructure",
+      "confidence": 85,
+      "fingerprints": {
+        "headers": [
+          "x-kinsta-cache"
+        ]
+      }
+    },
+    {
+      "name": "WP Engine",
+      "category": "Infrastructure",
+      "confidence": 85,
+      "fingerprints": {
+        "headers": [
+          "x-powered-by: wp engine"
+        ]
+      }
+    },
+    {
+      "name": "Pantheon",
+      "category": "Infrastructure",
+      "confidence": 85,
+      "fingerprints": {
+        "headers": [
+          "x-pantheon-styx-hostname"
+        ]
+      }
+    },
+    {
+      "name": "Platform.sh",
+      "category": "Infrastructure",
+      "confidence": 75,
+      "fingerprints": {
+        "headers": [
+          "x-platform-cluster"
+        ]
+      }
     }
   ]
 }

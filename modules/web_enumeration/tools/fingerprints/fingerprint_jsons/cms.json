@@ -245,6 +245,136 @@
           "dotnetnuke"
         ]
       }
+    },
+    {
+      "name": "Strapi",
+      "category": "CMS",
+      "confidence": 75,
+      "fingerprints": {
+        "headers": [
+          "x-powered-by: strapi"
+        ],
+        "text": [
+          "strapi"
+        ]
+      }
+    },
+    {
+      "name": "Webflow",
+      "category": "CMS",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "data-wf-site",
+          "data-wf-page"
+        ],
+        "meta": [
+          "generator: webflow"
+        ]
+      }
+    },
+    {
+      "name": "HubSpot CMS",
+      "category": "CMS",
+      "confidence": 75,
+      "fingerprints": {
+        "scripts": [
+          "js.hs-scripts.com",
+          "js.hsforms.net"
+        ]
+      }
+    },
+    {
+      "name": "Concrete CMS",
+      "category": "CMS",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "ccm-"
+        ],
+        "meta": [
+          "generator: concrete"
+        ]
+      }
+    },
+    {
+      "name": "SilverStripe",
+      "category": "CMS",
+      "confidence": 80,
+      "fingerprints": {
+        "meta": [
+          "generator: silverstripe"
+        ]
+      },
+      "version": {
+        "meta": [
+          "re:silverstripe\\s*([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Adobe Experience Manager",
+      "category": "CMS",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "/etc.clientlibs/",
+          "cq:template"
+        ]
+      }
+    },
+    {
+      "name": "Weebly",
+      "category": "CMS",
+      "confidence": 85,
+      "fingerprints": {
+        "meta": [
+          "generator: weebly"
+        ]
+      }
+    },
+    {
+      "name": "Jimdo",
+      "category": "CMS",
+      "confidence": 85,
+      "fingerprints": {
+        "meta": [
+          "generator: jimdo"
+        ]
+      }
+    },
+    {
+      "name": "Tumblr",
+      "category": "CMS",
+      "confidence": 80,
+      "fingerprints": {
+        "meta": [
+          "generator: tumblr"
+        ],
+        "html": [
+          "tumblr.com/js"
+        ]
+      }
+    },
+    {
+      "name": "Contentful",
+      "category": "CMS",
+      "confidence": 70,
+      "fingerprints": {
+        "scripts": [
+          "cdn.contentful.com"
+        ]
+      }
+    },
+    {
+      "name": "Sanity",
+      "category": "CMS",
+      "confidence": 70,
+      "fingerprints": {
+        "scripts": [
+          "cdn.sanity.io"
+        ]
+      }
     }
   ]
 }

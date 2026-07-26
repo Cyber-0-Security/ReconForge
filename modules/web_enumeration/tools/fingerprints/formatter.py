@@ -14,6 +14,7 @@ DISPLAY_ORDER = [
     "Frontend",
     "CSS Framework",
     "Backend",
+    "Web Servers",
     "CMS",
     "Analytics",
     "Infrastructure",
@@ -35,7 +36,9 @@ def group_detections(
     grouped: dict[str, list[DetectionResult]] = defaultdict(list)
 
     for item in detections:
-        grouped[item.technology.categories].append(item)
+        categories = item.technology.categories
+        category = categories[0] if categories else "Other"
+        grouped[category].append(item)
 
     return dict(grouped)
 
@@ -70,7 +73,7 @@ def print_detections(
 
         for item in sorted(
             items,
-            key=lambda x: (-x.score, x.name.lower()),
+            key=lambda x: (-x.confidence, x.technology.name.lower()),
         ):
             label = item.technology.name
             if item.version:

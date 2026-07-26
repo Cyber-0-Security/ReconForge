@@ -219,6 +219,66 @@
           "ccavenue"
         ]
       }
+    },
+    {
+      "name": "Mollie",
+      "category": "Payment",
+      "confidence": 75,
+      "fingerprints": {
+        "scripts": [
+          "js.mollie.com"
+        ]
+      }
+    },
+    {
+      "name": "2Checkout",
+      "category": "Payment",
+      "confidence": 75,
+      "fingerprints": {
+        "scripts": [
+          "2checkout.com"
+        ]
+      }
+    },
+    {
+      "name": "Worldpay",
+      "category": "Payment",
+      "confidence": 70,
+      "fingerprints": {
+        "scripts": [
+          "worldpay.com"
+        ]
+      }
+    },
+    {
+      "name": "SSLCommerz",
+      "category": "Payment",
+      "confidence": 75,
+      "fingerprints": {
+        "scripts": [
+          "sslcommerz.com"
+        ]
+      }
+    },
+    {
+      "name": "Instamojo",
+      "category": "Payment",
+      "confidence": 75,
+      "fingerprints": {
+        "scripts": [
+          "instamojo.com"
+        ]
+      }
+    },
+    {
+      "name": "Skrill",
+      "category": "Payment",
+      "confidence": 70,
+      "fingerprints": {
+        "scripts": [
+          "skrill.com"
+        ]
+      }
     }
   ]
 }

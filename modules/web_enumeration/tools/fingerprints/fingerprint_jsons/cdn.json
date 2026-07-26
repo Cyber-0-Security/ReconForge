@@ -179,6 +179,57 @@
           "github.io"
         ]
       }
+    },
+    {
+      "name": "Google Cloud CDN",
+      "category": "Infrastructure",
+      "confidence": 60,
+      "fingerprints": {
+        "headers": [
+          "via: 1.1 google"
+        ]
+      }
+    },
+    {
+      "name": "Microsoft Azure CDN",
+      "category": "Infrastructure",
+      "confidence": 75,
+      "fingerprints": {
+        "headers": [
+          "x-azure-ref"
+        ]
+      }
+    },
+    {
+      "name": "Alibaba Cloud CDN",
+      "category": "Infrastructure",
+      "confidence": 70,
+      "fingerprints": {
+        "headers": [
+          "eagleeye-traceid",
+          "x-swift-savetime"
+        ]
+      }
+    },
+    {
+      "name": "Section.io",
+      "category": "Infrastructure",
+      "confidence": 75,
+      "fingerprints": {
+        "headers": [
+          "x-section-io-id"
+        ]
+      }
+    },
+    {
+      "name": "Tencent Cloud CDN",
+      "category": "Infrastructure",
+      "confidence": 70,
+      "fingerprints": {
+        "headers": [
+          "x-nws-log-uuid"
+        ]
+      }
     }
   ]
 }

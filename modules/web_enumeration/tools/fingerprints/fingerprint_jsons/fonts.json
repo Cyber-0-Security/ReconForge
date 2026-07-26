@@ -223,6 +223,29 @@
           "fork-awesome"
         ]
       }
+    },
+    {
+      "name": "Fontello",
+      "category": "Fonts",
+      "confidence": 65,
+      "fingerprints": {
+        "css": [
+          "fontello.css"
+        ]
+      }
+    },
+    {
+      "name": "IcoMoon",
+      "category": "Fonts",
+      "confidence": 65,
+      "fingerprints": {
+        "css": [
+          "icomoon.css"
+        ],
+        "scripts": [
+          "icomoon"
+        ]
+      }
     }
   ]
 }

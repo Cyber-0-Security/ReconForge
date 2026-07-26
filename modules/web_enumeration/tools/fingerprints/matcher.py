@@ -27,6 +27,7 @@ class FingerprintMatcher:
         "css": 10,
         "meta": 15,
         "javascript": 40,
+        "text": 15,
     }
 
     def match(
@@ -87,21 +88,65 @@ class FingerprintMatcher:
                 evidence,
             )
 
-            if confidence >= technology.confidence:
+            confidence += self._match_text(
+                technology,
+                context,
+                evidence,
+            )
+
+            #
+            # A technology is detected if ANY real signal fired.
+            # technology.confidence (from the JSON) describes how
+            # trustworthy a match is meant to be, not a minimum
+            # score every result must accumulate before being
+            # reported at all - requiring confidence >= that value
+            # meant almost nothing was ever reported, since most
+            # technologies only show 1-2 signal types on a single
+            # page fetch.
+            #
+
+            if confidence > 0:
 
                 results.append(
                     DetectionResult(
                         technology=technology,
-                        confidence=confidence,
+                        confidence=min(confidence, 100),
                         evidence=evidence,
                     )
                 )
+
+        results = self._deduplicate(results)
 
         return sorted(
             results,
             key=lambda x: x.confidence,
             reverse=True,
         )
+
+    def _deduplicate(
+        self,
+        results: list[DetectionResult],
+    ) -> list[DetectionResult]:
+        """
+        Keep only the highest-confidence result per technology
+        name, since the same technology can appear in more than
+        one fingerprint JSON file (e.g. Netlify in both cdn.json
+        and hosting.json).
+        """
+
+        best: dict[str, DetectionResult] = {}
+
+        for result in results:
+
+            name = result.technology.name
+
+            existing = best.get(name)
+
+            if existing is None or result.confidence > existing.confidence:
+
+                best[name] = result
+
+        return list(best.values())
 
     # ---------------------------------------------------------
 
@@ -112,9 +157,23 @@ class FingerprintMatcher:
         evidence: list[str],
     ) -> int:
 
+        #
+        # Some fingerprints target a header's name (e.g. "cf-ray",
+        # "x-kinsta-cache" - the presence of the header matters,
+        # not its value), while others target a header's value
+        # (e.g. "nginx", "php/" inside Server/X-Powered-By).
+        # Search both by combining name and value into one string
+        # per header.
+        #
+
+        combined = [
+            f"{key}: {value}"
+            for key, value in context.headers.items()
+        ]
+
         return self._match_list(
             technology.fingerprint.headers,
-            context.headers.values(),
+            combined,
             self.WEIGHTS["headers"],
             evidence,
             "Header",
@@ -213,6 +272,21 @@ class FingerprintMatcher:
             self.WEIGHTS["javascript"],
             evidence,
             "JavaScript",
+        )
+
+    def _match_text(
+        self,
+        technology: Technology,
+        context: DetectionContext,
+        evidence: list[str],
+    ) -> int:
+
+        return self._match_string(
+            technology.fingerprint.text,
+            context.text,
+            self.WEIGHTS["text"],
+            evidence,
+            "Text",
         )
 
     # ---------------------------------------------------------

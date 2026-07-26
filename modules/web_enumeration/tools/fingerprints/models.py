@@ -26,6 +26,7 @@ class Fingerprint:
     meta: list[str] = field(default_factory=list)
     cookies: list[str] = field(default_factory=list)
     javascript: list[str] = field(default_factory=list)
+    text: list[str] = field(default_factory=list)
 
 
 @dataclass(slots=True)

@@ -1,0 +1,212 @@
+{
+  "technologies": [
+    {
+      "name": "Bootstrap",
+      "category": "CSS Framework",
+      "confidence": 70,
+      "fingerprints": {
+        "css": [
+          "bootstrap.css",
+          "bootstrap.min.css",
+          "bootstrap@"
+        ],
+        "scripts": [
+          "bootstrap.bundle.js",
+          "bootstrap.bundle.min.js"
+        ],
+        "html": [
+          "navbar-toggler",
+          "class=\"container-fluid\""
+        ]
+      },
+      "version": {
+        "css": [
+          "re:bootstrap@([0-9.]+)",
+          "re:bootstrap/([0-9.]+)/css"
+        ],
+        "scripts": [
+          "re:bootstrap@([0-9.]+)",
+          "re:bootstrap/([0-9.]+)/js"
+        ]
+      }
+    },
+    {
+      "name": "Tailwind CSS",
+      "category": "CSS Framework",
+      "confidence": 60,
+      "fingerprints": {
+        "css": [
+          "tailwind.css",
+          "tailwind.min.css"
+        ],
+        "text": [
+          "tailwindcss"
+        ]
+      }
+    },
+    {
+      "name": "Bulma",
+      "category": "CSS Framework",
+      "confidence": 75,
+      "fingerprints": {
+        "css": [
+          "bulma.css",
+          "bulma.min.css",
+          "bulma@"
+        ],
+        "html": [
+          "class=\"hero is-"
+        ]
+      },
+      "version": {
+        "css": [
+          "re:bulma@([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Foundation",
+      "category": "CSS Framework",
+      "confidence": 70,
+      "fingerprints": {
+        "css": [
+          "foundation.css",
+          "foundation.min.css"
+        ],
+        "html": [
+          "data-magellan",
+          "data-sticky-container"
+        ]
+      }
+    },
+    {
+      "name": "Semantic UI",
+      "category": "CSS Framework",
+      "confidence": 70,
+      "fingerprints": {
+        "css": [
+          "semantic.css",
+          "semantic.min.css"
+        ],
+        "html": [
+          "class=\"ui container\""
+        ]
+      }
+    },
+    {
+      "name": "Materialize CSS",
+      "category": "CSS Framework",
+      "confidence": 70,
+      "fingerprints": {
+        "css": [
+          "materialize.css",
+          "materialize.min.css",
+          "materialize@"
+        ],
+        "html": [
+          "class=\"waves-effect\""
+        ]
+      },
+      "version": {
+        "css": [
+          "re:materialize@([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "UIkit",
+      "category": "CSS Framework",
+      "confidence": 70,
+      "fingerprints": {
+        "css": [
+          "uikit.css",
+          "uikit.min.css",
+          "uikit@"
+        ],
+        "html": [
+          "uk-grid",
+          "data-uk-"
+        ]
+      },
+      "version": {
+        "css": [
+          "re:uikit@([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Pure CSS",
+      "category": "CSS Framework",
+      "confidence": 65,
+      "fingerprints": {
+        "css": [
+          "pure.css",
+          "pure-min.css",
+          "purecss"
+        ]
+      }
+    },
+    {
+      "name": "Ant Design",
+      "category": "CSS Framework",
+      "confidence": 75,
+      "fingerprints": {
+        "css": [
+          "antd.css",
+          "antd.min.css",
+          "antd@"
+        ],
+        "html": [
+          "ant-btn",
+          "ant-layout"
+        ]
+      },
+      "version": {
+        "css": [
+          "re:antd@([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Chakra UI",
+      "category": "CSS Framework",
+      "confidence": 65,
+      "fingerprints": {
+        "html": [
+          "chakra-"
+        ],
+        "scripts": [
+          "@chakra-ui"
+        ]
+      }
+    },
+    {
+      "name": "Material UI",
+      "category": "CSS Framework",
+      "confidence": 70,
+      "fingerprints": {
+        "html": [
+          "MuiButton",
+          "MuiBox-root",
+          "MuiPaper-root"
+        ]
+      }
+    },
+    {
+      "name": "Animate.css",
+      "category": "CSS Framework",
+      "confidence": 70,
+      "fingerprints": {
+        "css": [
+          "animate.css",
+          "animate.min.css"
+        ]
+      },
+      "version": {
+        "css": [
+          "re:animate\\.css@([0-9.]+)"
+        ]
+      }
+    }
+  ]
+}

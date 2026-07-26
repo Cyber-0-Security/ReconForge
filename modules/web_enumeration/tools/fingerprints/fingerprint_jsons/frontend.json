@@ -211,6 +211,288 @@
           "re:jquery[-.]([0-9.]+)(?:\\.min)?\\.js"
         ]
       }
+    },
+    {
+      "name": "Preact",
+      "category": "Frontend",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "preact"
+        ],
+        "scripts": [
+          "preact.min.js",
+          "preact@"
+        ]
+      }
+    },
+    {
+      "name": "Solid.js",
+      "category": "Frontend",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "_$hydration",
+          "solid-js"
+        ],
+        "scripts": [
+          "solid-js.js",
+          "solid-js@"
+        ]
+      }
+    },
+    {
+      "name": "Lit",
+      "category": "Frontend",
+      "confidence": 70,
+      "fingerprints": {
+        "scripts": [
+          "lit-element.js",
+          "lit-html.js",
+          "lit.js"
+        ]
+      }
+    },
+    {
+      "name": "htmx",
+      "category": "Frontend",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "hx-get=",
+          "hx-post=",
+          "hx-trigger="
+        ],
+        "scripts": [
+          "htmx.js",
+          "htmx.min.js",
+          "htmx.org"
+        ]
+      },
+      "version": {
+        "scripts": [
+          "re:htmx\\.org@([0-9.]+)",
+          "re:htmx(?:\\.min)?\\.js\\?v=([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Stimulus",
+      "category": "Frontend",
+      "confidence": 70,
+      "fingerprints": {
+        "html": [
+          "data-controller=",
+          "data-turbo-permanent"
+        ],
+        "scripts": [
+          "stimulus.js",
+          "stimulus.umd.js"
+        ]
+      }
+    },
+    {
+      "name": "Turbo",
+      "category": "Frontend",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "data-turbo-frame",
+          "data-turbo-permanent"
+        ],
+        "scripts": [
+          "@hotwired/turbo",
+          "turbo.min.js"
+        ]
+      }
+    },
+    {
+      "name": "Knockout.js",
+      "category": "Frontend",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "data-bind="
+        ],
+        "scripts": [
+          "knockout.js",
+          "knockout-"
+        ]
+      },
+      "version": {
+        "scripts": [
+          "re:knockout-([0-9.]+)\\.js"
+        ]
+      }
+    },
+    {
+      "name": "Mithril.js",
+      "category": "Frontend",
+      "confidence": 70,
+      "fingerprints": {
+        "scripts": [
+          "mithril.js",
+          "mithril.min.js"
+        ]
+      }
+    },
+    {
+      "name": "Qwik",
+      "category": "Frontend",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "q:container",
+          "q-slot"
+        ],
+        "scripts": [
+          "qwik.js"
+        ]
+      }
+    },
+    {
+      "name": "jQuery UI",
+      "category": "Frontend",
+      "confidence": 75,
+      "fingerprints": {
+        "scripts": [
+          "jquery-ui.js",
+          "jquery-ui.min.js"
+        ],
+        "css": [
+          "jquery-ui.css"
+        ]
+      },
+      "version": {
+        "scripts": [
+          "re:jquery-ui[-.]([0-9.]+)",
+          "re:jquery-ui/([0-9.]+)/jquery-ui"
+        ]
+      }
+    },
+    {
+      "name": "Underscore.js",
+      "category": "Frontend",
+      "confidence": 70,
+      "fingerprints": {
+        "scripts": [
+          "underscore.js",
+          "underscore-min.js"
+        ]
+      },
+      "version": {
+        "scripts": [
+          "re:underscore(?:-min)?\\.js\\?v=([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Lodash",
+      "category": "Frontend",
+      "confidence": 70,
+      "fingerprints": {
+        "scripts": [
+          "lodash.js",
+          "lodash.min.js",
+          "lodash@"
+        ]
+      },
+      "version": {
+        "scripts": [
+          "re:lodash(?:\\.min)?\\.js\\?v=([0-9.]+)",
+          "re:lodash@([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "D3.js",
+      "category": "Frontend",
+      "confidence": 75,
+      "fingerprints": {
+        "scripts": [
+          "d3.min.js",
+          "d3.v7.js",
+          "d3.v6.js",
+          "d3.v5.js",
+          "d3@"
+        ]
+      },
+      "version": {
+        "scripts": [
+          "re:d3\\.v([0-9]+)\\.js",
+          "re:d3@([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Three.js",
+      "category": "Frontend",
+      "confidence": 75,
+      "fingerprints": {
+        "scripts": [
+          "three.js",
+          "three.min.js",
+          "three.module.js",
+          "three@"
+        ]
+      },
+      "version": {
+        "scripts": [
+          "re:three@([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Chart.js",
+      "category": "Frontend",
+      "confidence": 75,
+      "fingerprints": {
+        "scripts": [
+          "chart.js",
+          "chart.min.js"
+        ]
+      },
+      "version": {
+        "scripts": [
+          "re:chart\\.js@([0-9.]+)",
+          "re:chart(?:\\.min)?\\.js\\?v=([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Moment.js",
+      "category": "Frontend",
+      "confidence": 70,
+      "fingerprints": {
+        "scripts": [
+          "moment.js",
+          "moment.min.js",
+          "moment@"
+        ]
+      },
+      "version": {
+        "scripts": [
+          "re:moment\\.js/([0-9.]+)",
+          "re:moment@([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Axios",
+      "category": "Frontend",
+      "confidence": 65,
+      "fingerprints": {
+        "scripts": [
+          "axios.js",
+          "axios.min.js",
+          "axios@"
+        ]
+      },
+      "version": {
+        "scripts": [
+          "re:axios@([0-9.]+)"
+        ]
+      }
     }
   ]
 }

@@ -1,0 +1,160 @@
+{
+  "technologies": [
+    {
+      "name": "Nginx",
+      "category": "Web Servers",
+      "confidence": 70,
+      "fingerprints": {
+        "headers": [
+          "nginx"
+        ]
+      },
+      "version": {
+        "headers": [
+          "re:nginx/([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Apache",
+      "category": "Web Servers",
+      "confidence": 70,
+      "fingerprints": {
+        "headers": [
+          "apache"
+        ]
+      },
+      "version": {
+        "headers": [
+          "re:apache/([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Microsoft IIS",
+      "category": "Web Servers",
+      "confidence": 75,
+      "fingerprints": {
+        "headers": [
+          "microsoft-iis"
+        ]
+      },
+      "version": {
+        "headers": [
+          "re:microsoft-iis/([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "LiteSpeed",
+      "category": "Web Servers",
+      "confidence": 80,
+      "fingerprints": {
+        "headers": [
+          "litespeed"
+        ]
+      }
+    },
+    {
+      "name": "OpenResty",
+      "category": "Web Servers",
+      "confidence": 80,
+      "fingerprints": {
+        "headers": [
+          "openresty"
+        ]
+      },
+      "version": {
+        "headers": [
+          "re:openresty/([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Caddy",
+      "category": "Web Servers",
+      "confidence": 80,
+      "fingerprints": {
+        "headers": [
+          "caddy"
+        ]
+      }
+    },
+    {
+      "name": "Apache Tomcat",
+      "category": "Web Servers",
+      "confidence": 75,
+      "fingerprints": {
+        "headers": [
+          "apache-coyote",
+          "tomcat"
+        ]
+      },
+      "version": {
+        "headers": [
+          "re:apache-coyote/([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Jetty",
+      "category": "Web Servers",
+      "confidence": 75,
+      "fingerprints": {
+        "headers": [
+          "jetty"
+        ]
+      },
+      "version": {
+        "headers": [
+          "re:jetty\\(([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "lighttpd",
+      "category": "Web Servers",
+      "confidence": 80,
+      "fingerprints": {
+        "headers": [
+          "lighttpd"
+        ]
+      },
+      "version": {
+        "headers": [
+          "re:lighttpd/([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Kestrel",
+      "category": "Web Servers",
+      "confidence": 75,
+      "fingerprints": {
+        "headers": [
+          "kestrel"
+        ]
+      }
+    },
+    {
+      "name": "Undertow",
+      "category": "Web Servers",
+      "confidence": 75,
+      "fingerprints": {
+        "headers": [
+          "undertow"
+        ]
+      }
+    },
+    {
+      "name": "Cowboy",
+      "category": "Web Servers",
+      "confidence": 75,
+      "fingerprints": {
+        "headers": [
+          "cowboy"
+        ]
+      }
+    }
+  ]
+}

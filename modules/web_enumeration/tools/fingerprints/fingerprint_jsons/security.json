@@ -173,6 +173,79 @@
           "modsecurity"
         ]
       }
+    },
+    {
+      "name": "Cross-Origin-Opener-Policy",
+      "category": "Security",
+      "confidence": 90,
+      "fingerprints": {
+        "headers": [
+          "cross-origin-opener-policy"
+        ]
+      }
+    },
+    {
+      "name": "Cross-Origin-Embedder-Policy",
+      "category": "Security",
+      "confidence": 90,
+      "fingerprints": {
+        "headers": [
+          "cross-origin-embedder-policy"
+        ]
+      }
+    },
+    {
+      "name": "Cross-Origin-Resource-Policy",
+      "category": "Security",
+      "confidence": 90,
+      "fingerprints": {
+        "headers": [
+          "cross-origin-resource-policy"
+        ]
+      }
+    },
+    {
+      "name": "Expect-CT",
+      "category": "Security",
+      "confidence": 85,
+      "fingerprints": {
+        "headers": [
+          "expect-ct"
+        ]
+      }
+    },
+    {
+      "name": "Feature-Policy",
+      "category": "Security",
+      "confidence": 80,
+      "fingerprints": {
+        "headers": [
+          "feature-policy"
+        ]
+      }
+    },
+    {
+      "name": "PerimeterX",
+      "category": "Security",
+      "confidence": 80,
+      "fingerprints": {
+        "headers": [
+          "x-px-"
+        ],
+        "cookies": [
+          "_px"
+        ]
+      }
+    },
+    {
+      "name": "DataDome",
+      "category": "Security",
+      "confidence": 85,
+      "fingerprints": {
+        "headers": [
+          "x-datadome"
+        ]
+      }
     }
   ]
 }

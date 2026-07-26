@@ -232,6 +232,81 @@
           "__mvc"
         ]
       }
+    },
+    {
+      "name": "PHP",
+      "category": "Backend",
+      "confidence": 60,
+      "fingerprints": {
+        "headers": [
+          "php/"
+        ]
+      },
+      "version": {
+        "headers": [
+          "re:php/([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Gunicorn",
+      "category": "Backend",
+      "confidence": 75,
+      "fingerprints": {
+        "headers": [
+          "gunicorn"
+        ]
+      },
+      "version": {
+        "headers": [
+          "re:gunicorn/([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "uWSGI",
+      "category": "Backend",
+      "confidence": 70,
+      "fingerprints": {
+        "headers": [
+          "uwsgi"
+        ]
+      }
+    },
+    {
+      "name": "Werkzeug",
+      "category": "Backend",
+      "confidence": 75,
+      "fingerprints": {
+        "headers": [
+          "werkzeug"
+        ]
+      },
+      "version": {
+        "headers": [
+          "re:werkzeug/([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Fiber",
+      "category": "Backend",
+      "confidence": 75,
+      "fingerprints": {
+        "headers": [
+          "fiber"
+        ]
+      }
+    },
+    {
+      "name": "Phusion Passenger",
+      "category": "Backend",
+      "confidence": 70,
+      "fingerprints": {
+        "headers": [
+          "phusion passenger"
+        ]
+      }
     }
   ]
 }

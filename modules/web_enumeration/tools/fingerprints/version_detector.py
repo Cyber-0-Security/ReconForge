@@ -69,6 +69,15 @@ class VersionDetector:
 
             try:
 
+                #
+                # Patterns are stored with a "re:" prefix to mark
+                # them as regular expressions in the JSON database.
+                # That prefix itself isn't part of the pattern.
+                #
+
+                if pattern.startswith("re:"):
+                    pattern = pattern[3:]
+
                 match = re.search(
                     pattern,
                     text,

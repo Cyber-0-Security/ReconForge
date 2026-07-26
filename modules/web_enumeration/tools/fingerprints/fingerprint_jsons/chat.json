@@ -217,6 +217,79 @@
           "gorgias.chat"
         ]
       }
+    },
+    {
+      "name": "Facebook Messenger Chat",
+      "category": "Chat",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "fb-customerchat"
+        ],
+        "scripts": [
+          "connect.facebook.net"
+        ]
+      }
+    },
+    {
+      "name": "Kommunicate",
+      "category": "Chat",
+      "confidence": 75,
+      "fingerprints": {
+        "scripts": [
+          "kommunicate.io"
+        ]
+      }
+    },
+    {
+      "name": "Re:amaze",
+      "category": "Chat",
+      "confidence": 75,
+      "fingerprints": {
+        "scripts": [
+          "reamaze.com"
+        ]
+      }
+    },
+    {
+      "name": "Chatra",
+      "category": "Chat",
+      "confidence": 75,
+      "fingerprints": {
+        "scripts": [
+          "chatra.io"
+        ]
+      }
+    },
+    {
+      "name": "LiveAgent",
+      "category": "Chat",
+      "confidence": 75,
+      "fingerprints": {
+        "scripts": [
+          "liveagent.com"
+        ]
+      }
+    },
+    {
+      "name": "Pure Chat",
+      "category": "Chat",
+      "confidence": 75,
+      "fingerprints": {
+        "scripts": [
+          "purechat.com"
+        ]
+      }
+    },
+    {
+      "name": "REVE Chat",
+      "category": "Chat",
+      "confidence": 75,
+      "fingerprints": {
+        "scripts": [
+          "revechat.com"
+        ]
+      }
     }
   ]
 }
