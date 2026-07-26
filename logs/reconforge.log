@@ -799,3 +799,33 @@ AttributeError: 'Report' object has no attribute 'export_json'
 2026-07-26 15:41:03 [INFO] Running HTTP Headers lookup...
 2026-07-26 15:41:04 [INFO] Report exported to reports/report_20260726_154104.json
 2026-07-26 15:41:04 [INFO] [SUCCESS] Full Recon completed in 0:00:06.921337
+2026-07-26 15:42:11 [INFO] Starting ReconForge
+2026-07-26 15:42:11 [INFO] Starting ReconForge menu.
+2026-07-26 15:42:12 [INFO] Selected module: web_enumeration
+2026-07-26 15:42:12 [INFO] Loading module: web_enumeration
+2026-07-26 15:42:12 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-07-26 15:42:13 [INFO] Executing TechnologyDetectionTool
+2026-07-26 15:42:13 [INFO] Starting Technology Detection...
+2026-07-26 15:42:19 [INFO] [SUCCESS] Technology Detection completed in 0:00:05.532766
+2026-07-26 15:43:34 [INFO] Starting ReconForge
+2026-07-26 15:43:34 [INFO] Starting ReconForge menu.
+2026-07-26 15:43:36 [INFO] Selected module: web_enumeration
+2026-07-26 15:43:36 [INFO] Loading module: web_enumeration
+2026-07-26 15:43:36 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-07-26 15:43:37 [INFO] Executing TechnologyDetectionTool
+2026-07-26 15:43:37 [INFO] Starting Technology Detection...
+2026-07-26 15:43:42 [INFO] [SUCCESS] Technology Detection completed in 0:00:05.469653
+2026-07-26 15:43:48 [INFO] [SUCCESS] Module execution completed.
+2026-07-26 15:43:50 [INFO] Selected module: information_gathering
+2026-07-26 15:43:50 [INFO] Loading module: information_gathering
+2026-07-26 15:43:50 [INFO] [SUCCESS] information_gathering loaded successfully.
+2026-07-26 15:43:51 [INFO] Executing FullReconTool
+2026-07-26 15:43:51 [INFO] Starting Full Recon...
+2026-07-26 15:43:54 [INFO] Running WHOIS lookup...
+2026-07-26 15:43:55 [INFO] Running Subdomain Enumeration...
+2026-07-26 15:43:57 [INFO] Running DNS lookup...
+2026-07-26 15:43:57 [INFO] Running Reverse DNS lookup...
+2026-07-26 15:43:57 [INFO] Running IP Information lookup...
+2026-07-26 15:43:57 [INFO] Running HTTP Headers lookup...
+2026-07-26 15:43:57 [INFO] Report exported to reports/report_20260726_154357.json
+2026-07-26 15:43:57 [INFO] [SUCCESS] Full Recon completed in 0:00:06.180058

@@ -2,7 +2,7 @@
 core/report.py
 
 Report Generation Module – Enhanced with beautiful formatting,
-timestamped JSON exports, and smart truncation.
+timestamped JSON exports, smart truncation, and technology grouping.
 """
 
 from __future__ import annotations
@@ -42,7 +42,27 @@ class Report:
             print(f"{Colors.BOLD}{title.upper()}{Colors.RESET}")
             print(f"{Colors.GREEN}{'='*60}{Colors.RESET}")
 
-            # Smart rendering based on data type
+            # ---- TECHNOLOGY DETECTION: group by category ----
+            if (isinstance(data, list) and 
+                all(isinstance(item, dict) and 'category' in item for item in data)):
+                categorized = {}
+                for item in data:
+                    cat = item.get('category', 'Unknown')
+                    categorized.setdefault(cat, []).append(item)
+                for category, items in sorted(categorized.items()):
+                    print(f"\n{category}")
+                    print('-' * 40)
+                    for item in items:
+                        name = item.get('name', 'Unknown')
+                        conf = item.get('confidence', 0)
+                        ver = item.get('version')
+                        if ver:
+                            print(f"  • {name} {ver} (confidence: {conf}%)")
+                        else:
+                            print(f"  • {name} (confidence: {conf}%)")
+                continue
+
+            # ---- OTHER LISTS / DICTS ----
             if isinstance(data, dict):
                 self._print_dict(data)
             elif isinstance(data, list):
@@ -105,7 +125,6 @@ class Report:
         If filename is not given, save to reports/report_<timestamp>.json.
         """
         if filename is None:
-            # Create reports directory if it doesn't exist
             os.makedirs("reports", exist_ok=True)
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             filename = f"reports/report_{timestamp}.json"
