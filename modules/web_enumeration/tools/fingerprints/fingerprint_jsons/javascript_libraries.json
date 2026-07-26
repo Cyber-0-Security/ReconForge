@@ -5,11 +5,23 @@
       "category": "JavaScript Libraries",
       "confidence": 85,
       "fingerprints": {
-        "html": ["lodash", "_."],
-        "scripts": ["lodash", "lodash.min.js"]
+        "html": [
+          "lodash",
+          "_."
+        ],
+        "scripts": [
+          "lodash",
+          "lodash.min.js"
+        ],
+        "script_content": [
+          "lodash"
+        ]
       },
       "version": {
-        "scripts": ["re:lodash(?:\\.min)?\\.js\\?v=([0-9.]+)", "re:lodash-([0-9.]+)"]
+        "scripts": [
+          "re:lodash(?:\\.min)?\\.js\\?v=([0-9.]+)",
+          "re:lodash-([0-9.]+)"
+        ]
       }
     },
     {
@@ -17,10 +29,20 @@
       "category": "JavaScript Libraries",
       "confidence": 80,
       "fingerprints": {
-        "scripts": ["core-js", "core-js-bundle"]
+        "scripts": [
+          "core-js",
+          "core-js-bundle"
+        ],
+        "script_content": [
+          "core-js/modules",
+          "core-js"
+        ]
       },
       "version": {
-        "scripts": ["re:core-js@([0-9.]+)", "re:core-js\\.([0-9.]+)"]
+        "scripts": [
+          "re:core-js@([0-9.]+)",
+          "re:core-js\\.([0-9.]+)"
+        ]
       }
     },
     {
@@ -28,7 +50,14 @@
       "category": "JavaScript Libraries",
       "confidence": 75,
       "fingerprints": {
-        "scripts": ["loadable-components", "@loadable/component"]
+        "scripts": [
+          "loadable-components",
+          "@loadable/component"
+        ],
+        "script_content": [
+          "loadable-components",
+          "@loadable/component"
+        ]
       }
     },
     {
@@ -36,8 +65,16 @@
       "category": "JavaScript Libraries",
       "confidence": 75,
       "fingerprints": {
-        "html": ["react-native-web", "__reactNativeWeb"],
-        "scripts": ["react-native-web"]
+        "html": [
+          "react-native-web",
+          "__reactNativeWeb"
+        ],
+        "scripts": [
+          "react-native-web"
+        ],
+        "script_content": [
+          "react-native-web"
+        ]
       }
     }
   ]

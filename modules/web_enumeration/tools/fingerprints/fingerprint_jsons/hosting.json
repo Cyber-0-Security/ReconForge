@@ -190,7 +190,8 @@
       "confidence": 75,
       "fingerprints": {
         "html": [
-          "ovh"
+          "ovhcloud",
+          "ovh.net"
         ]
       }
     },

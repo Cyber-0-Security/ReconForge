@@ -11,6 +11,7 @@ import json
 import re
 import glob
 from typing import Dict, List, Optional, Any
+from urllib.parse import urljoin, urlparse
 
 import requests
 
@@ -18,6 +19,19 @@ from core.base_tool import BaseTool
 from core.logger import logger
 from core.validator import validator
 from core.report import Report
+from modules.web_enumeration.tools.fingerprints.challenge import detect_challenge_page
+
+
+#
+# Bounds for fetching external script file contents. Wappalyzer-style
+# tools get much of their JS-library detection from the *contents* of
+# bundled JS files, not just their URLs/filenames - a hashed webpack
+# chunk name tells you nothing, but the code inside it often does.
+# These limits keep that from turning into an unbounded crawl.
+#
+MAX_SCRIPTS_TO_FETCH = 8
+MAX_SCRIPT_BYTES = 300_000
+SCRIPT_FETCH_TIMEOUT = 6
 
 
 # ---- Only truly mutually exclusive categories ----
@@ -82,17 +96,105 @@ class TechnologyDetectionTool(BaseTool):
                         compiled.append(p)
                 tech["version"][source] = compiled
 
-    def _extract_data(self, html: str, headers: Dict, cookies: Dict, scripts: List[str]) -> Dict[str, List[str]]:
+    def _extract_data(
+        self,
+        html: str,
+        headers: Dict,
+        cookies: Dict,
+        scripts: List[str],
+        script_contents: List[str],
+    ) -> Dict[str, List[str]]:
         """Extract all searchable content from the target."""
         data = {
             "html": [html],
-            "scripts": scripts,   # list of script src/content
+            "scripts": scripts,   # list of script src URLs
+            "script_content": script_contents,  # actual fetched JS bodies
             "meta": re.findall(r'<meta[^>]+>', html, re.IGNORECASE),
             "headers": [f"{k}: {v}" for k, v in headers.items()],
             "cookies": [f"{k}={v}" for k, v in cookies.items()],
             "css": re.findall(r'<link[^>]+rel="stylesheet"[^>]+href="[^"]+"', html, re.IGNORECASE),
+            "text": [self._strip_tags(html)],
         }
         return data
+
+    @staticmethod
+    def _strip_tags(html: str) -> str:
+        """
+        Reduce HTML to plain visible-ish text, so 'text' fingerprints
+        (e.g. a brand name that only appears in body copy) actually
+        have something to search against, instead of always being
+        empty.
+        """
+
+        without_scripts = re.sub(
+            r"<(script|style)[^>]*>.*?</\1>",
+            " ",
+            html,
+            flags=re.IGNORECASE | re.DOTALL,
+        )
+
+        without_tags = re.sub(r"<[^>]+>", " ", without_scripts)
+
+        return re.sub(r"\s+", " ", without_tags).strip()
+
+    def _fetch_script_contents(
+        self,
+        base_url: str,
+        script_srcs: List[str],
+        headers: Dict[str, str],
+    ) -> List[str]:
+        """
+        Download the actual contents of a bounded number of linked
+        script files. This is what makes JS-library/framework
+        detection possible for bundled production sites, where the
+        filename itself (e.g. main.a1b2c3.js) carries no information
+        but the code inside it does.
+        """
+
+        bodies: List[str] = []
+
+        candidates = []
+
+        for src in script_srcs:
+
+            parsed = urlparse(src)
+
+            if parsed.scheme in ("data", "blob"):
+                continue
+
+            absolute = urljoin(base_url, src)
+            candidates.append(absolute)
+
+        for script_url in candidates[:MAX_SCRIPTS_TO_FETCH]:
+
+            try:
+
+                resp = requests.get(
+                    script_url,
+                    timeout=SCRIPT_FETCH_TIMEOUT,
+                    headers=headers,
+                    stream=True,
+                )
+
+                chunk = resp.raw.read(
+                    MAX_SCRIPT_BYTES,
+                    decode_content=True,
+                )
+
+                bodies.append(
+                    chunk.decode("utf-8", errors="ignore")
+                )
+
+            except requests.RequestException:
+
+                #
+                # A single unreachable/slow script shouldn't stop
+                # the whole scan - just skip it.
+                #
+
+                continue
+
+        return bodies
 
     def _match_pattern(self, pattern: Any, text: str) -> bool:
         """Check if pattern (literal or compiled regex) matches text."""
@@ -154,7 +256,11 @@ class TechnologyDetectionTool(BaseTool):
 
     def _detect(self, html: str, headers: Dict, cookies: Dict, scripts: List[str]) -> List[Dict]:
         """Run detection against all technologies and return list of results."""
-        data = self._extract_data(html, headers, cookies, scripts)
+        data = self._extract_data(html, headers, cookies, scripts, script_contents=[])
+        return self._detect_from_data(data)
+
+    def _detect_from_data(self, data: Dict[str, List[str]]) -> List[Dict]:
+        """Run detection against all technologies using an already-built data dict."""
         results = []
 
         for tech in self.techs:
@@ -281,7 +387,27 @@ class TechnologyDetectionTool(BaseTool):
             cookies = response.cookies.get_dict()
             scripts = re.findall(r'<script[^>]+src="([^"]+)"', html, re.IGNORECASE)
 
-            results = self._detect(html, headers, cookies, scripts)
+            logger.info(
+                f"Received {response.status_code} response "
+                f"({len(response.content)} bytes, {len(scripts)} scripts found)"
+            )
+
+            challenge = detect_challenge_page(response.status_code, html)
+
+            if challenge:
+                logger.warning(
+                    f"Response looks like a {challenge} "
+                    "challenge/block page, not real site content"
+                )
+
+            script_contents = self._fetch_script_contents(
+                response.url,
+                scripts,
+                request_headers,
+            )
+
+            data = self._extract_data(html, headers, cookies, scripts, script_contents)
+            results = self._detect_from_data(data)
         except requests.exceptions.RequestException as e:
             logger.error(f"Failed to fetch {url}: {e}")
             if display:
@@ -291,6 +417,14 @@ class TechnologyDetectionTool(BaseTool):
 
         if display:
             print(f"\n[+] Detected {len(results)} technologies")
+
+            if challenge:
+                print(
+                    f"⚠ This response looks like a {challenge} - "
+                    "detected technologies below may be inaccurate "
+                    "or incomplete as a result."
+                )
+
             report = Report()
             report.add_section("Technology Detection", results)
             report.display()

@@ -6,23 +6,19 @@
       "confidence": 85,
       "fingerprints": {
         "html": [
-          "data-reactroot",
-          "_reactRootContainer",
-          "__REACT_DEVTOOLS_GLOBAL_HOOK__",
           "reactroot",
-          "react-root"
+          "react-root",
+          "__REACT_DEVTOOLS_GLOBAL_HOOK__"
         ],
         "scripts": [
           "react.production.min.js",
           "react-dom.production.min.js",
           "react@",
-          "react-dom@",
-          "react-",
-          "react."
+          "react-dom@"
         ],
-        "text": [
-          "React",
-          "react"
+        "script_content": [
+          "__REACT_DEVTOOLS_GLOBAL_HOOK__",
+          "Minified React error #"
         ],
         "headers": [
           "x-powered-by"
@@ -36,17 +32,25 @@
         ]
       }
     },
-    
     {
       "name": "React Router",
       "category": "Frontend",
       "confidence": 85,
       "fingerprints": {
-        "html": ["react-router", "data-react-router"],
-        "scripts": ["react-router", "react-router-dom"]
+        "html": [
+          "react-router",
+          "data-react-router"
+        ],
+        "scripts": [
+          "react-router",
+          "react-router-dom"
+        ]
       },
       "version": {
-        "scripts": ["re:react-router(?:-dom)?@([0-9.]+)", "re:react-router\\.([0-9.]+)"]
+        "scripts": [
+          "re:react-router(?:-dom)?@([0-9.]+)",
+          "re:react-router\\.([0-9.]+)"
+        ]
       }
     },
     {
@@ -54,8 +58,13 @@
       "category": "Frontend",
       "confidence": 75,
       "fingerprints": {
-        "html": ["react-native-web", "__reactNativeWeb"],
-        "scripts": ["react-native-web"]
+        "html": [
+          "react-native-web",
+          "__reactNativeWeb"
+        ],
+        "scripts": [
+          "react-native-web"
+        ]
       }
     },
     {
@@ -168,11 +177,7 @@
       "confidence": 80,
       "fingerprints": {
         "html": [
-          "remix",
           "__remixcontext"
-        ],
-        "scripts": [
-          "remix"
         ]
       }
     },
@@ -182,8 +187,8 @@
       "confidence": 80,
       "fingerprints": {
         "html": [
-          "ember",
-          "ember-view"
+          "ember-view",
+          "data-ember-action"
         ],
         "scripts": [
           "ember.js",

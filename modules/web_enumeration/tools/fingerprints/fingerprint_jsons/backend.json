@@ -66,9 +66,7 @@
       "fingerprints": {
         "html": [
           "yii\\web",
-          "yii2",
-          "csrf-param",
-          "csrf-token"
+          "yii2"
         ],
         "headers": [
           "yii"
@@ -104,12 +102,6 @@
         "headers": [
           "werkzeug",
           "flask"
-        ],
-        "cookies": [
-          "session"
-        ],
-        "html": [
-          "flask"
         ]
       }
     },
@@ -134,9 +126,6 @@
       "confidence": 75,
       "fingerprints": {
         "headers": [
-          "express"
-        ],
-        "html": [
           "express"
         ]
       }
@@ -180,11 +169,6 @@
         ],
         "cookies": [
           "_session"
-        ],
-        "html": [
-          "rails",
-          "csrf-param",
-          "csrf-token"
         ]
       }
     },
@@ -194,7 +178,6 @@
       "confidence": 80,
       "fingerprints": {
         "html": [
-          "phoenix",
           "phx-"
         ]
       }

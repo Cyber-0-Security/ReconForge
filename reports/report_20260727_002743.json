@@ -1,0 +1,142 @@
+[
+  [
+    "WHOIS",
+    {
+      "Domain Name": "FLIPKART.COM",
+      "Registrar": "GoDaddy.com, LLC",
+      "Creation Date": "2007-06-03",
+      "Expiration Date": "2027-06-03",
+      "Updated Date": "2026-06-04",
+      "Name Servers": [
+        "SDNS14.ULTRADNS.BIZ",
+        "SDNS14.ULTRADNS.COM",
+        "SDNS14.ULTRADNS.NET",
+        "SDNS14.ULTRADNS.ORG"
+      ],
+      "Status": [
+        "clientDeleteProhibited https://icann.org/epp#clientDeleteProhibited",
+        "clientRenewProhibited https://icann.org/epp#clientRenewProhibited",
+        "clientTransferProhibited https://icann.org/epp#clientTransferProhibited",
+        "clientUpdateProhibited https://icann.org/epp#clientUpdateProhibited"
+      ],
+      "Emails": "abuse@godaddy.com",
+      "DNSSEC": "unsigned"
+    }
+  ],
+  [
+    "Subdomains",
+    [
+      "1.chat.flipkart.com",
+      "1.fdp.api.flipkart.com",
+      "1.rome.api.flipkart.com",
+      "1.sonic.fdp.api.flipkart.com",
+      "1.upi.rome.api.flipkart.com",
+      "2.chat.flipkart.com",
+      "2.fdp.api.flipkart.com",
+      "2.rome.api.flipkart.com",
+      "2.sonic.fdp.api.flipkart.com",
+      "2.upi.rome.api.flipkart.com",
+      "ac.flipkart.com",
+      "accounts.flipkart.com",
+      "adfs.flipkart.com",
+      "adp.flipkart.com",
+      "ads.cloud.flipkart.com",
+      "ads.flipkart.com",
+      "advertising.flipkart.com",
+      "affiliate.flipkart.com",
+      "api.translation.cloud.flipkart.com",
+      "auth.flipkart.com",
+      "beta-homeservice.flipkart.com",
+      "beta-seller.flipkart.com",
+      "brandhub.flipkart.com",
+      "brandmanager.flipkart.com",
+      "brands.flipkart.com",
+      "chat.flipkart.com",
+      "checkout.cloud.flipkart.com",
+      "cloud.flipkart.com",
+      "console.cloud.flipkart.com",
+      "delivery.flipkart.com",
+      "dl.flipkart.com",
+      "edigateway-prod.api.flipkart.com",
+      "edigateway-uat.api.flipkart.com",
+      "ekl-fm-during.flipkart.com",
+      "ekl-port-app.flipkart.com",
+      "induna.ch.flipkart.com",
+      "ondc-preprod.api.flipkart.com",
+      "ondc.api.flipkart.com",
+      "partners.digital.flipkart.com",
+      "pricing.cloud.flipkart.com",
+      "pricing2.cloud.flipkart.com",
+      "rome.api.flipkart.com",
+      "sonic.fdp.api.flipkart.com",
+      "static01.digital.flipkart.com",
+      "static02.digital.flipkart.com",
+      "static03.digital.flipkart.com",
+      "superset.pricing2.cloud.flipkart.com",
+      "upi.pg.rome.api.flipkart.com",
+      "upi.rome.api.flipkart.com",
+      "vast.ads.flipkart.com"
+    ]
+  ],
+  [
+    "DNS",
+    {
+      "A": [
+        "163.53.76.86"
+      ],
+      "AAAA": [],
+      "MX": [
+        "1 eu-smtp-inbound-1.mimecast.com.",
+        "1 eu-smtp-inbound-2.mimecast.com."
+      ],
+      "NS": [
+        "sdns14.ultradns.biz.",
+        "sdns14.ultradns.net.",
+        "sdns14.ultradns.org.",
+        "sdns14.ultradns.com."
+      ],
+      "TXT": [],
+      "CNAME": [],
+      "SOA": [
+        "pdns1.ultradns.net. sysadmin.flipkart.com. 2017033224 10800 900 604800 10800"
+      ]
+    }
+  ],
+  [
+    "Reverse DNS",
+    {
+      "PTR": []
+    }
+  ],
+  [
+    "IP Information",
+    {
+      "IP Address": "163.53.76.86",
+      "Country": "India",
+      "Region": "Karnataka",
+      "City": "Bengaluru",
+      "ISP": "Flipkart Internet Pvt Ltd",
+      "Organization": "Flipkart Internet Pvt Ltd",
+      "ASN": "AS9752 Flipkart Internet Pvt Ltd",
+      "Timezone": "Asia/Kolkata",
+      "Latitude": "12.9323",
+      "Longitude": "77.6275"
+    }
+  ],
+  [
+    "HTTP Headers",
+    {
+      "Status Code": 403,
+      "Final URL": "https://flipkart.com/",
+      "Headers": {
+        "access-control-allow-origin": "https://www.flipkart.com",
+        "x-captcha-validate": "true",
+        "access-control-allow-headers": "x-captcha-validate",
+        "access-control-expose-headers": "x-captcha-validate",
+        "access-control-allow-credentials": "true",
+        "content-length": "787",
+        "content-type": "text/html"
+      }
+    }
+  ]
+]

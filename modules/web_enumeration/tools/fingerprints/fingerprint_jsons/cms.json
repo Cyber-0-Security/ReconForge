@@ -237,11 +237,7 @@
       "category": "CMS",
       "confidence": 80,
       "fingerprints": {
-        "headers": [
-          "dnn"
-        ],
         "html": [
-          "dnn",
           "dotnetnuke"
         ]
       }
