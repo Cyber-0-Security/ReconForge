@@ -21,6 +21,33 @@
       }
     },
     {
+      "name": "OVHcloud",
+      "category": "Infrastructure",
+      "confidence": 85,
+      "fingerprints": {
+        "headers": ["x-ovh-"],
+        "html": ["ovhcloud", "ovh.net"]
+      }
+    },
+    {
+      "name": "AWS",
+      "category": "Infrastructure",
+      "confidence": 80,
+      "fingerprints": {
+        "headers": ["x-amz-", "aws"],
+        "html": ["amazonaws.com"]
+      }
+    },
+    {
+      "name": "Google Cloud",
+      "category": "Infrastructure",
+      "confidence": 80,
+      "fingerprints": {
+        "headers": ["x-guploader-"],
+        "html": ["cloud.google.com"]
+      }
+    },
+    {
       "name": "Amazon CloudFront",
       "category": "Infrastructure",
       "confidence": 85,

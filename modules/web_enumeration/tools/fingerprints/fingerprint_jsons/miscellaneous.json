@@ -1,0 +1,28 @@
+{
+  "technologies": [
+    {
+      "name": "Open Graph",
+      "category": "Miscellaneous",
+      "confidence": 95,
+      "fingerprints": {
+        "meta": ["og:title", "og:description", "og:image", "og:url"]
+      }
+    },
+    {
+      "name": "Priority Hints",
+      "category": "Performance",
+      "confidence": 80,
+      "fingerprints": {
+        "html": ["fetchpriority", "importance=\"high\""]
+      }
+    },
+    {
+      "name": "Viewport Meta",
+      "category": "Miscellaneous",
+      "confidence": 90,
+      "fingerprints": {
+        "meta": ["viewport"]
+      }
+    }
+  ]
+}

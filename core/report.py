@@ -1,208 +1,119 @@
 """
 core/report.py
 
-Central report object used by ReconForge.
-
-Stores reconnaissance results and renders
-them in a clean CLI format.
-
-Future versions can export to:
-    - JSON
-    - HTML
-    - PDF
+Report Generation Module – Enhanced with beautiful formatting,
+timestamped JSON exports, and smart truncation.
 """
 
 from __future__ import annotations
-from typing import Any
-from config.constants import Colors
+
 import json
-from pathlib import Path
+import os
 from datetime import datetime
-from uuid import uuid4
+from typing import Any
+
+# ---- ANSI color codes (fallback) ----
+class Colors:
+    GREEN = '\033[92m'
+    CYAN = '\033[96m'
+    YELLOW = '\033[93m'
+    BLUE = '\033[94m'
+    MAGENTA = '\033[95m'
+    RED = '\033[91m'
+    BOLD = '\033[1m'
+    RESET = '\033[0m'
 
 
 class Report:
-    """
-    Store and display scan results.
-    """
-
-    WIDTH = 70
-
     def __init__(self) -> None:
-
-        self._sections: dict[str, Any] = {}
-        self.generated_at = datetime.now()
-        self.report_id = str(uuid4())
-
-    def add_section(self, name: str, data: Any) -> None:
-        """
-        Add or replace a report section.
-        """
-
-        self._sections[name] = data
-
-    def get_section(self, name: str) -> Any:
-        """
-        Return one report section.
-        """
-
-        return self._sections.get(name)
+        self._sections: list[tuple[str, Any]] = []
 
     def clear(self) -> None:
-        """
-        Remove all collected data.
-        """
+        self._sections = []
 
-        self._sections.clear()
-
-    @staticmethod
-    def title(text: str) -> None:
-        """
-        Display a report title.
-        """
-
-        print()
-        print("═" * Report.WIDTH)
-        print(f"{Colors.BOLD}{text.center(Report.WIDTH)}{Colors.RESET}")
-        print("═" * Report.WIDTH)
-
-    @staticmethod
-    def section(text: str) -> None:
-        """
-        Display a section heading.
-        """
-
-        print()
-        print(f"{Colors.CYAN}{text}{Colors.RESET}")
-        print("─" * Report.WIDTH)
-
-    @staticmethod
-    def field(name: str, value: Any) -> None:
-        """
-        Display one field.
-        """
-
-        if value is None:
-            value = "N/A"
-
-        print(f"{name:<20}: {value}")
-
-    @staticmethod
-    def list_field(name: str, values: Any) -> None:
-        """
-        Display a list neatly.
-        """
-
-        if not values:
-
-            Report.field(name, "N/A")
-
-            return
-
-        if not isinstance(values, list):
-
-            values = [values]
-
-        Report.field(name, values[0])
-
-        for item in values[1:]:
-
-            print(f"{'':<20}  {item}")
-
-    @staticmethod
-    def success(message: str) -> None:
-        """
-        Display a success footer.
-        """
-
-        print()
-        print("═" * Report.WIDTH)
-        print(f"{Colors.GREEN}✓ {message}{Colors.RESET}")
-        print("═" * Report.WIDTH)
+    def add_section(self, title: str, data: Any) -> None:
+        self._sections.append((title, data))
 
     def display(self) -> None:
-        """
-        Display all collected sections.
-        """
+        """Print the entire report with beautiful formatting."""
+        for title, data in self._sections:
+            # Section header
+            print(f"\n{Colors.GREEN}{'='*60}{Colors.RESET}")
+            print(f"{Colors.BOLD}{title.upper()}{Colors.RESET}")
+            print(f"{Colors.GREEN}{'='*60}{Colors.RESET}")
 
-        if not self._sections:
+            # Smart rendering based on data type
+            if isinstance(data, dict):
+                self._print_dict(data)
+            elif isinstance(data, list):
+                self._print_list(data, title)
+            else:
+                print(f"  {data}")
 
-            print("No report data available.")
+    def _print_dict(self, data: dict, indent: int = 0) -> None:
+        """Print a dictionary with nice formatting."""
+        prefix = "  " * indent
+        for key, value in data.items():
+            if isinstance(value, dict):
+                print(f"{prefix}{Colors.CYAN}{key}:{Colors.RESET}")
+                self._print_dict(value, indent + 1)
+            elif isinstance(value, list):
+                # If it's a list of simple values, print inline
+                if all(not isinstance(v, (dict, list)) for v in value):
+                    print(f"{prefix}{Colors.YELLOW}{key}:{Colors.RESET} {', '.join(str(v) for v in value)}")
+                else:
+                    print(f"{prefix}{Colors.CYAN}{key}:{Colors.RESET}")
+                    for item in value:
+                        if isinstance(item, dict):
+                            self._print_dict(item, indent + 1)
+                        else:
+                            print(f"{'  ' * (indent+1)}• {item}")
+            else:
+                print(f"{prefix}{Colors.YELLOW}{key}:{Colors.RESET} {value}")
 
+    def _print_list(self, data: list, title: str) -> None:
+        """Print a list – show all subdomains, truncate other long lists."""
+        total = len(data)
+        if total == 0:
+            print("  (none)")
             return
 
-        print("\n" + "=" * 70)
-        print("RECONFORGE REPORT")
-        print("=" * 70)
-        print(f"Generated : {self.generated_at.strftime('%Y-%m-%d %H:%M:%S')}")
-        print("=" * 70)
+        # Show all subdomains
+        if "SUBDOMAINS" in title.upper():
+            for item in data:
+                print(f"  • {item}")
+            return
 
-        for section, data in self._sections.items():
+        # For other lists, truncate if too long
+        if total > 15:
+            for item in data[:10]:
+                print(f"  • {item}")
+            print(f"  {Colors.MAGENTA}... and {total - 10} more{Colors.RESET}")
+        else:
+            for item in data:
+                print(f"  • {item}")
 
-            print(f"\n[{section}]")
-            print("-" * 70)
+    def to_dict(self) -> dict[str, Any]:
+        return dict(self._sections)
 
-            if isinstance(data, dict):
+    def to_json(self, indent: int = 2) -> str:
+        return json.dumps(self._sections, indent=indent, default=str)
 
-                for key, value in data.items():
-
-                    if isinstance(value, list):
-
-                        if not value:
-                            print(f"{key:<20}: N/A")
-
-                        else:
-                            print(f"{key:<20}: {value[0]}")
-
-                            for item in value[1:]:
-                                print(f"{'':<20}  {item}")
-
-                    else:
-                        print(f"{key:<20}: {value}")
-
-            elif isinstance(data, list):
-
-                if not data:
-                    print("N/A")
-
-                else:
-                    for index, item in enumerate(data, start=1):
-                        print(f"{index}. {item}")
-
-            else:
-
-                print(data)
-
-        print("\n" + "=" * 70)
-    def export_json(self) -> None:
+    def export_json(self, filename: str = None) -> None:
         """
-        Export report as JSON.
+        Export the report to a JSON file.
+        If filename is not given, save to reports/report_<timestamp>.json.
         """
+        if filename is None:
+            # Create reports directory if it doesn't exist
+            os.makedirs("reports", exist_ok=True)
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"reports/report_{timestamp}.json"
+        with open(filename, "w") as f:
+            f.write(self.to_json())
+        from core.logger import logger
+        logger.info(f"Report exported to {filename}")
 
-        reports_dir = Path("reports")
-        reports_dir.mkdir(exist_ok=True)
 
-        filename = (f"recon_{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}.json")
-
-        output = reports_dir / filename
-
-        with output.open(
-            "w",
-            encoding="utf-8",
-        ) as file:
-
-            json.dump(
-                {
-                    "report_id": self.report_id,
-                    "generated_at": self.generated_at.strftime(
-                        "%Y-%m-%d %H:%M:%S"
-                    ),
-                    "sections": self._sections,
-                },
-                file,
-                indent=4,
-                default=str,
-            )
-
-        print(f"\nReport saved to: {output}")
+# Global singleton for backward compatibility
 report = Report()

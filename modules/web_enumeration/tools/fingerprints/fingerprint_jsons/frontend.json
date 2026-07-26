@@ -3,29 +3,59 @@
     {
       "name": "React",
       "category": "Frontend",
-      "confidence": 80,
+      "confidence": 85,
       "fingerprints": {
         "html": [
           "data-reactroot",
           "_reactRootContainer",
           "__REACT_DEVTOOLS_GLOBAL_HOOK__",
-          "reactroot"
+          "reactroot",
+          "react-root"
         ],
         "scripts": [
           "react.production.min.js",
           "react-dom.production.min.js",
           "react@",
-          "react-dom@"
+          "react-dom@",
+          "react-",
+          "react."
         ],
         "text": [
+          "React",
           "react"
+        ],
+        "headers": [
+          "x-powered-by"
         ]
       },
       "version": {
         "scripts": [
           "re:react(?:\\.production)?(?:\\.min)?\\.js\\?v=([0-9.]+)",
-          "re:react(?:[-@])([0-9.]+)"
+          "re:react(?:[-@])([0-9.]+)",
+          "re:React v([0-9.]+)"
         ]
+      }
+    },
+    
+    {
+      "name": "React Router",
+      "category": "Frontend",
+      "confidence": 85,
+      "fingerprints": {
+        "html": ["react-router", "data-react-router"],
+        "scripts": ["react-router", "react-router-dom"]
+      },
+      "version": {
+        "scripts": ["re:react-router(?:-dom)?@([0-9.]+)", "re:react-router\\.([0-9.]+)"]
+      }
+    },
+    {
+      "name": "React Native for Web",
+      "category": "Frontend",
+      "confidence": 75,
+      "fingerprints": {
+        "html": ["react-native-web", "__reactNativeWeb"],
+        "scripts": ["react-native-web"]
       }
     },
     {

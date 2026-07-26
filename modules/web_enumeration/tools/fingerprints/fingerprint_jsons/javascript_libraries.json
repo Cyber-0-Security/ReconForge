@@ -1,0 +1,44 @@
+{
+  "technologies": [
+    {
+      "name": "Lodash",
+      "category": "JavaScript Libraries",
+      "confidence": 85,
+      "fingerprints": {
+        "html": ["lodash", "_."],
+        "scripts": ["lodash", "lodash.min.js"]
+      },
+      "version": {
+        "scripts": ["re:lodash(?:\\.min)?\\.js\\?v=([0-9.]+)", "re:lodash-([0-9.]+)"]
+      }
+    },
+    {
+      "name": "core-js",
+      "category": "JavaScript Libraries",
+      "confidence": 80,
+      "fingerprints": {
+        "scripts": ["core-js", "core-js-bundle"]
+      },
+      "version": {
+        "scripts": ["re:core-js@([0-9.]+)", "re:core-js\\.([0-9.]+)"]
+      }
+    },
+    {
+      "name": "Loadable-Components",
+      "category": "JavaScript Libraries",
+      "confidence": 75,
+      "fingerprints": {
+        "scripts": ["loadable-components", "@loadable/component"]
+      }
+    },
+    {
+      "name": "React Native for Web",
+      "category": "JavaScript Libraries",
+      "confidence": 75,
+      "fingerprints": {
+        "html": ["react-native-web", "__reactNativeWeb"],
+        "scripts": ["react-native-web"]
+      }
+    }
+  ]
+}
