@@ -279,6 +279,27 @@
           "skrill.com"
         ]
       }
+    },
+    {
+      "name": "PayU",
+      "category": "Payment",
+      "confidence": 80,
+      "fingerprints": {
+        "scripts": [
+          "payu.in",
+          "secure.payu.in"
+        ]
+      }
+    },
+    {
+      "name": "BillDesk",
+      "category": "Payment",
+      "confidence": 80,
+      "fingerprints": {
+        "scripts": [
+          "billdesk.com"
+        ]
+      }
     }
   ]
 }

@@ -829,36 +829,35 @@ AttributeError: 'Report' object has no attribute 'export_json'
 2026-07-26 15:43:57 [INFO] Running HTTP Headers lookup...
 2026-07-26 15:43:57 [INFO] Report exported to reports/report_20260726_154357.json
 2026-07-26 15:43:57 [INFO] [SUCCESS] Full Recon completed in 0:00:06.180058
-2026-07-27 00:27:32 [INFO] Starting ReconForge
-2026-07-27 00:27:32 [INFO] Starting ReconForge menu.
-2026-07-27 00:27:33 [INFO] Selected module: information_gathering
-2026-07-27 00:27:33 [INFO] Loading module: information_gathering
-2026-07-27 00:27:34 [INFO] [SUCCESS] information_gathering loaded successfully.
-2026-07-27 00:27:37 [INFO] Executing FullReconTool
-2026-07-27 00:27:37 [INFO] Starting Full Recon...
-2026-07-27 00:27:40 [INFO] Running WHOIS lookup...
-2026-07-27 00:27:41 [INFO] Running Subdomain Enumeration...
-2026-07-27 00:27:43 [INFO] Running DNS lookup...
-2026-07-27 00:27:43 [INFO] Running Reverse DNS lookup...
-2026-07-27 00:27:43 [INFO] Running IP Information lookup...
-2026-07-27 00:27:43 [INFO] Running HTTP Headers lookup...
-2026-07-27 00:27:43 [INFO] Report exported to reports/report_20260727_002743.json
-2026-07-27 00:27:43 [INFO] [SUCCESS] Full Recon completed in 0:00:06.374920
-2026-07-27 00:27:46 [INFO] Executing ReverseDNSTool
-2026-07-27 00:27:46 [INFO] Starting Reverse DNS Lookup...
-2026-07-27 00:28:08 [INFO] [SUCCESS] Reverse DNS Lookup completed in 0:00:21.599069
-2026-07-27 00:28:11 [INFO] [SUCCESS] Module execution completed.
-2026-07-27 00:28:15 [INFO] Selected module: web_enumeration
-2026-07-27 00:28:15 [INFO] Loading module: web_enumeration
-2026-07-27 00:28:15 [INFO] [SUCCESS] web_enumeration loaded successfully.
-2026-07-27 00:28:16 [INFO] Executing TechnologyDetectionTool
-2026-07-27 00:28:16 [INFO] Starting Technology Detection...
-2026-07-27 00:28:21 [INFO] Received 200 response (1159183 bytes, 7 scripts found)
-2026-07-27 00:28:21 [WARNING] Response looks like a PerimeterX challenge/block page, not real site content
-2026-07-27 00:28:22 [INFO] [SUCCESS] Technology Detection completed in 0:00:06.327687
-2026-07-27 00:29:50 [INFO] Executing TechnologyDetectionTool
-2026-07-27 00:29:50 [INFO] Starting Technology Detection...
-2026-07-27 00:29:52 [INFO] Received 200 response (95347 bytes, 8 scripts found)
-2026-07-27 00:29:53 [INFO] [SUCCESS] Technology Detection completed in 0:00:02.553849
-2026-07-27 00:31:31 [INFO] Executing TechnologyDetectionTool
-2026-07-27 00:31:31 [INFO] Starting Technology Detection...
+2026-07-26 19:06:12 [INFO] Starting Technology Detection...
+2026-07-26 19:06:12 [INFO] Received 200 response (22848 bytes, 4 scripts found)
+2026-07-26 19:06:13 [INFO] [SUCCESS] Technology Detection completed in 0:00:00.937097
+2026-07-26 19:06:13 [INFO] Starting Technology Detection...
+2026-07-26 19:06:13 [INFO] Received 200 response (24819 bytes, 3 scripts found)
+2026-07-26 19:06:14 [INFO] [SUCCESS] Technology Detection completed in 0:00:01.470627
+2026-07-26 19:06:19 [INFO] Starting ReconForge
+2026-07-26 19:06:19 [INFO] Starting ReconForge menu.
+2026-07-26 19:06:19 [INFO] Selected module: web_enumeration
+2026-07-26 19:06:19 [INFO] Loading module: web_enumeration
+2026-07-26 19:06:20 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-07-26 19:06:20 [INFO] Executing TechnologyDetectionTool
+2026-07-26 19:06:20 [INFO] Starting Technology Detection...
+2026-07-26 19:06:20 [INFO] Received 200 response (22848 bytes, 4 scripts found)
+2026-07-26 19:06:20 [INFO] [SUCCESS] Technology Detection completed in 0:00:00.407221
+2026-07-26 19:06:20 [INFO] [SUCCESS] Module execution completed.
+2026-07-26 19:06:20 [INFO] Exiting ReconForge...
+2026-07-26 19:06:20 [INFO] ReconForge terminated
+2026-07-27 00:37:45 [INFO] Starting ReconForge
+2026-07-27 00:37:45 [INFO] Starting ReconForge menu.
+2026-07-27 00:37:48 [INFO] Selected module: web_enumeration
+2026-07-27 00:37:48 [INFO] Loading module: web_enumeration
+2026-07-27 00:37:49 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-07-27 00:37:50 [INFO] Executing TechnologyDetectionTool
+2026-07-27 00:37:50 [INFO] Starting Technology Detection...
+2026-07-27 00:37:55 [INFO] Received 200 response (1228653 bytes, 7 scripts found)
+2026-07-27 00:37:55 [WARNING] Response looks like a PerimeterX challenge/block page, not real site content
+2026-07-27 00:37:57 [INFO] [SUCCESS] Technology Detection completed in 0:00:06.955838
+2026-07-27 00:38:38 [INFO] Executing TechnologyDetectionTool
+2026-07-27 00:38:38 [INFO] Starting Technology Detection...
+2026-07-27 00:38:42 [INFO] Received 200 response (95347 bytes, 8 scripts found)
+2026-07-27 00:38:42 [INFO] [SUCCESS] Technology Detection completed in 0:00:04.765438

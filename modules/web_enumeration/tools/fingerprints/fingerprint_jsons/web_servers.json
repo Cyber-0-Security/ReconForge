@@ -155,6 +155,43 @@
           "cowboy"
         ]
       }
+    },
+    {
+      "name": "Varnish",
+      "category": "Web Servers",
+      "confidence": 85,
+      "fingerprints": {
+        "headers": [
+          "x-varnish",
+          "via: 1.1 varnish",
+          "via: varnish"
+        ]
+      }
+    },
+    {
+      "name": "Apache Traffic Server",
+      "category": "Web Servers",
+      "confidence": 85,
+      "fingerprints": {
+        "headers": [
+          "ats/"
+        ]
+      },
+      "version": {
+        "headers": [
+          "re:ats/([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "H2O",
+      "category": "Web Servers",
+      "confidence": 80,
+      "fingerprints": {
+        "headers": [
+          "server: h2o"
+        ]
+      }
     }
   ]
 }

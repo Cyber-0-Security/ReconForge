@@ -58,6 +58,17 @@
           "fontawesome",
           "kit.fontawesome.com"
         ]
+      },
+      "version": {
+        "scripts": [
+          "re:font-awesome/([0-9.]+)",
+          "re:fontawesome-free@([0-9.]+)",
+          "re:kit\\.fontawesome\\.com"
+        ],
+        "css": [
+          "re:font-awesome/([0-9.]+)",
+          "re:fontawesome-free@([0-9.]+)"
+        ]
       }
     },
     {
@@ -70,6 +81,12 @@
         ],
         "css": [
           "bootstrap-icons"
+        ]
+      },
+      "version": {
+        "css": [
+          "re:bootstrap-icons@([0-9.]+)",
+          "re:bootstrap-icons/([0-9.]+)"
         ]
       }
     },
@@ -114,6 +131,11 @@
         "css": [
           "remixicon"
         ]
+      },
+      "version": {
+        "css": [
+          "re:remixicon@([0-9.]+)"
+        ]
       }
     },
     {
@@ -126,6 +148,11 @@
         ],
         "css": [
           "boxicons"
+        ]
+      },
+      "version": {
+        "css": [
+          "re:boxicons@([0-9.]+)"
         ]
       }
     },
@@ -161,6 +188,14 @@
       "fingerprints": {
         "html": [
           "ionicons"
+        ]
+      },
+      "version": {
+        "scripts": [
+          "re:ionicons@([0-9.]+)"
+        ],
+        "css": [
+          "re:ionicons@([0-9.]+)"
         ]
       }
     },
@@ -201,6 +236,11 @@
       "fingerprints": {
         "html": [
           "devicon"
+        ]
+      },
+      "version": {
+        "css": [
+          "re:devicon@([0-9.]+)"
         ]
       }
     },

@@ -76,6 +76,321 @@
           "react-native-web"
         ]
       }
+    },
+    {
+      "name": "htmx",
+      "category": "JavaScript Libraries",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "hx-get=",
+          "hx-post=",
+          "hx-trigger="
+        ],
+        "scripts": [
+          "htmx.js",
+          "htmx.min.js",
+          "htmx.org"
+        ]
+      },
+      "version": {
+        "scripts": [
+          "re:htmx\\.org@([0-9.]+)",
+          "re:htmx(?:\\.min)?\\.js\\?v=([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "jQuery UI",
+      "category": "JavaScript Libraries",
+      "confidence": 75,
+      "fingerprints": {
+        "scripts": [
+          "jquery-ui.js",
+          "jquery-ui.min.js"
+        ],
+        "css": [
+          "jquery-ui.css"
+        ]
+      },
+      "version": {
+        "scripts": [
+          "re:jquery-ui[-.]([0-9.]+)",
+          "re:jquery-ui/([0-9.]+)/jquery-ui"
+        ]
+      }
+    },
+    {
+      "name": "Underscore.js",
+      "category": "JavaScript Libraries",
+      "confidence": 70,
+      "fingerprints": {
+        "scripts": [
+          "underscore.js",
+          "underscore-min.js"
+        ],
+        "script_content": [
+          "_.templateSettings"
+        ]
+      },
+      "version": {
+        "scripts": [
+          "re:underscore(?:-min)?\\.js\\?v=([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "D3.js",
+      "category": "JavaScript Libraries",
+      "confidence": 75,
+      "fingerprints": {
+        "scripts": [
+          "d3.min.js",
+          "d3.v7.js",
+          "d3.v6.js",
+          "d3.v5.js",
+          "d3@"
+        ],
+        "script_content": [
+          "d3-selection",
+          "d3.version"
+        ]
+      },
+      "version": {
+        "scripts": [
+          "re:d3\\.v([0-9]+)\\.js",
+          "re:d3@([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Three.js",
+      "category": "JavaScript Libraries",
+      "confidence": 75,
+      "fingerprints": {
+        "scripts": [
+          "three.js",
+          "three.min.js",
+          "three.module.js",
+          "three@"
+        ],
+        "script_content": [
+          "THREE.REVISION"
+        ]
+      },
+      "version": {
+        "scripts": [
+          "re:three@([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Chart.js",
+      "category": "JavaScript Libraries",
+      "confidence": 75,
+      "fingerprints": {
+        "scripts": [
+          "chart.js",
+          "chart.min.js"
+        ],
+        "script_content": [
+          "Chart.defaults"
+        ]
+      },
+      "version": {
+        "scripts": [
+          "re:chart\\.js@([0-9.]+)",
+          "re:chart(?:\\.min)?\\.js\\?v=([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Moment.js",
+      "category": "JavaScript Libraries",
+      "confidence": 70,
+      "fingerprints": {
+        "scripts": [
+          "moment.js",
+          "moment.min.js",
+          "moment@"
+        ],
+        "script_content": [
+          "moment.fn.format"
+        ]
+      },
+      "version": {
+        "scripts": [
+          "re:moment\\.js/([0-9.]+)",
+          "re:moment@([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Axios",
+      "category": "JavaScript Libraries",
+      "confidence": 65,
+      "fingerprints": {
+        "scripts": [
+          "axios.js",
+          "axios.min.js",
+          "axios@"
+        ],
+        "script_content": [
+          "axios.defaults"
+        ]
+      },
+      "version": {
+        "scripts": [
+          "re:axios@([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Knockout.js",
+      "category": "JavaScript Libraries",
+      "confidence": 75,
+      "fingerprints": {
+        "html": [
+          "data-bind="
+        ],
+        "scripts": [
+          "knockout-"
+        ],
+        "script_content": [
+          "ko.observable"
+        ]
+      },
+      "version": {
+        "scripts": [
+          "re:knockout-([0-9.]+)\\.js"
+        ]
+      }
+    },
+    {
+      "name": "GSAP",
+      "category": "JavaScript Libraries",
+      "confidence": 80,
+      "fingerprints": {
+        "scripts": [
+          "gsap.min.js",
+          "gsap@",
+          "TweenMax.min.js"
+        ],
+        "script_content": [
+          "gsap.registerPlugin"
+        ]
+      },
+      "version": {
+        "scripts": [
+          "re:gsap@([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "AOS (Animate on Scroll)",
+      "category": "JavaScript Libraries",
+      "confidence": 85,
+      "fingerprints": {
+        "html": [
+          "data-aos="
+        ],
+        "scripts": [
+          "aos.js",
+          "aos.min.js"
+        ],
+        "css": [
+          "aos.css"
+        ]
+      },
+      "version": {
+        "scripts": [
+          "re:aos@([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Swiper",
+      "category": "JavaScript Libraries",
+      "confidence": 80,
+      "fingerprints": {
+        "html": [
+          "swiper-container",
+          "swiper-slide"
+        ],
+        "scripts": [
+          "swiper-bundle.min.js",
+          "swiper@"
+        ],
+        "css": [
+          "swiper-bundle.min.css"
+        ]
+      },
+      "version": {
+        "scripts": [
+          "re:swiper@([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Popper.js",
+      "category": "JavaScript Libraries",
+      "confidence": 65,
+      "fingerprints": {
+        "scripts": [
+          "popper.min.js",
+          "@popperjs/core"
+        ]
+      },
+      "version": {
+        "scripts": [
+          "re:popper\\.js@([0-9.]+)",
+          "re:@popperjs/core@([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Handlebars.js",
+      "category": "JavaScript Libraries",
+      "confidence": 70,
+      "fingerprints": {
+        "scripts": [
+          "handlebars.min.js",
+          "handlebars@"
+        ],
+        "script_content": [
+          "Handlebars.templates",
+          "Handlebars.compile"
+        ]
+      },
+      "version": {
+        "scripts": [
+          "re:handlebars\\.js@([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Webpack",
+      "category": "JavaScript Libraries",
+      "confidence": 70,
+      "fingerprints": {
+        "script_content": [
+          "webpackJsonp",
+          "__webpack_require__",
+          "webpackChunk"
+        ]
+      }
+    },
+    {
+      "name": "Redux",
+      "category": "JavaScript Libraries",
+      "confidence": 70,
+      "fingerprints": {
+        "script_content": [
+          "__REDUX_DEVTOOLS_EXTENSION__",
+          "createStore(",
+          "combineReducers("
+        ]
+      }
     }
   ]
 }

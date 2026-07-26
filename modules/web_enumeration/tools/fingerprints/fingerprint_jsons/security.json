@@ -246,6 +246,27 @@
           "x-datadome"
         ]
       }
+    },
+    {
+      "name": "Signal Sciences",
+      "category": "Security",
+      "confidence": 85,
+      "fingerprints": {
+        "headers": [
+          "x-sigsci-tags",
+          "x-sigsci-requestid"
+        ]
+      }
+    },
+    {
+      "name": "Wordfence",
+      "category": "Security",
+      "confidence": 75,
+      "fingerprints": {
+        "cookies": [
+          "wordfence_verifiedhuman"
+        ]
+      }
     }
   ]
 }

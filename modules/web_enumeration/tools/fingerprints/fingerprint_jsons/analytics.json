@@ -243,6 +243,84 @@
           "adsbygoogle"
         ]
       }
+    },
+    {
+      "name": "Plausible Analytics",
+      "category": "Analytics",
+      "confidence": 90,
+      "fingerprints": {
+        "scripts": [
+          "plausible.io/js/script"
+        ]
+      }
+    },
+    {
+      "name": "Fathom Analytics",
+      "category": "Analytics",
+      "confidence": 90,
+      "fingerprints": {
+        "scripts": [
+          "cdn.usefathom.com"
+        ]
+      }
+    },
+    {
+      "name": "Simple Analytics",
+      "category": "Analytics",
+      "confidence": 90,
+      "fingerprints": {
+        "scripts": [
+          "scripts.simpleanalyticscdn.com"
+        ]
+      }
+    },
+    {
+      "name": "PostHog",
+      "category": "Analytics",
+      "confidence": 80,
+      "fingerprints": {
+        "scripts": [
+          "app.posthog.com",
+          "posthog.js"
+        ],
+        "script_content": [
+          "posthog.init"
+        ]
+      }
+    },
+    {
+      "name": "LogRocket",
+      "category": "Analytics",
+      "confidence": 80,
+      "fingerprints": {
+        "scripts": [
+          "cdn.lr-in.com",
+          "cdn.logrocket.io"
+        ],
+        "script_content": [
+          "LogRocket.init"
+        ]
+      }
+    },
+    {
+      "name": "Crazy Egg",
+      "category": "Analytics",
+      "confidence": 85,
+      "fingerprints": {
+        "scripts": [
+          "script.crazyegg.com"
+        ]
+      }
+    },
+    {
+      "name": "VWO",
+      "category": "Analytics",
+      "confidence": 80,
+      "fingerprints": {
+        "scripts": [
+          "dev.visualwebsiteoptimizer.com"
+        ]
+      }
     }
   ]
 }

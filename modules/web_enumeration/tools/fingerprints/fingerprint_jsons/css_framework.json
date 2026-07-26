@@ -77,6 +77,14 @@
           "data-magellan",
           "data-sticky-container"
         ]
+      },
+      "version": {
+        "css": [
+          "re:foundation@([0-9.]+)"
+        ],
+        "scripts": [
+          "re:foundation@([0-9.]+)"
+        ]
       }
     },
     {
@@ -90,6 +98,11 @@
         ],
         "html": [
           "class=\"ui container\""
+        ]
+      },
+      "version": {
+        "css": [
+          "re:semantic-ui@([0-9.]+)"
         ]
       }
     },
@@ -143,6 +156,11 @@
           "pure.css",
           "pure-min.css",
           "purecss"
+        ]
+      },
+      "version": {
+        "css": [
+          "re:purecss@([0-9.]+)"
         ]
       }
     },
@@ -205,6 +223,65 @@
       "version": {
         "css": [
           "re:animate\\.css@([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Water.css",
+      "category": "CSS Framework",
+      "confidence": 80,
+      "fingerprints": {
+        "css": [
+          "water.css",
+          "water.min.css"
+        ]
+      }
+    },
+    {
+      "name": "Pico CSS",
+      "category": "CSS Framework",
+      "confidence": 80,
+      "fingerprints": {
+        "css": [
+          "pico.min.css",
+          "pico@"
+        ]
+      },
+      "version": {
+        "css": [
+          "re:pico@([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Spectre.css",
+      "category": "CSS Framework",
+      "confidence": 80,
+      "fingerprints": {
+        "css": [
+          "spectre.min.css",
+          "spectre@"
+        ]
+      },
+      "version": {
+        "css": [
+          "re:spectre\\.css@([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Milligram",
+      "category": "CSS Framework",
+      "confidence": 80,
+      "fingerprints": {
+        "css": [
+          "milligram.min.css",
+          "milligram@"
+        ]
+      },
+      "version": {
+        "css": [
+          "re:milligram@([0-9.]+)"
         ]
       }
     }

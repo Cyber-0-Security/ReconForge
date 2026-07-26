@@ -290,6 +290,18 @@
           "phusion passenger"
         ]
       }
+    },
+    {
+      "name": "Laravel Livewire",
+      "category": "Backend",
+      "confidence": 90,
+      "fingerprints": {
+        "html": [
+          "wire:click=",
+          "wire:model=",
+          "wire:id="
+        ]
+      }
     }
   ]
 }

@@ -57,6 +57,11 @@
           "has_js",
           "drupal"
         ]
+      },
+      "version": {
+        "meta": [
+          "re:Drupal\\s+([0-9]+)"
+        ]
       }
     },
     {
@@ -230,6 +235,11 @@
           "mediawiki",
           "mw-parser-output"
         ]
+      },
+      "version": {
+        "meta": [
+          "re:MediaWiki\\s+([0-9.]+)"
+        ]
       }
     },
     {
@@ -369,6 +379,79 @@
       "fingerprints": {
         "scripts": [
           "cdn.sanity.io"
+        ]
+      }
+    },
+    {
+      "name": "Hugo",
+      "category": "CMS",
+      "confidence": 90,
+      "fingerprints": {
+        "meta": [
+          "Hugo "
+        ],
+        "html": [
+          "<!-- Hugo"
+        ]
+      },
+      "version": {
+        "meta": [
+          "re:Hugo\\s+([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Jekyll",
+      "category": "CMS",
+      "confidence": 90,
+      "fingerprints": {
+        "meta": [
+          "Jekyll v"
+        ]
+      },
+      "version": {
+        "meta": [
+          "re:Jekyll\\s+v([0-9.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Statamic",
+      "category": "CMS",
+      "confidence": 85,
+      "fingerprints": {
+        "meta": [
+          "Statamic"
+        ]
+      }
+    },
+    {
+      "name": "Kirby",
+      "category": "CMS",
+      "confidence": 85,
+      "fingerprints": {
+        "meta": [
+          "Kirby"
+        ]
+      }
+    },
+    {
+      "name": "Grav CMS",
+      "category": "CMS",
+      "confidence": 85,
+      "fingerprints": {
+        "meta": [
+          "GravCMS"
+        ]
+      }
+    },
+    {
+      "name": "Wagtail",
+      "category": "CMS",
+      "confidence": 70,
+      "fingerprints": {
+        "html": [
+          "wagtail-userbar"
         ]
       }
     }
