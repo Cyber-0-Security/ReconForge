@@ -861,3 +861,210 @@ AttributeError: 'Report' object has no attribute 'export_json'
 2026-07-27 00:38:38 [INFO] Starting Technology Detection...
 2026-07-27 00:38:42 [INFO] Received 200 response (95347 bytes, 8 scripts found)
 2026-07-27 00:38:42 [INFO] [SUCCESS] Technology Detection completed in 0:00:04.765438
+2026-07-29 19:23:53 [INFO] Starting ReconForge
+2026-07-29 19:23:53 [INFO] Starting ReconForge menu.
+2026-07-29 19:23:55 [INFO] Selected module: web_enumeration
+2026-07-29 19:23:55 [INFO] Loading module: web_enumeration
+2026-07-29 19:23:56 [ERROR] Failed to execute module 'web_enumeration': cannot import name 'CrawlerTool' from 'modules.web_enumeration.tools.crawler' (/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler/__init__.py)
+Traceback (most recent call last):
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 68, in run
+    manager = self._load_manager(module_key)
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 93, in _load_manager
+    manager = importlib.import_module(
+        f"modules.{module_path}.manager"
+    )
+  File "/usr/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 21, in <module>
+    from modules.web_enumeration.tools.crawler import (
+        CrawlerTool,
+    )
+ImportError: cannot import name 'CrawlerTool' from 'modules.web_enumeration.tools.crawler' (/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler/__init__.py)
+2026-07-29 19:23:56 [ERROR] Module execution failed.
+2026-07-29 19:35:43 [INFO] Starting ReconForge
+2026-07-29 19:35:43 [INFO] Starting ReconForge menu.
+2026-07-29 19:35:44 [INFO] Selected module: web_enumeration
+2026-07-29 19:35:44 [INFO] Loading module: web_enumeration
+2026-07-29 19:35:44 [ERROR] Failed to execute module 'web_enumeration': No module named 'modules.web_enumeration.tools.crawler.engine'; 'modules.web_enumeration.tools.crawler' is not a package
+Traceback (most recent call last):
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 68, in run
+    manager = self._load_manager(module_key)
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 93, in _load_manager
+    manager = importlib.import_module(
+        f"modules.{module_path}.manager"
+    )
+  File "/usr/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 21, in <module>
+    from modules.web_enumeration.tools.crawler import (
+        CrawlerTool,
+    )
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler.py", line 15, in <module>
+    from modules.web_enumeration.tools.crawler.engine import engine
+ModuleNotFoundError: No module named 'modules.web_enumeration.tools.crawler.engine'; 'modules.web_enumeration.tools.crawler' is not a package
+2026-07-29 19:35:44 [ERROR] Module execution failed.
+2026-07-29 19:37:49 [INFO] Starting ReconForge
+2026-07-29 19:37:49 [INFO] Starting ReconForge menu.
+2026-07-29 19:37:50 [INFO] Selected module: web_enumeration
+2026-07-29 19:37:50 [INFO] Loading module: web_enumeration
+2026-07-29 19:37:50 [ERROR] Failed to execute module 'web_enumeration': cannot import name 'CrawlerTool' from 'modules.web_enumeration.tools.crawler_lib' (/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler_lib/__init__.py)
+Traceback (most recent call last):
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 68, in run
+    manager = self._load_manager(module_key)
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 93, in _load_manager
+    manager = importlib.import_module(
+        f"modules.{module_path}.manager"
+    )
+  File "/usr/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 21, in <module>
+    from modules.web_enumeration.tools.crawler_lib import (
+        CrawlerTool,
+    )
+ImportError: cannot import name 'CrawlerTool' from 'modules.web_enumeration.tools.crawler_lib' (/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler_lib/__init__.py)
+2026-07-29 19:37:50 [ERROR] Module execution failed.
+2026-07-29 19:46:11 [INFO] Starting ReconForge
+2026-07-29 19:46:11 [INFO] Starting ReconForge menu.
+2026-07-29 19:46:12 [INFO] Selected module: web_enumeration
+2026-07-29 19:46:12 [INFO] Loading module: web_enumeration
+2026-07-29 19:46:12 [ERROR] Failed to execute module 'web_enumeration': cannot import name 'CrawlerTool' from 'modules.web_enumeration.tools.crawler_lib' (/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler_lib/__init__.py)
+Traceback (most recent call last):
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 68, in run
+    manager = self._load_manager(module_key)
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 93, in _load_manager
+    manager = importlib.import_module(
+        f"modules.{module_path}.manager"
+    )
+  File "/usr/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 21, in <module>
+    from modules.web_enumeration.tools.crawler_lib import (
+        CrawlerTool,
+    )
+ImportError: cannot import name 'CrawlerTool' from 'modules.web_enumeration.tools.crawler_lib' (/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler_lib/__init__.py)
+2026-07-29 19:46:12 [ERROR] Module execution failed.
+2026-07-29 19:49:32 [INFO] Starting ReconForge
+2026-07-29 19:49:32 [INFO] Starting ReconForge menu.
+2026-07-29 19:49:38 [INFO] Selected module: web_enumeration
+2026-07-29 19:49:38 [INFO] Loading module: web_enumeration
+2026-07-29 19:49:38 [ERROR] Failed to execute module 'web_enumeration': cannot import name 'parser' from 'modules.web_enumeration.tools.crawler_lib.parser' (/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler_lib/parser.py)
+Traceback (most recent call last):
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 68, in run
+    manager = self._load_manager(module_key)
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 93, in _load_manager
+    manager = importlib.import_module(
+        f"modules.{module_path}.manager"
+    )
+  File "/usr/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 21, in <module>
+    from modules.web_enumeration.tools.crawler import (
+        CrawlerTool,
+    )
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler.py", line 15, in <module>
+    from modules.web_enumeration.tools.crawler_lib.engine import engine
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler_lib/engine.py", line 17, in <module>
+    from .parser import parser
+ImportError: cannot import name 'parser' from 'modules.web_enumeration.tools.crawler_lib.parser' (/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler_lib/parser.py)
+2026-07-29 19:49:38 [ERROR] Module execution failed.
+2026-07-29 19:49:42 [INFO] Selected module: web_enumeration
+2026-07-29 19:49:42 [INFO] Loading module: web_enumeration
+2026-07-29 19:49:42 [ERROR] Failed to execute module 'web_enumeration': cannot import name 'parser' from 'modules.web_enumeration.tools.crawler_lib.parser' (/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler_lib/parser.py)
+Traceback (most recent call last):
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 68, in run
+    manager = self._load_manager(module_key)
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 93, in _load_manager
+    manager = importlib.import_module(
+        f"modules.{module_path}.manager"
+    )
+  File "/usr/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 21, in <module>
+    from modules.web_enumeration.tools.crawler import (
+        CrawlerTool,
+    )
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler.py", line 15, in <module>
+    from modules.web_enumeration.tools.crawler_lib.engine import engine
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler_lib/engine.py", line 17, in <module>
+    from .parser import parser
+ImportError: cannot import name 'parser' from 'modules.web_enumeration.tools.crawler_lib.parser' (/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler_lib/parser.py)
+2026-07-29 19:49:42 [ERROR] Module execution failed.
+2026-07-29 19:53:54 [INFO] Starting ReconForge
+2026-07-29 19:53:54 [INFO] Starting ReconForge menu.
+2026-07-29 19:53:55 [INFO] Selected module: web_enumeration
+2026-07-29 19:53:55 [INFO] Loading module: web_enumeration
+2026-07-29 19:53:56 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-07-29 19:53:59 [INFO] Executing CrawlerTool
+2026-07-29 19:53:59 [INFO] Starting Crawler...
+2026-07-29 19:54:07 [INFO] Crawling https://flipkart.com
+2026-07-29 19:54:09 [INFO] [SUCCESS] Crawler completed in 0:00:10.446983
+2026-07-29 20:06:29 [INFO] Starting ReconForge
+2026-07-29 20:06:29 [INFO] Starting ReconForge menu.
+2026-07-29 20:06:30 [INFO] Selected module: vulnerability
+2026-07-29 20:06:30 [INFO] Loading module: vulnerability
+2026-07-29 20:06:30 [INFO] [SUCCESS] vulnerability loaded successfully.
+2026-07-29 20:06:30 [ERROR] Failed to execute module 'vulnerability': module 'modules.vulnerability.manager' has no attribute 'execute'
+Traceback (most recent call last):
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 72, in run
+    manager.execute()
+    ^^^^^^^^^^^^^^^
+AttributeError: module 'modules.vulnerability.manager' has no attribute 'execute'
+2026-07-29 20:06:30 [ERROR] Module execution failed.
+2026-07-29 20:06:33 [INFO] Selected module: web_enumeration
+2026-07-29 20:06:33 [INFO] Loading module: web_enumeration
+2026-07-29 20:06:34 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-07-29 20:06:36 [INFO] Executing CrawlerTool
+2026-07-29 20:06:36 [INFO] Starting Crawler...
+2026-07-29 20:06:40 [INFO] Crawling https://flipkart.com
+2026-07-29 20:06:42 [INFO] [SUCCESS] Crawler completed in 0:00:06.203980
+2026-07-29 20:10:59 [INFO] Starting ReconForge
+2026-07-29 20:10:59 [INFO] Starting ReconForge menu.
+2026-07-29 20:11:00 [INFO] Selected module: web_enumeration
+2026-07-29 20:11:00 [INFO] Loading module: web_enumeration
+2026-07-29 20:11:00 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-07-29 20:11:01 [INFO] Executing CrawlerTool
+2026-07-29 20:11:01 [INFO] Starting Crawler...
+2026-07-29 20:11:05 [INFO] Crawling https://flipkart.com
+2026-07-29 20:11:08 [INFO] [SUCCESS] Crawler completed in 0:00:07.042038

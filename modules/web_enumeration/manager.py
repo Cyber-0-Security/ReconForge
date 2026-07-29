@@ -14,9 +14,19 @@ from modules.web_enumeration.tools.technology_detection import (
     TechnologyDetectionTool,
 )
 
+from modules.web_enumeration.tools.directory_enumeration import (
+    DirectoryEnumerationTool,
+)   
+
+from modules.web_enumeration.tools.crawler import (
+    CrawlerTool,
+)
+
 
 TOOLS = [
     ("Technology Detection", TechnologyDetectionTool),
+    ("Directory Enumeration", DirectoryEnumerationTool),
+    ("Crawler", CrawlerTool)
 ]
 
 
