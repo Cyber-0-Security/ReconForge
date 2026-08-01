@@ -8,21 +8,20 @@ from __future__ import annotations
 
 import requests
 
-from .models import (
-    CrawlConfig,
-    CrawlTarget,
-)
-
 
 class CrawlRequester:
     """
     Handles HTTP requests for the crawler.
     """
 
-    def request(
+    def get(
         self,
-        target: CrawlTarget,
-        config: CrawlConfig,
+        *,
+        url: str,
+        timeout: int,
+        follow_redirects: bool,
+        verify_ssl: bool,
+        user_agent: str,
     ) -> requests.Response | None:
         """
         Download a page.
@@ -31,19 +30,13 @@ class CrawlRequester:
         try:
 
             response = requests.get(
-
-                target.url,
-
-                timeout=config.timeout,
-
-                allow_redirects=config.follow_redirects,
-
-                verify=config.verify_ssl,
-
+                url,
+                timeout=timeout,
+                allow_redirects=follow_redirects,
+                verify=verify_ssl,
                 headers={
-                    "User-Agent": config.user_agent,
+                    "User-Agent": user_agent,
                 },
-
             )
 
             return response

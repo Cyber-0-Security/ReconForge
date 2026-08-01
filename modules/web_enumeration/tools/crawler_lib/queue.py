@@ -1,24 +1,24 @@
 """
 Crawler Queue
 
-Manages crawl targets and prevents duplicate crawling.
+Thread-safe crawl queue.
 """
 
 from __future__ import annotations
 
-from collections import deque
+from queue import Empty, Queue
 
 from .models import CrawlTarget
 
 
 class CrawlQueue:
     """
-    FIFO queue for crawl targets.
+    Thread-safe crawl queue.
     """
 
     def __init__(self) -> None:
 
-        self._queue: deque[CrawlTarget] = deque()
+        self._queue: Queue[CrawlTarget] = Queue()
 
         self._visited: set[str] = set()
 
@@ -29,30 +29,15 @@ class CrawlQueue:
         target: CrawlTarget,
     ) -> bool:
         """
-        Add a new crawl target.
-
-        Returns True if added.
-        Returns False if already visited.
+        Add a new target if it hasn't been visited.
         """
 
-        url = self._normalize(
-            target.url,
-        )
-
-        if url in self._visited:
-
+        if target.url in self._visited:
             return False
 
-        self._visited.add(
-            url,
-        )
+        self._visited.add(target.url)
 
-        self._queue.append(
-            CrawlTarget(
-                url=url,
-                depth=target.depth,
-            )
-        )
+        self._queue.put(target)
 
         return True
 
@@ -62,65 +47,52 @@ class CrawlQueue:
         self,
     ) -> CrawlTarget | None:
         """
-        Get the next crawl target.
+        Get next target.
         """
 
-        if not self._queue:
+        try:
+
+            return self._queue.get_nowait()
+
+        except Empty:
 
             return None
 
-        return self._queue.popleft()
+    # ---------------------------------------------------------
+
+    def task_done(
+        self,
+    ) -> None:
+        """
+        Mark a task complete.
+        """
+
+        self._queue.task_done()
+
+    # ---------------------------------------------------------
+
+    def join(
+        self,
+    ) -> None:
+        """
+        Wait until queue finishes.
+        """
+
+        self._queue.join()
 
     # ---------------------------------------------------------
 
     def empty(
         self,
     ) -> bool:
-        """
-        True if the queue is empty.
-        """
 
-        return len(
-            self._queue
-        ) == 0
+        return self._queue.empty()
 
     # ---------------------------------------------------------
 
-    def size(
+    @property
+    def visited(
         self,
-    ) -> int:
-        """
-        Number of pending targets.
-        """
+    ) -> set[str]:
 
-        return len(
-            self._queue
-        )
-
-    # ---------------------------------------------------------
-
-    def visited_count(
-        self,
-    ) -> int:
-        """
-        Number of discovered URLs.
-        """
-
-        return len(
-            self._visited
-        )
-
-    # ---------------------------------------------------------
-
-    @staticmethod
-    def _normalize(
-        url: str,
-    ) -> str:
-        """
-        Normalize URLs for duplicate detection.
-        """
-
-        return url.rstrip("/")
-
-
-queue = CrawlQueue()
+        return self._visited

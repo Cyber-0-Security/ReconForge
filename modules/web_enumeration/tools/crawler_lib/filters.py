@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from urllib.parse import urlparse
 
+from .logger import logger
 from .models import (
     CrawlConfig,
     Link,
@@ -48,45 +49,49 @@ class CrawlFilters:
         ".eot",
     }
 
-    # ---------------------------------------------------------
-
     def is_valid(
         self,
         link: Link,
         config: CrawlConfig,
-    ) -> tuple[bool, str]:
+    ) -> bool:
         """
-        Validate a discovered URL.
-
-        Returns:
-            (True, "ok")
-            (False, "<reason>")
+        Determine whether a link should be crawled.
         """
 
         url = link.url.strip()
 
         if not url:
-            return False, "empty"
+            logger.debug("Skip empty URL")
+            return False
 
         if self._is_fragment(url):
-            return False, "fragment"
+            logger.debug(f"Skip fragment: {url}")
+            return False
 
         if self._is_mail(url):
-            return False, "mailto"
-
-        if self._is_tel(url):
-            return False, "telephone"
+            logger.debug(f"Skip mailto: {url}")
+            return False
 
         if self._is_javascript(url):
-            return False, "javascript"
+            logger.debug(f"Skip javascript: {url}")
+            return False
 
-        if self._is_external(url, config):
-            return False, "external"
+        if self._is_tel(url):
+            logger.debug(f"Skip telephone: {url}")
+            return False
+
+        if self._is_external(
+            url,
+            config,
+        ):
+            logger.debug(f"Skip external: {url}")
+            return False
 
         if self._is_static_file(url):
-            return False, "static"
+            logger.debug(f"Skip static file: {url}")
+            return False
 
-        return True, "ok"
+        return True
 
     # ---------------------------------------------------------
 
@@ -132,26 +137,35 @@ class CrawlFilters:
         config: CrawlConfig,
     ) -> bool:
         """
-        Return True only if the URL is outside the allowed scope.
+        Reject external domains unless allowed.
         """
 
-        target = urlparse(config.url)
-        parsed = urlparse(url)
+        target_host = (
+            urlparse(config.url)
+            .hostname
+            or ""
+        ).lower()
 
-        # Relative URLs are always internal.
-        if not parsed.netloc:
+        current_host = (
+            urlparse(url)
+            .hostname
+            or ""
+        ).lower()
+
+        # Relative URL
+        if not current_host:
             return False
-
-        target_host = target.netloc.lower()
-        host = parsed.netloc.lower()
 
         # Same host
-        if host == target_host:
+        if current_host == target_host:
             return False
 
-        # Allow subdomains if enabled
+        # Allow subdomains
         if config.include_subdomains:
-            if host.endswith("." + target_host):
+
+            if current_host.endswith(
+                "." + target_host
+            ):
                 return False
 
         return True
@@ -165,12 +179,10 @@ class CrawlFilters:
 
         path = urlparse(url).path.lower()
 
-        for extension in self.STATIC_EXTENSIONS:
-
-            if path.endswith(extension):
-                return True
-
-        return False
+        return any(
+            path.endswith(ext)
+            for ext in self.STATIC_EXTENSIONS
+        )
 
 
 filters = CrawlFilters()

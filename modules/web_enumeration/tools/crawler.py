@@ -1,112 +1,106 @@
 """
 Crawler Tool
 
-Recursively crawls a website and extracts useful resources.
+ReconForge Web Crawler
 """
 
 from __future__ import annotations
 
-from typing import Any
+from datetime import datetime
 
-from core.base_tool import BaseTool
-from core.logger import logger
-from core.validator import validator
+from config.constants import Colors
 
 from modules.web_enumeration.tools.crawler_lib.engine import engine
-from modules.web_enumeration.tools.crawler_lib.formatter import print_results
+from modules.web_enumeration.tools.crawler_lib.formatter import formatter
+from modules.web_enumeration.tools.crawler_lib.logger import logger
 from modules.web_enumeration.tools.crawler_lib.models import CrawlConfig
 
 
-class CrawlerTool(BaseTool):
+class CrawlerTool:
     """
-    Website crawler.
+    Web crawler tool.
     """
 
-    def __init__(self) -> None:
+    name = "Crawler"
 
-        super().__init__(
-            "Crawler",
-        )
+    description = "Crawl a website and enumerate pages."
 
-    # ---------------------------------------------------------
-
-    def run(
-        self,
-        target: str | None = None,
-        silent: bool = False,
-        display: bool = True,
-    ) -> list[dict[str, Any]]:
+    def run(self) -> None:
         """
-        Crawl a website.
+        Execute crawler.
         """
 
-        self.start(
-            silent,
-        )
+        print()
+        print("=" * 60)
+        print(f"{Colors.BOLD}WEB CRAWLER{Colors.RESET}")
+        print("=" * 60)
 
-        if target is None:
+        url = input("Target URL: ").strip()
 
-            target = validator.get_domain()
+        if not url:
+            logger.error("No URL provided.")
+            return
 
-        target = target.strip()
+        if not url.startswith(("http://", "https://")):
+            url = "https://" + url
 
-        if not target.startswith(
-            (
-                "http://",
-                "https://",
+        try:
+            depth = input("Maximum Depth [2]: ").strip()
+            max_depth = int(depth) if depth else 2
+        except ValueError:
+            max_depth = 2
+
+        try:
+            threads = input("Threads [20]: ").strip()
+            thread_count = int(threads) if threads else 20
+        except ValueError:
+            thread_count = 20
+
+        verbosity = (
+            input(
+                "Verbosity "
+                "[quiet/normal/verbose/debug] (normal): "
             )
-        ):
-
-            target = "https://" + target
-
-        logger.info(
-            f"Crawling {target}"
+            .strip()
+            .lower()
         )
+
+        if not verbosity:
+            verbosity = "normal"
 
         config = CrawlConfig(
-
-            url=target,
-
+            url=url,
+            max_depth=max_depth,
+            threads=thread_count,
+            verbosity=verbosity,
         )
 
-        pages, statistics = engine.crawl(
-            config,
+        logger.configure(config.verbosity)
+
+        print()
+
+        logger.info(f"Target      : {config.url}")
+        logger.info(f"Depth       : {config.max_depth}")
+        logger.info(f"Threads     : {config.threads}")
+        logger.info(f"Verbosity   : {config.verbosity}")
+
+        print()
+
+        logger.info("Starting crawler...")
+
+        start = datetime.now()
+
+        pages, statistics = engine.crawl(config)
+
+        end = datetime.now()
+
+        formatter.display(
+            pages,
+            statistics,
         )
 
-        if display:
+        print()
 
-            print_results(
-                pages,
-                statistics,
-            )
-
-        self.finish(
-            silent,
+        logger.success(
+            f"Crawler completed in {end - start}"
         )
-
-        return [
-
-            {
-
-                "url": page.url,
-
-                "status": page.status,
-
-                "title": page.title,
-
-                "depth": page.depth,
-
-                "links": len(page.links),
-
-                "scripts": len(page.scripts),
-
-                "forms": len(page.forms),
-
-            }
-
-            for page in pages
-
-        ]
-
-
-crawler = CrawlerTool()

@@ -1,25 +1,26 @@
 """
 Crawler Engine
 
-Coordinates the crawling process.
+Coordinates the crawling process using worker threads.
 """
 
 from __future__ import annotations
 
-from urllib.parse import urlparse
+import sys
+from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
+from datetime import datetime
 
-from .filters import filters
+from .logger import logger
 from .models import (
     CrawlConfig,
     CrawlStatistics,
     CrawlTarget,
     Page,
 )
-from .parser import parser
 from .queue import CrawlQueue
-from .requester import requester
 from .robots import robots
 from .sitemap import sitemap
+from .worker import worker
 
 
 class CrawlEngine:
@@ -27,207 +28,228 @@ class CrawlEngine:
     Main crawler engine.
     """
 
+    def _progress(
+        self,
+        statistics: CrawlStatistics,
+        queue: CrawlQueue,
+        futures: dict,
+        start: datetime,
+        verbosity: str,
+    ) -> None:
+
+        if verbosity != "normal":
+            return
+
+        elapsed = datetime.now() - start
+
+        line = (
+            f"\rPages: {statistics.pages_crawled:<6}"
+            f" Queue: {queue.qsize():<6}"
+            f" Active: {len(futures):<3}"
+            f" Found: {statistics.links_discovered:<6}"
+            f" Time: {str(elapsed).split('.')[0]}"
+        )
+
+        sys.stdout.write(line)
+        sys.stdout.flush()
+
+    # ---------------------------------------------------------
+
     def crawl(
         self,
         config: CrawlConfig,
     ) -> tuple[list[Page], CrawlStatistics]:
-        """
-        Crawl a website.
-        """
+
+        start = datetime.now()
 
         queue = CrawlQueue()
 
         statistics = CrawlStatistics()
 
-        results: list[Page] = []
+        pages: list[Page] = []
+
+        logger.configure(config.verbosity)
+
+        logger.info(f"Starting crawl: {config.url}")
 
         # -------------------------------------------------
-        # Seed Queue
+        # Seed
         # -------------------------------------------------
 
         if queue.add(
-
             CrawlTarget(
-
                 url=config.url,
-
                 depth=0,
-
             )
-
         ):
-
             statistics.urls_queued += 1
 
         # -------------------------------------------------
         # robots.txt
         # -------------------------------------------------
 
+        logger.info("Fetching robots.txt...")
+
         robots_content = robots.fetch(
-
             config.url,
-
             timeout=config.timeout,
-
             verify_ssl=config.verify_ssl,
-
         )
 
         if robots_content:
 
-            for path in robots.parse(
-                robots_content,
-            ):
+            robot_urls = robots.parse(robots_content)
+
+            logger.info(
+                f"robots.txt: {len(robot_urls)} entries"
+            )
+
+            for path in robot_urls:
 
                 if queue.add(
-
                     CrawlTarget(
-
                         url=config.url.rstrip("/") + path,
-
                         depth=1,
-
                     )
-
                 ):
-
                     statistics.urls_queued += 1
-
                 else:
-
                     statistics.duplicates_skipped += 1
 
         # -------------------------------------------------
         # sitemap.xml
         # -------------------------------------------------
 
+        logger.info("Fetching sitemap.xml...")
+
         sitemap_content = sitemap.fetch(
-
             config.url,
-
             timeout=config.timeout,
-
             verify_ssl=config.verify_ssl,
-
         )
 
         if sitemap_content:
 
-            for url in sitemap.parse(
-                sitemap_content,
-            ):
+            sitemap_urls = sitemap.parse(
+                sitemap_content
+            )
+
+            logger.info(
+                f"Sitemap: {len(sitemap_urls)} URLs"
+            )
+
+            for url in sitemap_urls:
 
                 if queue.add(
-
                     CrawlTarget(
-
                         url=url,
-
                         depth=1,
-
                     )
-
                 ):
-
                     statistics.urls_queued += 1
-
                 else:
-
                     statistics.duplicates_skipped += 1
 
         # -------------------------------------------------
-        # Crawl Loop
+        # Thread Pool
         # -------------------------------------------------
 
-        while not queue.empty():
+        with ThreadPoolExecutor(
+            max_workers=config.threads,
+        ) as executor:
 
-            target = queue.get()
+            futures = {}
 
-            if target is None:
+            while not queue.empty() or futures:
 
-                break
+                while (
+                    len(futures) < config.threads
+                    and not queue.empty()
+                ):
 
-            if target.depth > config.max_depth:
+                    target = queue.get()
 
-                continue
+                    if target is None:
+                        break
 
-            response = requester.request(
+                    if target.depth > config.max_depth:
 
-                target,
+                        queue.task_done()
 
-                config,
+                        continue
 
-            )
+                    future = executor.submit(
+                        worker.process,
+                        target,
+                        config,
+                    )
 
-            if response is None:
+                    futures[future] = target
 
-                continue
-
-            page = parser.parse(
-
-                response,
-
-                target,
-
-            )
-
-            results.append(page)
-
-            statistics.pages_crawled += 1
-
-            statistics.links_discovered += len(page.links)
-
-            # ---------------------------------------------
-
-            for link in page.links:
-
-                valid, reason = filters.is_valid(
-
-                    link,
-
-                    config,
-
-                )
-
-                if not valid:
-
-                    statistics.invalid_skipped += 1
-
-                    # Debug output (temporary)
-                    print(f"[SKIP:{reason}] {link.url}")
-
+                if not futures:
                     continue
 
-                parsed = urlparse(
-
-                    link.url,
-
+                done, _ = wait(
+                    futures,
+                    return_when=FIRST_COMPLETED,
                 )
 
-                if queue.add(
+                for future in done:
 
-                    CrawlTarget(
+                    target = futures.pop(future)
 
-                        url=parsed.geturl(),
+                    try:
 
-                        depth=target.depth + 1,
+                        page, discovered = future.result()
 
-                    )
+                    except Exception as exc:
 
-                ):
+                        logger.debug(
+                            f"Worker failed: {target.url}: {exc}"
+                        )
 
-                    statistics.urls_queued += 1
+                        queue.task_done()
 
-                else:
+                        continue
 
-                    statistics.duplicates_skipped += 1
+                    if page:
+
+                        pages.append(page)
+
+                        statistics.pages_crawled += 1
+
+                        statistics.links_discovered += len(
+                            page.links
+                        )
+
+                    for new_target in discovered:
+
+                        if queue.add(new_target):
+
+                            statistics.urls_queued += 1
+
+                        else:
+
+                            statistics.duplicates_skipped += 1
+
+                    queue.task_done()
+
+                self._progress(
+                    statistics,
+                    queue,
+                    futures,
+                    start,
+                    config.verbosity,
+                )
+
+        if config.verbosity == "normal":
+            print()
+
+        logger.success("Crawl finished")
 
         return (
-
-            results,
-
+            pages,
             statistics,
-
         )
 
 

@@ -18,6 +18,8 @@ from .models import (
     Page,
     Script,
 )
+from .resource_extractor import resource_extractor
+from .technology_detector import technology_detector
 
 
 class CrawlParser:
@@ -50,6 +52,10 @@ class CrawlParser:
             ),
         )
 
+        # -----------------------------------------
+        # Basic Enumeration
+        # -----------------------------------------
+
         page.links = self._extract_links(
             soup,
             response.url,
@@ -65,6 +71,66 @@ class CrawlParser:
             response.url,
         )
 
+        # -----------------------------------------
+        # Resources
+        # -----------------------------------------
+
+        page.images = resource_extractor.images(
+            soup,
+            response.url,
+        )
+
+        page.stylesheets = resource_extractor.stylesheets(
+            soup,
+            response.url,
+        )
+
+        page.iframes = resource_extractor.iframes(
+            soup,
+            response.url,
+        )
+
+        page.videos = resource_extractor.videos(
+            soup,
+            response.url,
+        )
+
+        page.audio = resource_extractor.audio(
+            soup,
+            response.url,
+        )
+
+        # -----------------------------------------
+        # Metadata
+        # -----------------------------------------
+
+        page.server = response.headers.get(
+            "Server",
+        )
+
+        page.favicon = resource_extractor.favicon(
+            soup,
+            response.url,
+        )
+
+        page.canonical = resource_extractor.canonical(
+            soup,
+            response.url,
+        )
+
+        page.meta_refresh = resource_extractor.meta_refresh(
+            soup,
+        )
+
+        # -----------------------------------------
+        # Technology Detection
+        # -----------------------------------------
+
+        page.technologies = technology_detector.detect(
+            soup,
+            response,
+        )
+
         return page
 
     # ---------------------------------------------------------
@@ -73,9 +139,6 @@ class CrawlParser:
     def _extract_title(
         soup: BeautifulSoup,
     ) -> str:
-        """
-        Extract page title.
-        """
 
         if soup.title:
 
@@ -92,9 +155,6 @@ class CrawlParser:
         soup: BeautifulSoup,
         base_url: str,
     ) -> list[Link]:
-        """
-        Extract hyperlinks.
-        """
 
         links: list[Link] = []
 
@@ -131,9 +191,6 @@ class CrawlParser:
         soup: BeautifulSoup,
         base_url: str,
     ) -> list[Script]:
-        """
-        Extract JavaScript files.
-        """
 
         scripts: list[Script] = []
 
@@ -164,9 +221,6 @@ class CrawlParser:
         soup: BeautifulSoup,
         base_url: str,
     ) -> list[Form]:
-        """
-        Extract HTML forms.
-        """
 
         forms: list[Form] = []
 
