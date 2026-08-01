@@ -7,7 +7,6 @@ Coordinates the crawling process.
 from __future__ import annotations
 
 import time
-from urllib.parse import urlparse
 
 from .filters import filters
 from .models import (
@@ -21,13 +20,34 @@ from .queue import CrawlQueue
 from .requester import requester
 from .robots import robots
 from .sitemap import sitemap
-
+from .progress import CrawlProgress
 
 class CrawlEngine:
     """
     Main crawler engine.
     """
+    # ---------------------------------------------------------
 
+    @staticmethod
+    def _enqueue_target(
+        queue: CrawlQueue,
+        statistics: CrawlStatistics,
+        target: CrawlTarget,
+    ) -> bool:
+        """
+        Queue a crawl target and update statistics.
+        """
+
+        added = queue.add(target)
+
+        if added:
+            statistics.urls_queued += 1
+        else:
+            statistics.duplicates_skipped += 1
+
+        return added
+
+        return False
     def crawl(
         self,
         config: CrawlConfig,
@@ -46,7 +66,11 @@ class CrawlEngine:
         # Seed Queue
         # -------------------------------------------------
 
-        if queue.add(
+        self._enqueue_target(
+
+            queue,
+
+            statistics,
 
             CrawlTarget(
 
@@ -54,11 +78,9 @@ class CrawlEngine:
 
                 depth=0,
 
-            )
+            ),
 
-        ):
-
-            statistics.urls_queued += 1
+        )
 
         # -------------------------------------------------
         # robots.txt
@@ -80,23 +102,21 @@ class CrawlEngine:
                 robots_content,
             ):
 
-                if queue.add(
+                self._enqueue_target(
 
-                    CrawlTarget(
+                queue,
 
-                        url=config.url.rstrip("/") + path,
+                statistics,
 
-                        depth=1,
+                CrawlTarget(
 
-                    )
+                    url=config.url.rstrip("/") + path,
 
-                ):
+                    depth=1,
 
-                    statistics.urls_queued += 1
+                ),
 
-                else:
-
-                    statistics.duplicates_skipped += 1
+            )
 
         # -------------------------------------------------
         # sitemap.xml
@@ -120,23 +140,21 @@ class CrawlEngine:
                 verify_ssl=config.verify_ssl,
             ):
 
-                if queue.add(
+                self._enqueue_target(
 
-                    CrawlTarget(
+                queue,
 
-                        url=url,
+                statistics,
 
-                        depth=1,
+                CrawlTarget(
 
-                    )
+                    url=url,
 
-                ):
+                    depth=1,
 
-                    statistics.urls_queued += 1
+                ),
 
-                else:
-
-                    statistics.duplicates_skipped += 1
+            )
 
         # -------------------------------------------------
         # Crawl Loop
@@ -191,19 +209,88 @@ class CrawlEngine:
                 target,
 
             )
+            for finding in page.parameters:
 
+                icon = {
+                    "HIGH": "🔴",
+                    "MEDIUM": "🟡",
+                    "LOW": "🟢",
+                }.get(finding.severity, "⚪")
+
+                print(
+                    f"\n    {icon} "
+                    f"{finding.category:<20} "
+                    f"{finding.name}"
+                )
             results.append(page)
 
             statistics.pages_crawled += 1
 
             statistics.links_discovered += len(page.links)
 
-            print(
-                f"    [{statistics.pages_crawled}/{config.max_pages}] "
-                f"[{page.status}] {page.url} "
-                f"({len(page.links)} links, queue: {queue.size()})"
+            existing = {
+            (
+                p.name,
+                p.source,
+            )
+            for p in statistics.parameter_findings
+        }
+
+        for finding in page.parameters:
+
+            key = (
+                finding.name,
+                finding.source,
             )
 
+            if key not in existing:
+
+                statistics.parameter_findings.append(
+                    finding,
+                )
+
+                existing.add(
+                    key,
+                )
+
+            # -------------------------------------------------
+            # Aggregate discovered intelligence
+            # -------------------------------------------------
+
+            statistics.parameters.update(
+                parameter.name
+                for parameter in page.parameters
+            )
+
+            statistics.api_endpoints.update(
+                page.api_endpoints
+            )
+
+            statistics.emails.update(
+                page.emails
+            )
+
+            statistics.interesting_files.update(
+                page.interesting_files
+            )
+
+            statistics.technologies.update(
+                page.technologies
+            )
+
+            CrawlProgress.update(
+                current=statistics.pages_crawled,
+                total=config.max_pages,
+                url=page.url,
+                status=page.status,
+            )
+            for finding in page.parameters:
+
+                print(
+                    f"        [{finding.severity}] "
+                    f"{finding.name} "
+                    f"→ {finding.category}"
+                )
             # ---------------------------------------------
             # Notable links (matching suspicious keywords like
             # admin/backup/.git/config/etc.) are always recorded
@@ -218,7 +305,14 @@ class CrawlEngine:
                 if link.notable:
 
                     statistics.notable_links.append(link.url)
+            # Collect external domains discovered on this page.
+            # These are useful later for reporting and OSINT.
 
+            if page.external_domains:
+
+                statistics.external_domains.update(
+                    page.external_domains
+                )
             # ---------------------------------------------
             # A single page can contain far more links than we
             # can reasonably crawl (pypi.org/simple/ has 861,000+).
@@ -263,38 +357,31 @@ class CrawlEngine:
 
                     continue
 
-                parsed = urlparse(
-
-                    link.url,
-
-                )
-
                 queued_from_page += 1
 
-                if queue.add(
+                self._enqueue_target(
+
+                    queue,
+
+                    statistics,
 
                     CrawlTarget(
 
-                        url=parsed.geturl(),
+                        url=link.url,
 
                         depth=target.depth + 1,
 
-                    )
+                    ),
 
-                ):
+                )
+        CrawlProgress.finish()
 
-                    statistics.urls_queued += 1
-
-                else:
-
-                    statistics.duplicates_skipped += 1
+        if not statistics.stop_reason:
+            statistics.stop_reason = "crawl complete"
 
         return (
-
             results,
-
             statistics,
-
         )
 
 

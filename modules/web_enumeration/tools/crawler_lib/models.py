@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
-
+from dataclasses import dataclass, field
 # ---------------------------------------------------------
 # Crawl Configuration
 # ---------------------------------------------------------
@@ -83,7 +83,26 @@ class Link:
 
     notable: bool = False
 
+# ---------------------------------------------------------
+# Parameter Finding
+# ---------------------------------------------------------
 
+
+@dataclass(slots=True)
+class ParameterFinding:
+    """
+    Interesting URL parameter discovered during crawling.
+    """
+
+    name: str
+
+    value: str
+
+    severity: str
+
+    category: str
+
+    source: str
 # ---------------------------------------------------------
 # Script
 # ---------------------------------------------------------
@@ -97,6 +116,22 @@ class Script:
 
     url: str
 
+# ---------------------------------------------------------
+# Parameter
+# ---------------------------------------------------------
+
+
+@dataclass(slots=True)
+class Parameter:
+    """
+    URL query parameter discovered during crawling.
+    """
+
+    name: str
+
+    value: str = ""
+
+    source: str = ""
 
 # ---------------------------------------------------------
 # Form
@@ -115,6 +150,13 @@ class Form:
 
     inputs: list[str] = field(default_factory=list)
 
+    hidden_inputs: list[str] = field(default_factory=list)
+
+    textareas: list[str] = field(default_factory=list)
+
+    selects: list[str] = field(default_factory=list)
+
+    has_file_upload: bool = False
 
 # ---------------------------------------------------------
 # Page
@@ -139,11 +181,23 @@ class Page:
 
     links: list[Link] = field(default_factory=list)
 
+    parameters: list[ParameterFinding] = field(default_factory=list)
+
     scripts: list[Script] = field(default_factory=list)
 
     forms: list[Form] = field(default_factory=list)
 
+    api_endpoints: list[str] = field(default_factory=list)
 
+    iframes: list[str] = field(default_factory=list)
+
+    emails: list[str] = field(default_factory=list)
+
+    interesting_files: list[str] = field(default_factory=list)
+
+    external_domains: list[str] = field(default_factory=list)
+
+    technologies: list[str] = field(default_factory=list)
 # ---------------------------------------------------------
 # Crawl Statistics
 # ---------------------------------------------------------
@@ -172,3 +226,17 @@ class CrawlStatistics:
     stop_reason: str = "completed"
 
     notable_links: list[str] = field(default_factory=list)
+
+    parameter_findings: list[ParameterFinding] = field(default_factory=list)
+
+    parameters: set[str] = field(default_factory=set)
+
+    api_endpoints: set[str] = field(default_factory=set)
+
+    emails: set[str] = field(default_factory=set)
+
+    technologies: set[str] = field(default_factory=set)
+
+    interesting_files: set[str] = field(default_factory=set)
+
+    external_domains: set[str] = field(default_factory=set)

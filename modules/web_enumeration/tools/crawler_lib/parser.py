@@ -6,7 +6,8 @@ Parses HTML pages into ReconForge models.
 
 from __future__ import annotations
 
-from urllib.parse import urljoin
+import re
+from urllib.parse import parse_qsl, urljoin, urlparse
 
 import requests
 from bs4 import BeautifulSoup
@@ -17,7 +18,10 @@ from .models import (
     Link,
     Page,
     Script,
+    ParameterFinding,
 )
+
+from .parameter_intelligence import parameter_intelligence
 
 
 class CrawlParser:
@@ -59,12 +63,26 @@ class CrawlParser:
         )
 
         page.title = self._extract_title(soup)
-
+        page.parameters = parameter_intelligence.analyze(
+        response.url,
+        )
         page.links = self._extract_links(
             soup,
             response.url,
         )
+        page.parameters = []
 
+        for link in page.links:
+
+            page.parameters.extend(
+
+                parameter_intelligence.analyze(
+
+                    link.url,
+
+                )
+
+            )
         page.scripts = self._extract_scripts(
             soup,
             response.url,
@@ -74,7 +92,27 @@ class CrawlParser:
             soup,
             response.url,
         )
+        page.parameters = parameter_intelligence.analyze(
+    response.url,
+)
 
+        page.api_endpoints = self._extract_api_endpoints(page.links)
+
+        page.iframes = self._extract_iframes(
+            soup,
+            response.url,
+        )
+
+        page.emails = self._extract_emails(response.text)
+
+        page.interesting_files = self._extract_interesting_files(
+            page.links,
+        )
+
+        page.external_domains = self._extract_external_domains(
+            page.links,
+            response.url,
+        )
         return page
 
     # ---------------------------------------------------------
@@ -122,6 +160,32 @@ class CrawlParser:
         ".git", ".env", ".sql", ".bak", "swagger",
         "api-docs", "actuator", "phpinfo",
     )
+    API_KEYWORDS = (
+        "/api/",
+        "/graphql",
+        "/rest/",
+        "/v1/",
+        "/v2/",
+        "/v3/",
+    )
+
+    INTERESTING_EXTENSIONS = (
+        ".zip",
+        ".bak",
+        ".sql",
+        ".env",
+        ".json",
+        ".xml",
+        ".yaml",
+        ".yml",
+        ".conf",
+        ".config",
+        ".log",
+    )
+
+    EMAIL_REGEX = re.compile(
+        r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}"
+    )
 
     @classmethod
     def _is_notable(cls, url: str) -> bool:
@@ -146,6 +210,7 @@ class CrawlParser:
         """
         Extract hyperlinks.
         """
+        seen_urls: set[str] = set()
 
         links: list[Link] = []
 
@@ -161,7 +226,10 @@ class CrawlParser:
                 base_url,
                 tag["href"],
             )
+            if url in seen_urls:
+                continue
 
+            seen_urls.add(url)
             links.append(
 
                 Link(
@@ -222,23 +290,45 @@ class CrawlParser:
         soup: BeautifulSoup,
         base_url: str,
     ) -> list[Form]:
-        """
-        Extract HTML forms.
-        """
 
         forms: list[Form] = []
 
         for form in soup.find_all("form"):
 
-            inputs: list[str] = []
+            inputs = []
+            hidden = []
+            textareas = []
+            selects = []
+            has_file = False
 
             for field in form.find_all("input"):
 
                 name = field.get("name")
 
-                if name:
+                if not name:
+                    continue
 
-                    inputs.append(name)
+                inputs.append(name)
+
+                if field.get("type", "").lower() == "hidden":
+                    hidden.append(name)
+
+                if field.get("type", "").lower() == "file":
+                    has_file = True
+
+            for textarea in form.find_all("textarea"):
+
+                name = textarea.get("name")
+
+                if name:
+                    textareas.append(name)
+
+            for select in form.find_all("select"):
+
+                name = select.get("name")
+
+                if name:
+                    selects.append(name)
 
             forms.append(
 
@@ -246,10 +336,7 @@ class CrawlParser:
 
                     action=urljoin(
                         base_url,
-                        form.get(
-                            "action",
-                            "",
-                        ),
+                        form.get("action", ""),
                     ),
 
                     method=form.get(
@@ -259,11 +346,131 @@ class CrawlParser:
 
                     inputs=inputs,
 
+                    hidden_inputs=hidden,
+
+                    textareas=textareas,
+
+                    selects=selects,
+
+                    has_file_upload=has_file,
+
                 )
 
             )
 
         return forms
+    
+    @staticmethod
+    def _extract_parameters(
+        links: list[Link],
+    ) -> list[ParameterFinding]:
+        """
+        Analyze parameters found in discovered links.
+        """
 
+        findings: list[ParameterFinding] = []
 
+        seen: set[tuple[str, str, str]] = set()
+
+        for link in links:
+
+            for finding in parameter_intelligence.analyze(link.url):
+
+                key = (
+                    finding.name.lower(),
+                    finding.category,
+                    finding.source,
+                )
+
+                if key in seen:
+                    continue
+
+                seen.add(key)
+
+                findings.append(finding)
+
+        return findings
+    @classmethod
+    def _extract_api_endpoints(
+        cls,
+        links: list[Link],
+    ) -> list[str]:
+
+        return sorted({
+
+            link.url
+
+            for link in links
+
+            if any(
+                keyword in link.url.lower()
+                for keyword in cls.API_KEYWORDS
+            )
+
+        })
+    @classmethod
+    def _extract_emails(
+        cls,
+        text: str,
+    ) -> list[str]:
+
+        return sorted(set(
+
+            cls.EMAIL_REGEX.findall(text)
+
+        ))
+    @staticmethod
+    def _extract_iframes(
+        soup: BeautifulSoup,
+        base_url: str,
+    ) -> list[str]:
+
+        return [
+
+            urljoin(base_url, frame["src"])
+
+            for frame in soup.find_all("iframe", src=True)
+
+        ]
+    
+    @classmethod
+    def _extract_interesting_files(
+        cls,
+        links: list[Link],
+    ) -> list[str]:
+
+        return [
+
+            link.url
+
+            for link in links
+
+            if link.url.lower().endswith(
+
+                cls.INTERESTING_EXTENSIONS
+
+            )
+
+        ]
+
+    @staticmethod
+    def _extract_external_domains(
+        links: list[Link],
+        base_url: str,
+    ) -> list[str]:
+
+        base_host = urlparse(base_url).hostname
+
+        domains = set()
+
+        for link in links:
+
+            host = urlparse(link.url).hostname
+
+            if host and host != base_host:
+
+                domains.add(host)
+
+        return sorted(domains)
+    
 parser = CrawlParser()

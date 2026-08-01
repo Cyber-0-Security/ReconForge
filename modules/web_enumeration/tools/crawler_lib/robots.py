@@ -16,6 +16,15 @@ class RobotsParser:
     Handles robots.txt discovery.
     """
 
+    def __init__(self) -> None:
+        """
+        Reuse HTTP connections.
+        """
+
+        self._session = requests.Session()
+
+    # ---------------------------------------------------------
+
     def fetch(
         self,
         url: str,
@@ -33,19 +42,25 @@ class RobotsParser:
 
         try:
 
-            response = requests.get(
+            response = self._session.get(
+
                 robots_url,
+
                 timeout=timeout,
+
                 verify=verify_ssl,
+
                 headers={
                     "User-Agent": (
                         "Mozilla/5.0 "
                         "(ReconForge)"
                     )
                 },
+
             )
 
             if response.status_code != 200:
+
                 return None
 
             return response.text
@@ -61,31 +76,66 @@ class RobotsParser:
         content: str,
     ) -> list[str]:
         """
-        Extract interesting paths.
+        Extract interesting paths from robots.txt.
         """
 
-        paths: list[str] = []
+        paths: set[str] = set()
 
         for line in content.splitlines():
 
             line = line.strip()
 
             if not line:
+
                 continue
 
-            if line.lower().startswith(
-                "disallow:"
+            if line.startswith("#"):
+
+                continue
+
+            #
+            # Remove inline comments.
+            #
+
+            line = line.split(
+                "#",
+                1,
+            )[0].strip()
+
+            if not line:
+
+                continue
+
+            key, separator, value = line.partition(":")
+
+            if not separator:
+
+                continue
+
+            key = key.strip().lower()
+
+            value = value.strip()
+
+            if not value:
+
+                continue
+
+            #
+            # Ignore wildcard-only entries.
+            #
+
+            if value == "*":
+
+                continue
+
+            if key in (
+                "disallow",
+                "allow",
             ):
 
-                path = line.split(
-                    ":",
-                    1,
-                )[1].strip()
+                paths.add(value)
 
-                if path:
-                    paths.append(path)
-
-        return paths
+        return sorted(paths)
 
 
 robots = RobotsParser()

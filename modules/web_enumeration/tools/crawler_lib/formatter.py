@@ -13,7 +13,100 @@ from .models import (
     Page,
 )
 
+def _print_parameter_intelligence(
+    statistics: CrawlStatistics,
+) -> None:
+    """
+    Print classified URL parameters.
+    """
 
+    if not statistics.parameter_findings:
+        return
+
+    print()
+    print("=" * 60)
+    print("PARAMETER INTELLIGENCE")
+    print("=" * 60)
+
+    grouped: dict[
+        tuple[str, str],
+        dict[str, object],
+    ] = {}
+
+    for finding in statistics.parameter_findings:
+
+        key = (
+            finding.name.lower(),
+            finding.category,
+        )
+
+        if key not in grouped:
+
+            grouped[key] = {
+
+                "severity": finding.severity,
+
+                "urls": set(),
+
+            }
+
+        grouped[key]["urls"].add(
+            finding.source,
+        )
+
+    severity_order = (
+        "HIGH",
+        "MEDIUM",
+        "LOW",
+    )
+
+    icons = {
+
+        "HIGH": "🔴",
+
+        "MEDIUM": "🟡",
+
+        "LOW": "🟢",
+
+    }
+
+    for severity in severity_order:
+
+        entries = [
+
+            (key, value)
+
+            for key, value in grouped.items()
+
+            if value["severity"] == severity
+
+        ]
+
+        if not entries:
+
+            continue
+
+        print()
+        print(f"{icons[severity]} {severity}")
+        print()
+
+        for (parameter, category), value in sorted(entries):
+
+            urls = sorted(value["urls"])
+
+            print(parameter)
+
+            print(f"    Category    : {category}")
+
+            print(f"    Occurrences : {len(urls)}")
+
+            print("    URLs")
+
+            for url in urls:
+
+                print(f"        {url}")
+
+            print()
 def print_results(
     pages: list[Page],
     statistics: CrawlStatistics,
@@ -104,7 +197,54 @@ def print_results(
         for page in pages
         for script in page.scripts
     })
+    unique_parameters = sorted(statistics.parameters)
 
+    if unique_parameters:
+
+        print("Parameters")
+        print("-" * 60)
+
+        for parameter in unique_parameters:
+
+            print(f"  {parameter}")
+
+        print()
+    unique_api = sorted(statistics.api_endpoints)
+
+    if unique_api:
+
+        print("API Endpoints")
+        print("-" * 60)
+
+        for endpoint in unique_api:
+
+            print(f"  {endpoint}")
+
+        print()
+    unique_emails = sorted(statistics.emails)
+
+    if unique_emails:
+
+        print("Emails")
+        print("-" * 60)
+
+        for email in unique_emails:
+
+            print(f"  {email}")
+
+        print()
+    interesting = sorted(statistics.interesting_files)
+
+    if interesting:
+
+        print("Interesting Files")
+        print("-" * 60)
+
+        for file in interesting:
+
+            print(f"  {file}")
+
+        print()
     if unique_scripts:
 
         print("Unique Scripts")
@@ -136,7 +276,7 @@ def print_results(
             print(f"  {link_url}")
 
         print()
-
+    _print_parameter_intelligence(statistics,)
     print("Pages")
     print("-" * 60)
 
@@ -155,5 +295,17 @@ def print_results(
         print(f"    Scripts : {len(page.scripts)}")
 
         print(f"    Forms   : {len(page.forms)}")
+
+        if page.parameters:
+            print(f"    Parameters : {len(page.parameters)}")
+
+        if page.api_endpoints:
+            print(f"    APIs       : {len(page.api_endpoints)}")
+
+        if page.emails:
+            print(f"    Emails     : {len(page.emails)}")
+
+        if page.iframes:
+            print(f"    Iframes    : {len(page.iframes)}")
 
         print()

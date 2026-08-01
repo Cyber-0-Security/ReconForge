@@ -1113,3 +1113,273 @@ AttributeError: module 'modules.vulnerability.manager' has no attribute 'execute
 2026-08-01 15:30:49 [INFO] [SUCCESS] Module execution completed.
 2026-08-01 15:30:51 [INFO] Exiting ReconForge...
 2026-08-01 15:30:51 [INFO] ReconForge terminated
+2026-08-01 19:40:24 [INFO] Starting ReconForge
+2026-08-01 19:40:24 [INFO] Starting ReconForge menu.
+2026-08-01 19:40:25 [INFO] Selected module: web_enumeration
+2026-08-01 19:40:25 [INFO] Loading module: web_enumeration
+2026-08-01 19:40:25 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-08-01 19:40:28 [INFO] Executing CrawlerTool
+2026-08-01 19:40:28 [INFO] Starting Crawler...
+2026-08-01 19:40:32 [INFO] Crawling https://craw.in
+2026-08-01 19:41:59 [INFO] [SUCCESS] Crawler completed in 0:01:31.529068
+2026-08-02 00:39:05 [INFO] Starting ReconForge
+2026-08-02 00:39:05 [INFO] Starting ReconForge menu.
+2026-08-02 00:39:06 [INFO] Selected module: web_enumeration
+2026-08-02 00:39:06 [INFO] Loading module: web_enumeration
+2026-08-02 00:39:06 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-08-02 00:39:08 [INFO] Executing CrawlerTool
+2026-08-02 00:39:08 [INFO] Starting Crawler...
+2026-08-02 00:39:12 [INFO] Crawling https://craw.in
+2026-08-02 00:39:18 [INFO] [SUCCESS] Crawler completed in 0:00:10.330142
+2026-08-02 01:11:06 [INFO] Starting ReconForge
+2026-08-02 01:11:06 [INFO] Starting ReconForge menu.
+2026-08-02 01:11:07 [INFO] Selected module: web_enumeration
+2026-08-02 01:11:07 [INFO] Loading module: web_enumeration
+2026-08-02 01:11:07 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-08-02 01:11:08 [INFO] Executing CrawlerTool
+2026-08-02 01:11:08 [INFO] Starting Crawler...
+2026-08-02 01:11:11 [INFO] Crawling https://craw.in
+2026-08-02 01:11:12 [ERROR] Failed to execute module 'web_enumeration': name 'Parameter' is not defined
+Traceback (most recent call last):
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 72, in run
+    manager.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 135, in execute
+    manager.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 124, in execute
+    self.process_choice(choice)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 107, in process_choice
+    tool.run()
+    ~~~~~~~~^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler.py", line 72, in run
+    pages, statistics = engine.crawl(
+                        ~~~~~~~~~~~~^
+        config,
+        ^^^^^^^
+    )
+    ^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler_lib/engine.py", line 205, in crawl
+    page = parser.parse(
+    
+    ...<3 lines>...
+    
+    )
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler_lib/parser.py", line 94, in parse
+    page.parameters = self._extract_parameters(page.links)
+                      ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler_lib/parser.py", line 382, in _extract_parameters
+    Parameter(
+    ^^^^^^^^^
+NameError: name 'Parameter' is not defined. Did you mean: 'parameters'?
+2026-08-02 01:11:12 [ERROR] Module execution failed.
+2026-08-02 01:12:59 [INFO] Starting ReconForge
+2026-08-02 01:12:59 [INFO] Starting ReconForge menu.
+2026-08-02 01:13:00 [INFO] Selected module: web_enumeration
+2026-08-02 01:13:00 [INFO] Loading module: web_enumeration
+2026-08-02 01:13:01 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-08-02 01:13:01 [INFO] Executing CrawlerTool
+2026-08-02 01:13:01 [INFO] Starting Crawler...
+2026-08-02 01:13:04 [INFO] Crawling https://craw.in
+2026-08-02 01:13:05 [ERROR] Failed to execute module 'web_enumeration': name 'Parameter' is not defined
+Traceback (most recent call last):
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 72, in run
+    manager.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 135, in execute
+    manager.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 124, in execute
+    self.process_choice(choice)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 107, in process_choice
+    tool.run()
+    ~~~~~~~~^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler.py", line 72, in run
+    pages, statistics = engine.crawl(
+                        ~~~~~~~~~~~~^
+        config,
+        ^^^^^^^
+    )
+    ^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler_lib/engine.py", line 205, in crawl
+    page = parser.parse(
+    
+    ...<3 lines>...
+    
+    )
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler_lib/parser.py", line 94, in parse
+    page.parameters = self._extract_parameters(page.links)
+                      ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler_lib/parser.py", line 382, in _extract_parameters
+    Parameter(
+    ^^^^^^^^^
+NameError: name 'Parameter' is not defined. Did you mean: 'parameters'?
+2026-08-02 01:13:05 [ERROR] Module execution failed.
+2026-08-02 01:16:01 [INFO] Starting ReconForge
+2026-08-02 01:16:01 [INFO] Starting ReconForge menu.
+2026-08-02 01:16:02 [INFO] Selected module: web_enumeration
+2026-08-02 01:16:02 [INFO] Loading module: web_enumeration
+2026-08-02 01:16:02 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-08-02 01:16:03 [INFO] Executing CrawlerTool
+2026-08-02 01:16:03 [INFO] Starting Crawler...
+2026-08-02 01:16:09 [INFO] Crawling https://craw.in
+2026-08-02 01:16:10 [ERROR] Failed to execute module 'web_enumeration': name 'Parameter' is not defined
+Traceback (most recent call last):
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 72, in run
+    manager.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 135, in execute
+    manager.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 124, in execute
+    self.process_choice(choice)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 107, in process_choice
+    tool.run()
+    ~~~~~~~~^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler.py", line 72, in run
+    pages, statistics = engine.crawl(
+                        ~~~~~~~~~~~~^
+        config,
+        ^^^^^^^
+    )
+    ^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler_lib/engine.py", line 205, in crawl
+    page = parser.parse(
+    
+    ...<3 lines>...
+    
+    )
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler_lib/parser.py", line 94, in parse
+    page.parameters = self._extract_parameters(page.links)
+                      ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler_lib/parser.py", line 382, in _extract_parameters
+    Parameter(
+    ^^^^^^^^^
+NameError: name 'Parameter' is not defined. Did you mean: 'parameters'?
+2026-08-02 01:16:10 [ERROR] Module execution failed.
+2026-08-02 01:18:54 [INFO] Starting ReconForge
+2026-08-02 01:18:54 [INFO] Starting ReconForge menu.
+2026-08-02 01:18:55 [INFO] Selected module: web_enumeration
+2026-08-02 01:18:55 [INFO] Loading module: web_enumeration
+2026-08-02 01:18:55 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-08-02 01:18:56 [INFO] Executing CrawlerTool
+2026-08-02 01:18:56 [INFO] Starting Crawler...
+2026-08-02 01:18:58 [INFO] Crawling https://craw.in
+2026-08-02 01:19:00 [ERROR] Failed to execute module 'web_enumeration': 'Page' object has no attribute 'parameter_findings'
+Traceback (most recent call last):
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 72, in run
+    manager.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 135, in execute
+    manager.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 124, in execute
+    self.process_choice(choice)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 107, in process_choice
+    tool.run()
+    ~~~~~~~~^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler.py", line 72, in run
+    pages, statistics = engine.crawl(
+                        ~~~~~~~~~~~~^
+        config,
+        ^^^^^^^
+    )
+    ^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler_lib/engine.py", line 212, in crawl
+    for finding in page.parameter_findings:
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'parameter_findings'
+2026-08-02 01:19:00 [ERROR] Module execution failed.
+2026-08-02 01:21:19 [INFO] Starting ReconForge
+2026-08-02 01:21:19 [INFO] Starting ReconForge menu.
+2026-08-02 01:21:20 [INFO] Selected module: web_enumeration
+2026-08-02 01:21:20 [INFO] Loading module: web_enumeration
+2026-08-02 01:21:20 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-08-02 01:21:20 [INFO] Executing CrawlerTool
+2026-08-02 01:21:20 [INFO] Starting Crawler...
+2026-08-02 01:21:23 [INFO] Crawling https://craw.in
+2026-08-02 01:21:24 [ERROR] Failed to execute module 'web_enumeration': 'Page' object has no attribute 'parameters' and no __dict__ for setting new attributes
+Traceback (most recent call last):
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 72, in run
+    manager.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 135, in execute
+    manager.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 124, in execute
+    self.process_choice(choice)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 107, in process_choice
+    tool.run()
+    ~~~~~~~~^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler.py", line 72, in run
+    pages, statistics = engine.crawl(
+                        ~~~~~~~~~~~~^
+        config,
+        ^^^^^^^
+    )
+    ^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler_lib/engine.py", line 205, in crawl
+    page = parser.parse(
+    
+    ...<3 lines>...
+    
+    )
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler_lib/parser.py", line 66, in parse
+    page.parameters = parameter_intelligence.analyze(
+    ^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'parameters' and no __dict__ for setting new attributes
+2026-08-02 01:21:24 [ERROR] Module execution failed.
+2026-08-02 01:22:46 [INFO] Starting ReconForge
+2026-08-02 01:22:46 [INFO] Starting ReconForge menu.
+2026-08-02 01:22:46 [INFO] Selected module: web_enumeration
+2026-08-02 01:22:46 [INFO] Loading module: web_enumeration
+2026-08-02 01:22:47 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-08-02 01:22:47 [INFO] Executing CrawlerTool
+2026-08-02 01:22:47 [INFO] Starting Crawler...
+2026-08-02 01:22:49 [INFO] Crawling https://craw.in
+2026-08-02 01:22:50 [ERROR] Failed to execute module 'web_enumeration': 'Page' object has no attribute 'parameters' and no __dict__ for setting new attributes
+Traceback (most recent call last):
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 72, in run
+    manager.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 135, in execute
+    manager.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 124, in execute
+    self.process_choice(choice)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 107, in process_choice
+    tool.run()
+    ~~~~~~~~^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler.py", line 72, in run
+    pages, statistics = engine.crawl(
+                        ~~~~~~~~~~~~^
+        config,
+        ^^^^^^^
+    )
+    ^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler_lib/engine.py", line 205, in crawl
+    page = parser.parse(
+    
+    ...<3 lines>...
+    
+    )
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler_lib/parser.py", line 66, in parse
+    page.parameters = parameter_intelligence.analyze(
+    ^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'parameters' and no __dict__ for setting new attributes
+2026-08-02 01:22:50 [ERROR] Module execution failed.
+2026-08-02 01:25:47 [INFO] Starting ReconForge
+2026-08-02 01:25:47 [INFO] Starting ReconForge menu.
+2026-08-02 01:25:48 [INFO] Selected module: web_enumeration
+2026-08-02 01:25:48 [INFO] Loading module: web_enumeration
+2026-08-02 01:25:48 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-08-02 01:25:49 [INFO] Executing CrawlerTool
+2026-08-02 01:25:49 [INFO] Starting Crawler...
+2026-08-02 01:25:51 [INFO] Crawling https://craw.in
+2026-08-02 01:25:57 [INFO] [SUCCESS] Crawler completed in 0:00:08.039522

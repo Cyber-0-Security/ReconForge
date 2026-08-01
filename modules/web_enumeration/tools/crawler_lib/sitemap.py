@@ -6,6 +6,8 @@ Downloads and parses XML sitemaps.
 
 from __future__ import annotations
 
+import gzip
+from io import BytesIO
 from urllib.parse import urljoin
 
 import requests
@@ -17,9 +19,18 @@ class SitemapParser:
     Handles sitemap discovery.
     """
 
-    MAX_SUB_SITEMAPS = 5
+    MAX_SUB_SITEMAPS = 10
 
-    MAX_SITEMAP_DEPTH = 2
+    MAX_SITEMAP_DEPTH = 3
+
+    def __init__(self) -> None:
+        """
+        Reuse HTTP connections.
+        """
+
+        self._session = requests.Session()
+
+    # ---------------------------------------------------------
 
     def fetch(
         self,
@@ -36,34 +47,11 @@ class SitemapParser:
             "/sitemap.xml",
         )
 
-        try:
-
-            response = requests.get(
-
-                sitemap_url,
-
-                timeout=timeout,
-
-                verify=verify_ssl,
-
-                headers={
-                    "User-Agent": (
-                        "Mozilla/5.0 "
-                        "(ReconForge)"
-                    )
-                },
-
-            )
-
-            if response.status_code != 200:
-
-                return None
-
-            return response.text
-
-        except requests.RequestException:
-
-            return None
+        return self.fetch_url(
+            sitemap_url,
+            timeout=timeout,
+            verify_ssl=verify_ssl,
+        )
 
     # ---------------------------------------------------------
 
@@ -75,14 +63,7 @@ class SitemapParser:
         _depth: int = 0,
     ) -> list[str]:
         """
-        Extract every real page URL from a sitemap.
-
-        Supports both a plain sitemap (<urlset> containing <url><loc>
-        entries) and a sitemap index (<sitemapindex> containing
-        <sitemap><loc> entries pointing at other sitemap files). For
-        an index, each sub-sitemap is fetched and parsed in turn so
-        callers always get back real page URLs, never sitemap XML
-        file URLs themselves.
+        Parse a sitemap or sitemap index.
         """
 
         soup = BeautifulSoup(
@@ -90,63 +71,78 @@ class SitemapParser:
             "xml",
         )
 
-        # A sitemap index references other sitemap files rather than
-        # listing pages directly - each <sitemap><loc> is a URL to
-        # another sitemap, not a page to crawl.
+        #
+        # Sitemap index
+        #
+
         if soup.find("sitemapindex"):
 
-            urls: list[str] = []
-
-            # Bound recursion - a very large site could have many
-            # sub-sitemaps, and each one is itself a network request.
-            sub_sitemap_locs = soup.find_all("loc")[:self.MAX_SUB_SITEMAPS]
+            urls: set[str] = set()
 
             if _depth >= self.MAX_SITEMAP_DEPTH:
-                return urls
 
-            for tag in sub_sitemap_locs:
+                return []
 
-                sub_url = tag.get_text(strip=True)
+            sub_sitemaps = soup.find_all("sitemap")
 
-                if not sub_url:
+            for sitemap_tag in sub_sitemaps[: self.MAX_SUB_SITEMAPS]:
+
+                loc = sitemap_tag.find("loc")
+
+                if loc is None:
+
                     continue
 
-                sub_content = self.fetch_url(
+                sub_url = loc.get_text(strip=True)
+
+                if not sub_url:
+
+                    continue
+
+                content = self.fetch_url(
                     sub_url,
                     timeout=timeout,
                     verify_ssl=verify_ssl,
                 )
 
-                if not sub_content:
+                if not content:
+
                     continue
 
-                urls.extend(
+                urls.update(
+
                     self.parse(
-                        sub_content,
+                        content,
                         timeout=timeout,
                         verify_ssl=verify_ssl,
                         _depth=_depth + 1,
                     )
+
                 )
 
-            return list(dict.fromkeys(urls))
+            return sorted(urls)
 
-        urls = []
-
+        #
         # Standard sitemap
-        for tag in soup.find_all("loc"):
+        #
 
-            value = tag.get_text(
-                strip=True,
-            )
+        urls = set()
+
+        for tag in soup.find_all("url"):
+
+            loc = tag.find("loc")
+
+            if loc is None:
+
+                continue
+
+            value = loc.get_text(strip=True)
 
             if value:
 
-                urls.append(value)
+                urls.add(value)
 
-        return list(
-            dict.fromkeys(urls)
-        )
+        return sorted(urls)
 
     # ---------------------------------------------------------
 
@@ -157,26 +153,55 @@ class SitemapParser:
         verify_ssl: bool = True,
     ) -> str | None:
         """
-        Download an arbitrary sitemap URL (used for sub-sitemaps
-        referenced by a sitemap index).
+        Download an arbitrary sitemap.
         """
 
         try:
 
-            response = requests.get(
+            response = self._session.get(
+
                 url,
+
                 timeout=timeout,
+
                 verify=verify_ssl,
+
                 headers={
                     "User-Agent": (
                         "Mozilla/5.0 "
                         "(ReconForge)"
-                    )
+                    ),
+                    "Accept-Encoding": "gzip, deflate",
                 },
+
             )
 
             if response.status_code != 200:
+
                 return None
+
+            #
+            # Handle compressed sitemap.xml.gz
+            #
+
+            if url.lower().endswith(".gz"):
+
+                try:
+
+                    return gzip.GzipFile(
+
+                        fileobj=BytesIO(
+                            response.content
+                        )
+
+                    ).read().decode(
+                        "utf-8",
+                        errors="ignore",
+                    )
+
+                except OSError:
+
+                    return None
 
             return response.text
 
