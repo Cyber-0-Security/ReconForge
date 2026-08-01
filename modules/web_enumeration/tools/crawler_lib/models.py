@@ -24,7 +24,11 @@ class CrawlConfig:
 
     max_depth: int = 2
 
-    threads: int = 20
+    max_pages: int = 40
+
+    max_duration: int = 90
+
+    max_links_to_queue_per_page: int = 200
 
     timeout: int = 10
 
@@ -33,8 +37,6 @@ class CrawlConfig:
     verify_ssl: bool = True
 
     include_subdomains: bool = False
-
-    verbosity: int = 1
 
     user_agent: str = (
         "Mozilla/5.0 "
@@ -78,6 +80,8 @@ class Link:
     text: str
 
     source: str
+
+    notable: bool = False
 
 
 # ---------------------------------------------------------
@@ -133,31 +137,13 @@ class Page:
 
     content_type: str
 
-    server: str = ""
-
-    canonical: str | None = None
-
-    favicon: str | None = None
-
-    meta_refresh: str | None = None
-
     links: list[Link] = field(default_factory=list)
 
     scripts: list[Script] = field(default_factory=list)
 
     forms: list[Form] = field(default_factory=list)
 
-    images: list[str] = field(default_factory=list)
 
-    stylesheets: list[str] = field(default_factory=list)
-
-    iframes: list[str] = field(default_factory=list)
-
-    videos: list[str] = field(default_factory=list)
-
-    audio: list[str] = field(default_factory=list)
-
-    technologies: list[str] = field(default_factory=list)
 # ---------------------------------------------------------
 # Crawl Statistics
 # ---------------------------------------------------------
@@ -169,7 +155,6 @@ class CrawlStatistics:
     Crawl statistics.
     """
 
-    # Overall
     pages_crawled: int = 0
 
     links_discovered: int = 0
@@ -178,30 +163,12 @@ class CrawlStatistics:
 
     duplicates_skipped: int = 0
 
-    # Filtered
-    invalid_skipped: int = 0
-
     external_skipped: int = 0
 
     static_skipped: int = 0
 
-    javascript_skipped: int = 0
+    invalid_skipped: int = 0
 
-    mailto_skipped: int = 0
+    stop_reason: str = "completed"
 
-    telephone_skipped: int = 0
-
-    fragment_skipped: int = 0
-
-    empty_skipped: int = 0
-
-    # Resources
-    scripts_found: int = 0
-
-    forms_found: int = 0
-
-    images_found: int = 0
-
-    css_found: int = 0
-
-    iframes_found: int = 0
+    notable_links: list[str] = field(default_factory=list)

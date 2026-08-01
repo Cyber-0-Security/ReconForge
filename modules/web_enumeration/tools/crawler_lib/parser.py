@@ -18,8 +18,6 @@ from .models import (
     Page,
     Script,
 )
-from .resource_extractor import resource_extractor
-from .technology_detector import technology_detector
 
 
 class CrawlParser:
@@ -36,25 +34,31 @@ class CrawlParser:
         Parse a downloaded page.
         """
 
+        content_type = response.headers.get("Content-Type", "")
+
+        page = Page(
+            url=response.url,
+            status=response.status_code,
+            title="",
+            depth=target.depth,
+            content_type=content_type,
+        )
+
+        #
+        # Only parse actual HTML - running an HTML parser against
+        # XML/JSON/binary responses produces nothing useful (and,
+        # for XML, a BeautifulSoup warning on every single page).
+        #
+
+        if "html" not in content_type.lower():
+            return page
+
         soup = BeautifulSoup(
             response.text,
             "html.parser",
         )
 
-        page = Page(
-            url=response.url,
-            status=response.status_code,
-            title=self._extract_title(soup),
-            depth=target.depth,
-            content_type=response.headers.get(
-                "Content-Type",
-                "",
-            ),
-        )
-
-        # -----------------------------------------
-        # Basic Enumeration
-        # -----------------------------------------
+        page.title = self._extract_title(soup)
 
         page.links = self._extract_links(
             soup,
@@ -71,66 +75,6 @@ class CrawlParser:
             response.url,
         )
 
-        # -----------------------------------------
-        # Resources
-        # -----------------------------------------
-
-        page.images = resource_extractor.images(
-            soup,
-            response.url,
-        )
-
-        page.stylesheets = resource_extractor.stylesheets(
-            soup,
-            response.url,
-        )
-
-        page.iframes = resource_extractor.iframes(
-            soup,
-            response.url,
-        )
-
-        page.videos = resource_extractor.videos(
-            soup,
-            response.url,
-        )
-
-        page.audio = resource_extractor.audio(
-            soup,
-            response.url,
-        )
-
-        # -----------------------------------------
-        # Metadata
-        # -----------------------------------------
-
-        page.server = response.headers.get(
-            "Server",
-        )
-
-        page.favicon = resource_extractor.favicon(
-            soup,
-            response.url,
-        )
-
-        page.canonical = resource_extractor.canonical(
-            soup,
-            response.url,
-        )
-
-        page.meta_refresh = resource_extractor.meta_refresh(
-            soup,
-        )
-
-        # -----------------------------------------
-        # Technology Detection
-        # -----------------------------------------
-
-        page.technologies = technology_detector.detect(
-            soup,
-            response,
-        )
-
         return page
 
     # ---------------------------------------------------------
@@ -139,6 +83,9 @@ class CrawlParser:
     def _extract_title(
         soup: BeautifulSoup,
     ) -> str:
+        """
+        Extract page title.
+        """
 
         if soup.title:
 
@@ -150,11 +97,55 @@ class CrawlParser:
 
     # ---------------------------------------------------------
 
-    @staticmethod
+    #
+    # A single page (a package index, search results listing, huge
+    # sitemap-style page, etc.) can contain an enormous number of
+    # links - real-world example: pypi.org/simple/ alone contains
+    # over 860,000 links. This limit exists purely to stop memory/
+    # CPU blowing up while parsing such a page - it is NOT the
+    # limit on how many links get followed (that happens later,
+    # in the engine, where it can prioritize which links matter).
+    #
+    MAX_LINKS_PER_PAGE = 2000
+
+    #
+    # Keywords that make a discovered link worth flagging to the
+    # user even if the crawler never actually visits it. Matching
+    # is intentionally kept broad and simple (substring match) -
+    # false positives here just mean an extra line in the report,
+    # not a missed page.
+    #
+    NOTABLE_KEYWORDS = (
+        "admin", "login", "signin", "backup", "config",
+        "secret", "internal", "staging", "debug", "dashboard",
+        "console", "phpmyadmin", "wp-admin",
+        ".git", ".env", ".sql", ".bak", "swagger",
+        "api-docs", "actuator", "phpinfo",
+    )
+
+    @classmethod
+    def _is_notable(cls, url: str) -> bool:
+        """
+        Flag a URL as worth surfacing in the report, regardless of
+        whether it actually gets crawled.
+        """
+
+        lowered = url.lower()
+
+        return any(
+            keyword in lowered
+            for keyword in cls.NOTABLE_KEYWORDS
+        )
+
+    @classmethod
     def _extract_links(
+        cls,
         soup: BeautifulSoup,
         base_url: str,
     ) -> list[Link]:
+        """
+        Extract hyperlinks.
+        """
 
         links: list[Link] = []
 
@@ -163,20 +154,27 @@ class CrawlParser:
             href=True,
         ):
 
+            if len(links) >= cls.MAX_LINKS_PER_PAGE:
+                break
+
+            url = urljoin(
+                base_url,
+                tag["href"],
+            )
+
             links.append(
 
                 Link(
 
-                    url=urljoin(
-                        base_url,
-                        tag["href"],
-                    ),
+                    url=url,
 
                     text=tag.get_text(
                         strip=True,
                     ),
 
                     source=base_url,
+
+                    notable=cls._is_notable(url),
 
                 )
 
@@ -191,6 +189,9 @@ class CrawlParser:
         soup: BeautifulSoup,
         base_url: str,
     ) -> list[Script]:
+        """
+        Extract JavaScript files.
+        """
 
         scripts: list[Script] = []
 
@@ -221,6 +222,9 @@ class CrawlParser:
         soup: BeautifulSoup,
         base_url: str,
     ) -> list[Form]:
+        """
+        Extract HTML forms.
+        """
 
         forms: list[Form] = []
 

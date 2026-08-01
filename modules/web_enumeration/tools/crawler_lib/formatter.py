@@ -1,111 +1,159 @@
 """
 Crawler Formatter
 
-Pretty terminal output for ReconForge crawler.
+Pretty prints crawler results.
 """
 
 from __future__ import annotations
 
 from collections import Counter
 
-from config.constants import Colors
+from .models import (
+    CrawlStatistics,
+    Page,
+)
 
-from .logger import logger
-from .models import CrawlStatistics, Page
 
-
-class CrawlFormatter:
+def print_results(
+    pages: list[Page],
+    statistics: CrawlStatistics,
+) -> None:
     """
-    Formats crawler output.
+    Print crawler results.
     """
 
-    def display(
-        self,
-        pages: list[Page],
-        statistics: CrawlStatistics,
-    ) -> None:
+    print()
 
+    print("=" * 60)
+    print("CRAWLER RESULTS")
+    print("=" * 60)
+
+    if not pages:
+
+        print("No pages discovered.")
         print()
-        print("=" * 70)
-        print(f"{Colors.BOLD}CRAWLER SUMMARY{Colors.RESET}")
-        print("=" * 70)
+        return
 
-        print(
-            f"{Colors.GREEN}Pages Crawled     :{Colors.RESET} {statistics.pages_crawled}"
-        )
-        print(
-            f"{Colors.GREEN}URLs Queued       :{Colors.RESET} {statistics.urls_queued}"
-        )
-        print(
-            f"{Colors.GREEN}Links Found       :{Colors.RESET} {statistics.links_discovered}"
-        )
-        print(
-            f"{Colors.YELLOW}Duplicates        :{Colors.RESET} {statistics.duplicates_skipped}"
-        )
-        print(
-            f"{Colors.YELLOW}External Skipped  :{Colors.RESET} {statistics.external_skipped}"
-        )
-        print(
-            f"{Colors.YELLOW}Static Skipped    :{Colors.RESET} {statistics.static_skipped}"
-        )
-        print(
-            f"{Colors.YELLOW}Invalid Skipped   :{Colors.RESET} {statistics.invalid_skipped}"
-        )
+    status_counter = Counter()
 
-        status_counter = Counter(page.status for page in pages)
+    total_scripts = 0
+    total_forms = 0
 
-        print()
-        print("=" * 70)
-        print(f"{Colors.BOLD}STATUS CODES{Colors.RESET}")
-        print("=" * 70)
+    for page in pages:
 
-        for status in sorted(status_counter):
-            print(
-                f"{status:<5} : {status_counter[status]}"
-            )
+        status_counter[page.status] += 1
 
-        # Only print page details in verbose/debug mode
-        if logger.level not in ("verbose", "debug"):
-            return
+        total_scripts += len(page.scripts)
 
-        print()
-        print("=" * 70)
-        print(f"{Colors.BOLD}DISCOVERED PAGES{Colors.RESET}")
-        print("=" * 70)
+        total_forms += len(page.forms)
 
-        for page in sorted(
-            pages,
-            key=lambda p: (p.depth, p.url),
-        ):
+    # -------------------------------------------------
 
+    print(f"Pages Crawled      : {statistics.pages_crawled}")
+    print(f"Links Discovered   : {statistics.links_discovered}")
+    print(f"URLs Queued        : {statistics.urls_queued}")
+    print(f"Duplicates Skipped : {statistics.duplicates_skipped}")
+    print(f"Filtered URLs      : {statistics.invalid_skipped}")
+    print(f"Scripts Found      : {total_scripts}")
+    print(f"Forms Found        : {total_forms}")
+    print(f"Stop Reason        : {statistics.stop_reason}")
+
+    print()
+
+    print("Status Codes")
+    print("-" * 60)
+
+    for status, count in sorted(status_counter.items()):
+
+        print(f"{status:<5} {count}")
+
+    print()
+
+    #
+    # Forms are the most actionable recon detail here (login forms,
+    # search forms, anything accepting input is worth a pentester's
+    # attention) - show them in full rather than only as a count.
+    #
+
+    forms_with_pages = [
+        (page, form)
+        for page in pages
+        for form in page.forms
+    ]
+
+    if forms_with_pages:
+
+        print("Forms")
+        print("-" * 60)
+
+        for page, form in forms_with_pages:
+
+            print(f"[{page.url}]")
+            print(f"    Action : {form.action or '(same page)'}")
+            print(f"    Method : {form.method}")
+            print(f"    Inputs : {', '.join(form.inputs) if form.inputs else '(none named)'}")
             print()
-            print(f"[{page.status}] {page.url}")
-            print(f"    Title        : {page.title}")
-            print(f"    Depth        : {page.depth}")
-            print(f"    Links        : {len(page.links)}")
-            print(f"    Scripts      : {len(page.scripts)}")
-            print(f"    Images       : {len(page.images)}")
-            print(f"    CSS          : {len(page.stylesheets)}")
-            print(f"    Iframes      : {len(page.iframes)}")
-            print(f"    Forms        : {len(page.forms)}")
 
-            if page.server:
-                print(f"    Server       : {page.server}")
+    #
+    # Scripts are useful for spotting third-party JS / outdated
+    # libraries, but can be numerous - deduplicate across pages.
+    #
 
-            if page.canonical:
-                print(f"    Canonical    : {page.canonical}")
+    unique_scripts = sorted({
+        script.url
+        for page in pages
+        for script in page.scripts
+    })
 
-            if page.favicon:
-                print(f"    Favicon      : {page.favicon}")
+    if unique_scripts:
 
-            if page.meta_refresh:
-                print(f"    MetaRefresh  : {page.meta_refresh}")
+        print("Unique Scripts")
+        print("-" * 60)
 
-            if page.technologies:
-                print(
-                    "    Technologies: "
-                    + ", ".join(sorted(page.technologies))
-                )
+        for script_url in unique_scripts:
 
+            print(f"  {script_url}")
 
-formatter = CrawlFormatter()
+        print()
+
+    #
+    # Notable links matched a suspicious keyword (admin, backup,
+    # .git, config, etc.) - always shown here regardless of
+    # whether the crawler actually had budget left to visit them,
+    # so a capped crawl can never silently drop something like
+    # this from the report.
+    #
+
+    unique_notable = sorted(set(statistics.notable_links))
+
+    if unique_notable:
+
+        print("Notable Links (not necessarily crawled)")
+        print("-" * 60)
+
+        for link_url in unique_notable:
+
+            print(f"  {link_url}")
+
+        print()
+
+    print("Pages")
+    print("-" * 60)
+
+    for page in pages:
+
+        print(f"[{page.status}] {page.url}")
+
+        if page.title:
+
+            print(f"    Title   : {page.title}")
+
+        print(f"    Depth   : {page.depth}")
+
+        print(f"    Links   : {len(page.links)}")
+
+        print(f"    Scripts : {len(page.scripts)}")
+
+        print(f"    Forms   : {len(page.forms)}")
+
+        print()

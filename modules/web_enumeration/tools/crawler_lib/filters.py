@@ -8,7 +8,6 @@ from __future__ import annotations
 
 from urllib.parse import urlparse
 
-from .logger import logger
 from .models import (
     CrawlConfig,
     Link,
@@ -49,49 +48,45 @@ class CrawlFilters:
         ".eot",
     }
 
+    # ---------------------------------------------------------
+
     def is_valid(
         self,
         link: Link,
         config: CrawlConfig,
-    ) -> bool:
+    ) -> tuple[bool, str]:
         """
-        Determine whether a link should be crawled.
+        Validate a discovered URL.
+
+        Returns:
+            (True, "ok")
+            (False, "<reason>")
         """
 
         url = link.url.strip()
 
         if not url:
-            logger.debug("Skip empty URL")
-            return False
+            return False, "empty"
 
         if self._is_fragment(url):
-            logger.debug(f"Skip fragment: {url}")
-            return False
+            return False, "fragment"
 
         if self._is_mail(url):
-            logger.debug(f"Skip mailto: {url}")
-            return False
-
-        if self._is_javascript(url):
-            logger.debug(f"Skip javascript: {url}")
-            return False
+            return False, "mailto"
 
         if self._is_tel(url):
-            logger.debug(f"Skip telephone: {url}")
-            return False
+            return False, "telephone"
 
-        if self._is_external(
-            url,
-            config,
-        ):
-            logger.debug(f"Skip external: {url}")
-            return False
+        if self._is_javascript(url):
+            return False, "javascript"
+
+        if self._is_external(url, config):
+            return False, "external"
 
         if self._is_static_file(url):
-            logger.debug(f"Skip static file: {url}")
-            return False
+            return False, "static"
 
-        return True
+        return True, "ok"
 
     # ---------------------------------------------------------
 
@@ -137,38 +132,47 @@ class CrawlFilters:
         config: CrawlConfig,
     ) -> bool:
         """
-        Reject external domains unless allowed.
+        Return True only if the URL is outside the allowed scope.
         """
 
-        target_host = (
-            urlparse(config.url)
-            .hostname
-            or ""
-        ).lower()
+        target = urlparse(config.url)
+        parsed = urlparse(url)
 
-        current_host = (
-            urlparse(url)
-            .hostname
-            or ""
-        ).lower()
-
-        # Relative URL
-        if not current_host:
+        # Relative URLs are always internal.
+        if not parsed.netloc:
             return False
 
-        # Same host
-        if current_host == target_host:
+        target_host = self._strip_www(target.netloc.lower())
+        host = self._strip_www(parsed.netloc.lower())
+
+        # Same host (www. and bare domain always count as the same
+        # site - e.g. a user entering "flipkart.com" gets redirected
+        # to "www.flipkart.com", and every real link on the page
+        # would otherwise be misclassified as external, since it's
+        # compared against the original pre-redirect hostname).
+        if host == target_host:
             return False
 
-        # Allow subdomains
+        # Allow subdomains if enabled
         if config.include_subdomains:
-
-            if current_host.endswith(
-                "." + target_host
-            ):
+            if host.endswith("." + target_host):
                 return False
 
         return True
+
+    # ---------------------------------------------------------
+
+    @staticmethod
+    def _strip_www(host: str) -> str:
+        """
+        Treat 'www.example.com' and 'example.com' as the same host
+        for scope purposes.
+        """
+
+        if host.startswith("www."):
+            return host[4:]
+
+        return host
 
     # ---------------------------------------------------------
 
@@ -179,10 +183,12 @@ class CrawlFilters:
 
         path = urlparse(url).path.lower()
 
-        return any(
-            path.endswith(ext)
-            for ext in self.STATIC_EXTENSIONS
-        )
+        for extension in self.STATIC_EXTENSIONS:
+
+            if path.endswith(extension):
+                return True
+
+        return False
 
 
 filters = CrawlFilters()
