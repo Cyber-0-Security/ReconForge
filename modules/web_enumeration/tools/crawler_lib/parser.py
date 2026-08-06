@@ -22,7 +22,7 @@ from .models import (
 )
 
 from .parameter_intelligence import parameter_intelligence
-
+from .js_analyzer import javascript_analyzer
 
 class CrawlParser:
     """
@@ -49,9 +49,7 @@ class CrawlParser:
         )
 
         #
-        # Only parse actual HTML - running an HTML parser against
-        # XML/JSON/binary responses produces nothing useful (and,
-        # for XML, a BeautifulSoup warning on every single page).
+        # Only parse HTML.
         #
 
         if "html" not in content_type.lower():
@@ -62,27 +60,17 @@ class CrawlParser:
             "html.parser",
         )
 
+        #
+        # Basic extraction
+        #
+
         page.title = self._extract_title(soup)
-        page.parameters = parameter_intelligence.analyze(
-        response.url,
-        )
+
         page.links = self._extract_links(
             soup,
             response.url,
         )
-        page.parameters = []
 
-        for link in page.links:
-
-            page.parameters.extend(
-
-                parameter_intelligence.analyze(
-
-                    link.url,
-
-                )
-
-            )
         page.scripts = self._extract_scripts(
             soup,
             response.url,
@@ -92,27 +80,114 @@ class CrawlParser:
             soup,
             response.url,
         )
-        page.parameters = parameter_intelligence.analyze(
-    response.url,
-)
 
-        page.api_endpoints = self._extract_api_endpoints(page.links)
+        page.parameters = self._extract_parameters(
+            page.links,
+        )
+
+        #
+        # APIs discovered directly from HTML links
+        #
+
+        page.api_endpoints.extend(
+            self._extract_api_endpoints(
+                page.links,
+            )
+        )
+
+        #
+        # APIs/endpoints discovered inside inline JavaScript
+        #
+
+        page.javascript_endpoints.extend(
+            self._extract_js_endpoints(
+                soup,
+                response.url,
+            )
+        )
+
+        #
+        # Analyze external JavaScript files
+        #
+
+        for script in page.scripts:
+
+            source = javascript_analyzer.fetch(
+                script.url,
+            )
+
+            if not source:
+                continue
+
+            result = javascript_analyzer.analyze(
+                source,
+                script.url,
+            )
+
+            #
+            # JavaScript-discovered endpoints
+            #
+
+            page.javascript_endpoints.extend(
+                result.endpoints
+            )
+
+            page.api_endpoints.extend(
+                result.graphql
+            )
+
+            page.interesting_files.extend(
+                result.cloud_buckets
+            )
+
+        #
+        # Remaining extraction
+        #
 
         page.iframes = self._extract_iframes(
             soup,
             response.url,
         )
 
-        page.emails = self._extract_emails(response.text)
+        page.emails = self._extract_emails(
+            response.text,
+        )
 
-        page.interesting_files = self._extract_interesting_files(
-            page.links,
+        page.interesting_files.extend(
+            self._extract_interesting_files(
+                page.links,
+            )
         )
 
         page.external_domains = self._extract_external_domains(
             page.links,
             response.url,
         )
+
+        #
+        # Remove duplicates
+        #
+
+        page.api_endpoints = sorted(
+            set(page.api_endpoints)
+        )
+
+        page.javascript_endpoints = sorted(
+            set(page.javascript_endpoints)
+        )
+
+        page.interesting_files = sorted(
+            set(page.interesting_files)
+        )
+
+        page.external_domains = sorted(
+            set(page.external_domains)
+        )
+
+        page.emails = sorted(
+            set(page.emails)
+        )
+
         return page
 
     # ---------------------------------------------------------
@@ -184,7 +259,26 @@ class CrawlParser:
     )
 
     EMAIL_REGEX = re.compile(
-        r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}"
+        r"(?<![\w/.-])"
+        r"[A-Za-z0-9._%+-]+"
+        r"@"
+        r"(?:[A-Za-z0-9-]+\.)+"
+        r"[A-Za-z]{2,}"
+        r"(?![\w.-])"
+    )
+
+    JS_ENDPOINT_PATTERNS = (
+
+        r'fetch\(\s*[\'"]([^\'"]+)',
+
+        r'axios\.(?:get|post|put|delete|patch)\(\s*[\'"]([^\'"]+)',
+
+        r'url\s*:\s*[\'"]([^\'"]+)',
+
+        r'XMLHttpRequest.*?open\([^,]+,\s*[\'"]([^\'"]+)',
+
+        r'\$\.ajax\(\{[^}]*url\s*:\s*[\'"]([^\'"]+)',
+
     )
 
     @classmethod
@@ -409,16 +503,77 @@ class CrawlParser:
 
         })
     @classmethod
+    def _extract_js_endpoints(
+        cls,
+        soup: BeautifulSoup,
+        base_url: str,
+    ) -> list[str]:
+        """
+        Extract API endpoints referenced inside JavaScript.
+        """
+
+        endpoints = set()
+
+        #
+        # Inline JavaScript
+        #
+
+        for script in soup.find_all("script"):
+
+            code = script.string
+
+            if not code:
+                continue
+
+            for pattern in cls.JS_ENDPOINT_PATTERNS:
+
+                for match in re.findall(
+                    pattern,
+                    code,
+                    re.DOTALL,
+                ):
+
+                    endpoints.add(
+                        urljoin(
+                            base_url,
+                            match,
+                        )
+                    )
+
+        return sorted(endpoints)
+    @classmethod
     def _extract_emails(
         cls,
         text: str,
     ) -> list[str]:
 
-        return sorted(set(
+        emails = set()
 
-            cls.EMAIL_REGEX.findall(text)
+        bad_domains = {
+            "2x.png",
+            "2x.jpg",
+            "2x.jpeg",
+            "2x.webp",
+            "2x.gif",
+            "2x.svg",
+            "3x.png",
+            "3x.jpg",
+            "3x.jpeg",
+            "3x.webp",
+            "3x.gif",
+            "3x.svg",
+        }
 
-        ))
+        for email in cls.EMAIL_REGEX.findall(text):
+            print(repr(email))
+            domain = email.split("@", 1)[1].lower()
+
+            if domain in bad_domains:
+                continue
+
+            emails.add(email)
+
+        return sorted(emails)
     @staticmethod
     def _extract_iframes(
         soup: BeautifulSoup,

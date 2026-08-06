@@ -8,7 +8,25 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
-from dataclasses import dataclass, field
+
+@dataclass(slots=True)
+class JavaScriptAnalysis:
+    """
+    Intelligence extracted from JavaScript.
+    """
+
+    endpoints: list[str] = field(default_factory=list)
+
+    graphql: list[str] = field(default_factory=list)
+
+    websockets: list[str] = field(default_factory=list)
+
+    secrets: list[str] = field(default_factory=list)
+
+    cloud_buckets: list[str] = field(default_factory=list)
+
+    comments: list[str] = field(default_factory=list)
+
 # ---------------------------------------------------------
 # Crawl Configuration
 # ---------------------------------------------------------
@@ -29,6 +47,8 @@ class CrawlConfig:
     max_duration: int = 90
 
     max_links_to_queue_per_page: int = 200
+
+    delay: float = 0.5
 
     timeout: int = 10
 
@@ -117,23 +137,6 @@ class Script:
     url: str
 
 # ---------------------------------------------------------
-# Parameter
-# ---------------------------------------------------------
-
-
-@dataclass(slots=True)
-class Parameter:
-    """
-    URL query parameter discovered during crawling.
-    """
-
-    name: str
-
-    value: str = ""
-
-    source: str = ""
-
-# ---------------------------------------------------------
 # Form
 # ---------------------------------------------------------
 
@@ -189,6 +192,10 @@ class Page:
 
     api_endpoints: list[str] = field(default_factory=list)
 
+    javascript_endpoints: list[str] = field(default_factory=list)
+
+    javascript: JavaScriptAnalysis = field(default_factory=JavaScriptAnalysis)
+
     iframes: list[str] = field(default_factory=list)
 
     emails: list[str] = field(default_factory=list)
@@ -232,6 +239,8 @@ class CrawlStatistics:
     parameters: set[str] = field(default_factory=set)
 
     api_endpoints: set[str] = field(default_factory=set)
+
+    javascript_endpoints: set[str] = field(default_factory=set)
 
     emails: set[str] = field(default_factory=set)
 

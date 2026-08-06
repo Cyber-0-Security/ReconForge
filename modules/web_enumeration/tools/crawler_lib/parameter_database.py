@@ -1,5 +1,9 @@
 """
 ReconForge Parameter Intelligence Database
+
+Includes the top25-parameter wordlists
+(https://github.com/lutfumertceylan/top25-parameter) merged in
+alongside the original entries.
 """
 
 PARAMETER_DATABASE = {

@@ -46,8 +46,6 @@ class CrawlEngine:
             statistics.duplicates_skipped += 1
 
         return added
-
-        return False
     def crawl(
         self,
         config: CrawlConfig,
@@ -198,6 +196,9 @@ class CrawlEngine:
 
             )
 
+            if config.delay > 0:
+                time.sleep(config.delay)
+
             if response is None:
 
                 continue
@@ -209,53 +210,50 @@ class CrawlEngine:
                 target,
 
             )
-            for finding in page.parameters:
 
-                icon = {
-                    "HIGH": "🔴",
-                    "MEDIUM": "🟡",
-                    "LOW": "🟢",
-                }.get(finding.severity, "⚪")
-
-                print(
-                    f"\n    {icon} "
-                    f"{finding.category:<20} "
-                    f"{finding.name}"
-                )
             results.append(page)
 
             statistics.pages_crawled += 1
 
             statistics.links_discovered += len(page.links)
 
+            #
+            # Deduplicate and record parameter-intelligence findings.
+            #
+
             existing = {
-            (
-                p.name,
-                p.source,
-            )
-            for p in statistics.parameter_findings
-        }
+                (p.name, p.source)
+                for p in statistics.parameter_findings
+            }
 
-        for finding in page.parameters:
+            for finding in page.parameters:
 
-            key = (
-                finding.name,
-                finding.source,
-            )
+                key = (finding.name, finding.source)
 
-            if key not in existing:
+                if key not in existing:
 
-                statistics.parameter_findings.append(
-                    finding,
-                )
+                    statistics.parameter_findings.append(finding)
 
-                existing.add(
-                    key,
-                )
+                    existing.add(key)
 
-            # -------------------------------------------------
-            # Aggregate discovered intelligence
-            # -------------------------------------------------
+                    icon = {
+                        "HIGH": "🔴",
+                        "MEDIUM": "🟡",
+                        "LOW": "⚪",
+                    }.get(finding.severity, "⚪")
+
+                    print(
+                        f"        {icon} [{finding.severity}] "
+                        f"{finding.name} → {finding.category}"
+                    )
+
+            #
+            # Everything below must run for every page regardless
+            # of whether it had any parameter findings - previously
+            # all of this (including link queueing!) was nested
+            # inside the loop above, so a page with zero parameter
+            # matches would never have any of its links followed.
+            #
 
             statistics.parameters.update(
                 parameter.name
@@ -265,7 +263,9 @@ class CrawlEngine:
             statistics.api_endpoints.update(
                 page.api_endpoints
             )
-
+            statistics.javascript_endpoints.update(
+                page.javascript_endpoints
+            )
             statistics.emails.update(
                 page.emails
             )
@@ -284,13 +284,7 @@ class CrawlEngine:
                 url=page.url,
                 status=page.status,
             )
-            for finding in page.parameters:
 
-                print(
-                    f"        [{finding.severity}] "
-                    f"{finding.name} "
-                    f"→ {finding.category}"
-                )
             # ---------------------------------------------
             # Notable links (matching suspicious keywords like
             # admin/backup/.git/config/etc.) are always recorded
@@ -305,6 +299,7 @@ class CrawlEngine:
                 if link.notable:
 
                     statistics.notable_links.append(link.url)
+
             # Collect external domains discovered on this page.
             # These are useful later for reporting and OSINT.
 
@@ -313,6 +308,7 @@ class CrawlEngine:
                 statistics.external_domains.update(
                     page.external_domains
                 )
+
             # ---------------------------------------------
             # A single page can contain far more links than we
             # can reasonably crawl (pypi.org/simple/ has 861,000+).

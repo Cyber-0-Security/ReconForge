@@ -12,6 +12,292 @@ from .models import (
     CrawlStatistics,
     Page,
 )
+from .parser import CrawlParser
+
+# ---------------------------------------------------------
+# Helper printing functions
+# ---------------------------------------------------------
+
+def _print_header(title: str) -> None:
+
+    print()
+    print("=" * 60)
+    print(title)
+    print("=" * 60)
+
+
+def _print_subheader(title: str) -> None:
+
+    print()
+    print(title)
+    print("-" * 60)
+
+def _print_summary(
+    pages: list[Page],
+    statistics: CrawlStatistics,
+) -> None:
+
+    total_scripts = sum(
+        len(page.scripts)
+        for page in pages
+    )
+
+    total_forms = sum(
+        len(page.forms)
+        for page in pages
+    )
+
+    total_parameters = sum(
+        len(page.parameters)
+        for page in pages
+    )
+
+    total_emails = len({
+        email
+        for page in pages
+        for email in page.emails
+    })
+
+    total_api = len({
+        api
+        for page in pages
+        for api in page.api_endpoints
+    })
+
+    total_files = len({
+        file
+        for page in pages
+        for file in page.interesting_files
+    })
+
+    _print_header("CRAWLER SUMMARY")
+
+    print(f"✓ Pages Crawled      : {statistics.pages_crawled}")
+    print(f"✓ Links Discovered   : {statistics.links_discovered}")
+    print(f"✓ URLs Queued        : {statistics.urls_queued}")
+    print(f"✓ Forms             : {total_forms}")
+    print(f"✓ Parameters        : {total_parameters}")
+    print(f"✓ Emails            : {total_emails}")
+    print(f"✓ API Endpoints     : {total_api}")
+    print(f"✓ Interesting Files : {total_files}")
+    print(f"✓ Scripts           : {total_scripts}")
+    print(f"✓ Stop Reason       : {statistics.stop_reason}")
+
+def _print_high_priority(
+    pages: list[Page],
+    statistics: CrawlStatistics,
+    ) -> None:
+    """
+    Print high-value discoveries.
+    """
+
+    admin = set()
+    login = set()
+    upload = set()
+    api = set()
+    config = set()
+
+    for page in pages:
+
+        for link in page.links:
+
+            url = link.url.lower()
+
+            if any(x in url for x in ("admin", "administrator")):
+                admin.add(link.url)
+
+            if any(x in url for x in ("login", "signin", "auth")):
+                login.add(link.url)
+
+            if "upload" in url:
+                upload.add(link.url)
+
+            if any(x in url for x in (
+                ".env",
+                ".git",
+                "backup",
+                ".bak",
+                ".sql",
+                "config",
+            )):
+                config.add(link.url)
+
+        for endpoint in page.api_endpoints:
+            api.add(endpoint)
+
+    if not any((admin, login, upload, api, config)):
+        return
+    
+    if statistics.javascript_endpoints:
+
+        print("JavaScript Endpoints")
+        print("-" * 60)
+
+        for endpoint in sorted(statistics.javascript_endpoints):
+
+            print(f"  {endpoint}")
+
+        print()
+    _print_header("HIGH PRIORITY FINDINGS")
+
+    def print_group(title: str, values: set[str]) -> None:
+
+        if not values:
+            return
+
+        print(f"[{title}]")
+
+        for value in sorted(values):
+            print(f"  {value}")
+
+        print()
+
+    print_group("ADMIN", admin)
+
+    print_group("LOGIN", login)
+
+    print_group("UPLOAD", upload)
+
+    print_group("CONFIG", config)
+
+    print_group("API", api)
+
+def _print_page_overview(
+    pages: list[Page],
+) -> None:
+    """
+    Print a concise overview instead of every page.
+    """
+
+    from collections import Counter
+
+    status_counter = Counter()
+
+    forms = 0
+    parameters = 0
+    emails = 0
+    apis = 0
+
+    for page in pages:
+
+        status_counter[page.status] += 1
+
+        if page.forms:
+            forms += 1
+
+        if page.parameters:
+            parameters += 1
+
+        if page.emails:
+            emails += 1
+
+        if page.api_endpoints:
+            apis += 1
+
+    _print_header("PAGE OVERVIEW")
+
+    print("Status Codes")
+
+    print("-" * 60)
+
+    for status, count in sorted(status_counter.items()):
+
+        print(f"{status:<5} {count}")
+
+    print()
+
+    print(f"Pages with Forms      : {forms}")
+    print(f"Pages with Parameters : {parameters}")
+    print(f"Pages with Emails     : {emails}")
+    print(f"Pages with APIs       : {apis}")
+
+def _print_next_steps(
+    pages: list[Page],
+) -> None:
+    """
+    Recommend the next recon steps based on crawl findings.
+    """
+
+    login = set()
+    admin = set()
+    upload = set()
+    apis = set()
+    parameters = set()
+    files = set()
+
+    for page in pages:
+
+        for link in page.links:
+
+            lowered = link.url.lower()
+
+            if "login" in lowered or "signin" in lowered:
+                login.add(link.url)
+
+            if "admin" in lowered:
+                admin.add(link.url)
+
+            if "upload" in lowered:
+                upload.add(link.url)
+
+        for endpoint in page.api_endpoints:
+            apis.add(endpoint)
+
+        for parameter in page.parameters:
+            parameters.add(parameter.name)
+
+        for file in page.interesting_files:
+            files.add(file)
+
+    _print_header("RECOMMENDED NEXT STEPS")
+
+    if parameters:
+
+        print("🎯 Test Parameters")
+
+        for parameter in sorted(parameters):
+            print(f"   • {parameter}")
+
+        print()
+
+    if login or admin:
+
+        print("🔐 Review Authentication")
+
+        for url in sorted(login):
+            print(f"   • {url}")
+
+        for url in sorted(admin):
+            print(f"   • {url}")
+
+        print()
+
+    if upload:
+
+        print("📤 Test Upload Functionality")
+
+        for url in sorted(upload):
+            print(f"   • {url}")
+
+        print()
+
+    if apis:
+
+        print("🌐 Review API Endpoints")
+
+        for api in sorted(apis):
+            print(f"   • {api}")
+
+        print()
+
+    if files:
+
+        print("📁 Inspect Interesting Files")
+
+        for file in sorted(files):
+            print(f"   • {file}")
+
+        print()
 
 def _print_parameter_intelligence(
     statistics: CrawlStatistics,
@@ -115,11 +401,7 @@ def print_results(
     Print crawler results.
     """
 
-    print()
-
-    print("=" * 60)
-    print("CRAWLER RESULTS")
-    print("=" * 60)
+    _print_header("CRAWLER RESULTS")
 
     if not pages:
 
@@ -142,23 +424,53 @@ def print_results(
 
     # -------------------------------------------------
 
-    print(f"Pages Crawled      : {statistics.pages_crawled}")
-    print(f"Links Discovered   : {statistics.links_discovered}")
-    print(f"URLs Queued        : {statistics.urls_queued}")
-    print(f"Duplicates Skipped : {statistics.duplicates_skipped}")
-    print(f"Filtered URLs      : {statistics.invalid_skipped}")
-    print(f"Scripts Found      : {total_scripts}")
-    print(f"Forms Found        : {total_forms}")
-    print(f"Stop Reason        : {statistics.stop_reason}")
+    _print_summary(
+        pages,
+        statistics,
+    )
 
-    print()
+    _print_high_priority(
+        pages,
+        statistics,
+    )
 
-    print("Status Codes")
-    print("-" * 60)
+    _print_page_overview(
+        pages,
+    )
+    _print_next_steps(
+        pages,
+    )
+    #
+    # If this looks like a JS-rendered app (Next.js, React, Vue...)
+    # and we found zero forms, that's very likely because forms are
+    # mounted client-side after the page loads - a plain HTTP fetch
+    # never sees them, rather than the site genuinely having none.
+    # Worth saying explicitly instead of silently showing "0".
+    #
 
-    for status, count in sorted(status_counter.items()):
+    js_framework_markers = (
+        "_next/static",
+        "/static/js/react",
+        "vue.runtime",
+        "__nuxt",
+    )
 
-        print(f"{status:<5} {count}")
+    looks_js_rendered = any(
+        marker in script.url
+        for page in pages
+        for script in page.scripts
+        for marker in js_framework_markers
+    )
+
+    if looks_js_rendered and total_forms == 0:
+
+        print(
+            "Note: this site appears to be JavaScript-rendered "
+            "(e.g. Next.js/React). Forms mounted client-side after "
+            "the page loads won't appear in this scan - 0 forms "
+            "found here does not necessarily mean the site has none."
+        )
+
 
     print()
 
@@ -277,35 +589,106 @@ def print_results(
 
         print()
     _print_parameter_intelligence(statistics,)
-    print("Pages")
-    print("-" * 60)
+
+    #
+    # Notable pages: non-200 status, an admin/suspicious-looking
+    # path, or a page that actually has a form/email on it. Shown
+    # first and separately, so they aren't buried among dozens of
+    # ordinary pages further down.
+    #
+
+    notable_pages = [
+        page
+        for page in pages
+        if page.status != 200
+        or CrawlParser._is_notable(page.url)
+        or page.forms
+        or page.emails
+    ]
+
+    if notable_pages:
+
+        print("Notable Pages")
+        print("-" * 60)
+
+        for page in notable_pages:
+
+            tags = []
+
+            if page.status != 200:
+                tags.append(f"status {page.status}")
+
+            if CrawlParser._is_notable(page.url):
+                tags.append("suspicious path")
+
+            if page.forms:
+                tags.append(f"{len(page.forms)} form(s)")
+
+            if page.emails:
+                tags.append(f"{len(page.emails)} email(s)")
+
+            print(f"  [{page.status}] {page.url}")
+            print(f"      {page.title or '(no title)'} — {', '.join(tags)}")
+
+        print()
+
+    #
+    # Full page list: group pages that share an identical
+    # title/link/script/form/iframe "shape" - a common pattern on
+    # sites where a soft-404 or template page (e.g. WordPress'
+    # "Post Not Found") gets served for many different URLs. These
+    # are collapsed into a single entry with all matching URLs
+    # listed underneath, instead of repeating the same stat block
+    # once per page.
+    #
+
+    groups: dict[tuple, list[Page]] = {}
 
     for page in pages:
 
-        print(f"[{page.status}] {page.url}")
+        signature = (
+            page.title,
+            len(page.links),
+            len(page.scripts),
+            len(page.forms),
+            len(page.iframes),
+        )
 
-        if page.title:
+        groups.setdefault(signature, []).append(page)
 
-            print(f"    Title   : {page.title}")
+    print("Pages")
+    print("-" * 60)
 
-        print(f"    Depth   : {page.depth}")
+    for signature, group_pages in groups.items():
 
-        print(f"    Links   : {len(page.links)}")
+        title, n_links, n_scripts, n_forms, n_iframes = signature
 
-        print(f"    Scripts : {len(page.scripts)}")
+        representative = group_pages[0]
 
-        print(f"    Forms   : {len(page.forms)}")
+        if len(group_pages) == 1:
 
-        if page.parameters:
-            print(f"    Parameters : {len(page.parameters)}")
+            print(f"[{representative.status}] {representative.url}")
 
-        if page.api_endpoints:
-            print(f"    APIs       : {len(page.api_endpoints)}")
+        else:
 
-        if page.emails:
-            print(f"    Emails     : {len(page.emails)}")
+            print(
+                f"{len(group_pages)} pages with identical structure "
+                f"(same title/link/script/form/iframe counts):"
+            )
 
-        if page.iframes:
-            print(f"    Iframes    : {len(page.iframes)}")
+            for page in group_pages:
+
+                print(f"    [{page.status}] {page.url}")
+
+        if title:
+
+            print(f"    Title   : {title}")
+
+        print(f"    Links   : {n_links}")
+        print(f"    Scripts : {n_scripts}")
+        print(f"    Forms   : {n_forms}")
+
+        if n_iframes:
+            print(f"    Iframes : {n_iframes}")
 
         print()

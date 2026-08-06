@@ -1383,3 +1383,121 @@ AttributeError: 'Page' object has no attribute 'parameters' and no __dict__ for 
 2026-08-02 01:25:49 [INFO] Starting Crawler...
 2026-08-02 01:25:51 [INFO] Crawling https://craw.in
 2026-08-02 01:25:57 [INFO] [SUCCESS] Crawler completed in 0:00:08.039522
+2026-08-01 20:17:48 [INFO] Starting Crawler...
+2026-08-01 20:17:48 [INFO] Crawling https://pypi.org
+2026-08-01 20:19:09 [INFO] [SUCCESS] Crawler completed in 0:01:20.551184
+2026-08-01 20:19:17 [INFO] Starting ReconForge
+2026-08-01 20:19:17 [INFO] Starting ReconForge menu.
+2026-08-01 20:19:17 [INFO] Selected module: web_enumeration
+2026-08-01 20:19:17 [INFO] Loading module: web_enumeration
+2026-08-01 20:19:17 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-08-01 20:19:17 [INFO] Executing CrawlerTool
+2026-08-01 20:19:17 [INFO] Starting Crawler...
+2026-08-01 20:19:17 [INFO] Crawling https://pypi.org
+2026-08-01 20:20:42 [INFO] [SUCCESS] Crawler completed in 0:01:24.777438
+2026-08-01 20:20:42 [INFO] [SUCCESS] Module execution completed.
+2026-08-01 20:20:42 [INFO] Exiting ReconForge...
+2026-08-01 20:20:42 [INFO] ReconForge terminated
+2026-08-02 11:58:14 [INFO] Starting Crawler...
+2026-08-02 11:58:14 [INFO] Crawling https://pypi.org
+2026-08-02 11:59:40 [INFO] [SUCCESS] Crawler completed in 0:01:26.100968
+2026-08-02 11:59:49 [INFO] Starting ReconForge
+2026-08-02 11:59:49 [INFO] Starting ReconForge menu.
+2026-08-02 11:59:49 [INFO] Selected module: web_enumeration
+2026-08-02 11:59:49 [INFO] Loading module: web_enumeration
+2026-08-02 11:59:49 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-08-02 11:59:49 [INFO] Executing CrawlerTool
+2026-08-02 11:59:49 [INFO] Starting Crawler...
+2026-08-02 11:59:49 [INFO] Crawling https://pypi.org
+2026-08-02 12:01:15 [INFO] [SUCCESS] Crawler completed in 0:01:25.384630
+2026-08-02 12:01:15 [INFO] [SUCCESS] Module execution completed.
+2026-08-02 12:01:15 [INFO] Exiting ReconForge...
+2026-08-02 12:01:15 [INFO] ReconForge terminated
+2026-08-02 17:35:49 [INFO] Starting ReconForge
+2026-08-02 17:35:49 [INFO] Starting ReconForge menu.
+2026-08-02 17:35:50 [INFO] Selected module: web_enumeration
+2026-08-02 17:35:50 [INFO] Loading module: web_enumeration
+2026-08-02 17:35:50 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-08-02 17:35:51 [INFO] Executing CrawlerTool
+2026-08-02 17:35:51 [INFO] Starting Crawler...
+2026-08-02 17:37:10 [INFO] Crawling https://ilovepdf.com
+2026-08-02 17:37:37 [INFO] [SUCCESS] Crawler completed in 0:01:45.797219
+2026-08-02 18:14:55 [INFO] Starting ReconForge
+2026-08-02 18:14:55 [INFO] Starting ReconForge menu.
+2026-08-02 18:14:56 [INFO] Selected module: web_enumeration
+2026-08-02 18:14:56 [INFO] Loading module: web_enumeration
+2026-08-02 18:14:56 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-08-02 18:14:57 [INFO] Executing CrawlerTool
+2026-08-02 18:14:57 [INFO] Starting Crawler...
+2026-08-02 18:15:21 [INFO] Crawling https://ilovepdf.com
+2026-08-02 18:15:47 [INFO] [SUCCESS] Crawler completed in 0:00:50.489645
+2026-08-02 19:00:39 [INFO] Starting ReconForge
+2026-08-02 19:00:39 [INFO] Starting ReconForge menu.
+2026-08-02 19:00:48 [INFO] Selected module: web_enumeration
+2026-08-02 19:00:48 [INFO] Loading module: web_enumeration
+2026-08-02 19:00:48 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-08-02 19:00:50 [INFO] Executing CrawlerTool
+2026-08-02 19:00:50 [INFO] Starting Crawler...
+2026-08-02 19:00:56 [INFO] Crawling https://ilovepdf.com
+2026-08-02 19:00:59 [ERROR] Failed to execute module 'web_enumeration': 'Page' object has no attribute 'javascript_endpoints'
+Traceback (most recent call last):
+  File "/home/avi/Desktop/Github/ReconForge/core/runner.py", line 72, in run
+    manager.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 135, in execute
+    manager.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 124, in execute
+    self.process_choice(choice)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/manager.py", line 107, in process_choice
+    tool.run()
+    ~~~~~~~~^^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler.py", line 72, in run
+    pages, statistics = engine.crawl(
+                        ~~~~~~~~~~~~^
+        config,
+        ^^^^^^^
+    )
+    ^
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler_lib/engine.py", line 206, in crawl
+    page = parser.parse(
+    
+    ...<3 lines>...
+    
+    )
+  File "/home/avi/Desktop/Github/ReconForge/modules/web_enumeration/tools/crawler_lib/parser.py", line 102, in parse
+    page.javascript_endpoints.extend(
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'javascript_endpoints'
+2026-08-02 19:00:59 [ERROR] Module execution failed.
+2026-08-02 19:03:46 [INFO] Starting ReconForge
+2026-08-02 19:03:46 [INFO] Starting ReconForge menu.
+2026-08-02 19:03:47 [INFO] Selected module: web_enumeration
+2026-08-02 19:03:47 [INFO] Loading module: web_enumeration
+2026-08-02 19:03:48 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-08-02 19:03:49 [INFO] Executing CrawlerTool
+2026-08-02 19:03:49 [INFO] Starting Crawler...
+2026-08-02 19:03:55 [INFO] Crawling https://ilovepdf.com
+2026-08-02 19:05:13 [INFO] [SUCCESS] Crawler completed in 0:01:24.329344
+2026-08-02 19:12:54 [INFO] Starting ReconForge
+2026-08-02 19:12:54 [INFO] Starting ReconForge menu.
+2026-08-02 19:12:55 [INFO] Selected module: web_enumeration
+2026-08-02 19:12:55 [INFO] Loading module: web_enumeration
+2026-08-02 19:12:55 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-08-02 19:12:55 [INFO] Executing CrawlerTool
+2026-08-02 19:12:55 [INFO] Starting Crawler...
+2026-08-02 19:13:03 [INFO] Crawling https://ilovepdf.com
+2026-08-02 19:14:25 [INFO] [SUCCESS] Crawler completed in 0:01:29.980312
+2026-08-06 16:10:42 [INFO] Starting ReconForge
+2026-08-06 16:10:42 [INFO] Starting ReconForge menu.
+2026-08-06 16:10:44 [INFO] Selected module: web_enumeration
+2026-08-06 16:10:44 [INFO] Loading module: web_enumeration
+2026-08-06 16:10:45 [INFO] [SUCCESS] web_enumeration loaded successfully.
+2026-08-06 16:10:57 [INFO] Executing CrawlerTool
+2026-08-06 16:10:57 [INFO] Starting Crawler...
+2026-08-06 16:11:02 [INFO] Crawling https://craw.in
+2026-08-06 16:12:34 [INFO] [SUCCESS] Crawler completed in 0:01:36.103131
+2026-08-06 16:20:36 [INFO] [SUCCESS] Module execution completed.
+2026-08-06 16:20:38 [INFO] Exiting ReconForge...
+2026-08-06 16:20:38 [INFO] ReconForge terminated

@@ -121,12 +121,25 @@ class RobotsParser:
                 continue
 
             #
-            # Ignore wildcard-only entries.
+            # Ignore wildcard-only entries, and truncate any path
+            # containing a wildcard down to its literal prefix -
+            # e.g. "/wp-content/*" becomes "/wp-content/", a real
+            # path worth checking, rather than a literal URL with
+            # an asterisk in it (which robots.txt entries like this
+            # were producing before this fix).
             #
 
             if value == "*":
 
                 continue
+
+            if "*" in value:
+
+                value = value.split("*", 1)[0]
+
+                if not value or value == "/":
+
+                    continue
 
             if key in (
                 "disallow",
